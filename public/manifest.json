@@ -1,0 +1,20 @@
+{
+  "name": "Tropicana Pio Pio",
+  "short_name": "Pio Pio",
+  "description": "Thé naturel bio à base de verveine blanche citronnée — Bénin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D1F15",
+  "theme_color": "#2D6A4F",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    { "src": "/images/og-cover.jpg", "sizes": "1200x630", "type": "image/jpeg" }
+  ],
+  "categories": ["food", "health", "shopping"],
+  "lang": "fr",
+  "dir": "ltr"
+}

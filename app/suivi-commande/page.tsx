@@ -1,0 +1,202 @@
+'use client';
+import { useState } from 'react';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+
+const STATUTS: Record<string, { label: string; icon: string; couleur: string; etape: number }> = {
+  en_attente:   { label: 'En attente',    icon: '⏳', couleur: '#F4A261', etape: 1 },
+  confirmee:    { label: 'Confirmée',     icon: '✅', couleur: '#457B9D', etape: 2 },
+  en_livraison: { label: 'En livraison',  icon: '🚚', couleur: '#2D6A4F', etape: 3 },
+  livree:       { label: 'Livrée',        icon: '📦', couleur: '#40916C', etape: 4 },
+  annulee:      { label: 'Annulée',       icon: '❌', couleur: '#E63946', etape: 0 },
+};
+
+const ETAPES = [
+  { etape: 1, label: 'Reçue',       icon: '📋' },
+  { etape: 2, label: 'Confirmée',   icon: '✅' },
+  { etape: 3, label: 'En livraison', icon: '🚚' },
+  { etape: 4, label: 'Livrée',      icon: '📦' },
+];
+
+export default function SuiviCommandePage() {
+  const [commandeId, setCommandeId] = useState('');
+  const [email, setEmail]           = useState('');
+  const [commande, setCommande]     = useState<any>(null);
+  const [loading, setLoading]       = useState(false);
+  const [erreur, setErreur]         = useState('');
+
+  const chercher = async () => {
+    if (!commandeId.trim() || !email.trim()) {
+      setErreur('Veuillez renseigner votre numéro de commande et votre email.');
+      return;
+    }
+    setLoading(true);
+    setErreur('');
+    setCommande(null);
+    try {
+      // Chercher dans les commandes publiques via email + id
+      const token = typeof window !== 'undefined' ? localStorage.getItem('tropicana_access') : null;
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const res = await fetch(`${API_URL}/commandes/suivi/?id=${commandeId}&email=${encodeURIComponent(email)}`, { headers });
+      if (!res.ok) {
+        setErreur('Commande introuvable. Vérifiez votre numéro et votre email.');
+        return;
+      }
+      const data = await res.json();
+      setCommande(data);
+    } catch {
+      setErreur('Erreur de connexion. Réessayez dans quelques instants.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const statut = commande ? STATUTS[commande.statut] : null;
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#F0F4F1', padding: '40px 16px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ maxWidth: 640, margin: '0 auto' }}>
+
+        {/* En-tête */}
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>📦</div>
+          <h1 style={{ color: '#2D6A4F', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>Suivi de commande</h1>
+          <p style={{ color: '#666', marginTop: 8 }}>Entrez votre numéro de commande et votre email pour suivre votre livraison.</p>
+        </div>
+
+        {/* Formulaire */}
+        <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 2px 16px rgba(0,0,0,.08)', marginBottom: 24 }}>
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
+              Numéro de commande
+            </label>
+            <input
+              type="number"
+              value={commandeId}
+              onChange={e => setCommandeId(e.target.value)}
+              placeholder="Ex: 42"
+              style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
+            />
+          </div>
+          <div style={{ marginBottom: 20 }}>
+            <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
+              Email utilisé lors de la commande
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="votre@email.com"
+              style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
+            />
+          </div>
+          {erreur && (
+            <div style={{ background: '#FFF0F0', border: '1px solid #F8D7DA', borderRadius: 8, padding: '10px 14px', color: '#E63946', fontSize: '.875rem', marginBottom: 16 }}>
+              ⚠️ {erreur}
+            </div>
+          )}
+          <button
+            onClick={chercher}
+            disabled={loading}
+            style={{ width: '100%', padding: '14px', background: loading ? '#aaa' : '#2D6A4F', color: '#fff', border: 'none', borderRadius: 10, fontSize: '1rem', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer' }}
+          >
+            {loading ? '⏳ Recherche...' : '🔍 Suivre ma commande'}
+          </button>
+        </div>
+
+        {/* Résultat */}
+        {commande && statut && (
+          <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 2px 16px rgba(0,0,0,.08)' }}>
+
+            {/* Statut principal */}
+            <div style={{ textAlign: 'center', marginBottom: 28 }}>
+              <div style={{ fontSize: '3rem', marginBottom: 8 }}>{statut.icon}</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: statut.couleur }}>{statut.label}</div>
+              <div style={{ color: '#666', fontSize: '.875rem', marginTop: 4 }}>Commande #{commande.id}</div>
+            </div>
+
+            {/* Barre de progression */}
+            {commande.statut !== 'annulee' && (
+              <div style={{ marginBottom: 28 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+                  {/* Ligne de fond */}
+                  <div style={{ position: 'absolute', top: 20, left: '12%', right: '12%', height: 4, background: '#E0EDE6', borderRadius: 2 }} />
+                  {/* Ligne de progression */}
+                  <div style={{
+                    position: 'absolute', top: 20, left: '12%', height: 4, background: '#2D6A4F', borderRadius: 2,
+                    width: `${Math.max(0, (statut.etape - 1) / 3 * 76)}%`,
+                    transition: 'width .5s ease'
+                  }} />
+                  {ETAPES.map(e => (
+                    <div key={e.etape} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1, flex: 1 }}>
+                      <div style={{
+                        width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: '1.1rem', fontWeight: 700,
+                        background: statut.etape >= e.etape ? '#2D6A4F' : '#E0EDE6',
+                        color: statut.etape >= e.etape ? '#fff' : '#999',
+                        transition: 'all .3s',
+                      }}>
+                        {e.icon}
+                      </div>
+                      <div style={{ fontSize: '.7rem', color: statut.etape >= e.etape ? '#2D6A4F' : '#999', marginTop: 6, fontWeight: statut.etape >= e.etape ? 700 : 400, textAlign: 'center' }}>
+                        {e.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Détails commande */}
+            <div style={{ borderTop: '1px solid #F0F4F1', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Client</div>
+                <div style={{ fontWeight: 700 }}>{commande.nom_client}</div>
+                <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.telephone_client}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Livraison</div>
+                <div style={{ fontWeight: 700 }}>{commande.ville_livraison}</div>
+                <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.adresse_livraison || '—'}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Total</div>
+                <div style={{ fontWeight: 800, color: '#2D6A4F', fontSize: '1.1rem' }}>{Number(commande.total).toLocaleString('fr-FR')} FCFA</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Paiement</div>
+                <div style={{ fontWeight: 700 }}>{commande.mode_paiement}</div>
+                <div style={{ fontSize: '.875rem', color: commande.payee ? '#2D6A4F' : '#E63946' }}>
+                  {commande.payee ? '✓ Payée' : '○ En attente'}
+                </div>
+              </div>
+            </div>
+
+            {/* Produits */}
+            {commande.lignes && commande.lignes.length > 0 && (
+              <div style={{ marginTop: 20, borderTop: '1px solid #F0F4F1', paddingTop: 16 }}>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Produits commandés</div>
+                {commande.lignes.map((l: any, i: number) => (
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #F8FAF8', fontSize: '.9rem' }}>
+                    <span>{l.produit_nom} <span style={{ color: '#999' }}>×{l.quantite}</span></span>
+                    <span style={{ fontWeight: 700 }}>{Number(l.sous_total).toLocaleString('fr-FR')} FCFA</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Contact */}
+            <div style={{ marginTop: 20, background: '#F0F4F1', borderRadius: 10, padding: 14, textAlign: 'center', fontSize: '.85rem', color: '#555' }}>
+              Une question ? Contactez-nous 📞{' '}
+              <a href="tel:+22901959677621" style={{ color: '#2D6A4F', fontWeight: 700 }}>+229 01 95 96 77 62</a>
+              {' '}ou{' '}
+              <a href="https://wa.me/22901959677621" target="_blank" style={{ color: '#2D6A4F', fontWeight: 700 }}>WhatsApp</a>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
