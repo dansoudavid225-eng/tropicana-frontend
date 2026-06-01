@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import React, { useState, useEffect, useCallback } from 'react'
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
