@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import React, { useState, useEffect, useCallback } from 'react'
 
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
@@ -82,6 +81,8 @@ const TITLES: Record<Section, string> = {
   fondateur: 'Bloc Fondateur', stats: 'Chiffres et Avis', histoire: 'Page Histoire',
   blog: 'Blog Articles', partenaires: 'Partenaires', annonces: 'Barre annonces',
   footer: 'Pied de page', couleurs: 'Palette couleurs',
+  promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
+  alertes: 'Alertes Stock', rapport: 'Rapport PDF',
 }
 
 const ah = (t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' })
@@ -989,7 +990,6 @@ function Commandes({ token }: { token: string }) {
                 ))}
               </tbody>
             </table>
-          </div>
           {totalPages > 1 && (
             <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 16 }}>
               <button onClick={() => { const p = Math.max(1, page-1); setPage(p); charger(p) }} disabled={page === 1} style={{ border: '1px solid #E2E8F0', borderRadius: 6, padding: '6px 14px', fontSize: 13, cursor: 'pointer', background: page===1?'#F8FAFC':'#fff' }}>← Préc.</button>
@@ -997,6 +997,7 @@ function Commandes({ token }: { token: string }) {
               <button onClick={() => { const p = Math.min(totalPages, page+1); setPage(p); charger(p) }} disabled={page===totalPages} style={{ border: '1px solid #E2E8F0', borderRadius: 6, padding: '6px 14px', fontSize: 13, cursor: 'pointer', background: page===totalPages?'#F8FAFC':'#fff' }}>Suiv. →</button>
             </div>
           )}
+          </div>
         )}
       </div>
     </div>
@@ -1302,7 +1303,7 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
 // NOUVELLES SECTIONS
 // ══════════════════════════════════════════════════════════════════════════════
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+// API déjà défini plus haut
 const hdrs = (token: string) => ({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' })
 
 function SectionPromo({ token }: { token: string }) {

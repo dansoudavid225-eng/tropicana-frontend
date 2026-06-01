@@ -92,6 +92,16 @@ function CarteVideo({ t }: { t: Temoignage }) {
   return null
 }
 
+// ─── Traductions ──────────────────────────────────────────────────────────────
+const translations: Record<string, string> = {
+  'temo.sousTitreForme': 'Share your experience with Pio Pio Tea',
+  'temo.merciDetail': 'Your testimonial has been submitted. It will be published after review.',
+  'temo.textePh': 'Describe your experience with Thé Pio Pio...',
+  'temo.envoiCours': 'Submitting...',
+  'temo.publier': 'Submit my testimonial',
+}
+const t = (key: string): string => translations[key] ?? key
+
 // ─── Page principale ──────────────────────────────────────────────────────────
 
 export default function Temoignages() {
@@ -229,7 +239,6 @@ export default function Temoignages() {
     } finally {
       setLoading(false)
     }
-  }
 
   function getEmbedUrl(url: string): string | null {
     if (!url) return null
@@ -295,14 +304,14 @@ export default function Temoignages() {
               <span style={{ fontSize: 13, letterSpacing: '2px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{lang === 'en' ? 'Your review matters' : 'Votre avis compte'}</span>
               <h2 style={{ fontSize: 22, fontWeight: 400, color: '#F0EBE0', marginTop: 8, marginBottom: 6 }}>{lang === 'en' ? 'Leave your testimonial' : 'Laissez votre témoignage'}</h2>
               <p style={{ fontSize: 14, color: '#95D5B2', fontFamily: 'Arial, sans-serif', marginBottom: 24, lineHeight: 1.7 }}>
-                {lang === 'en' ? t('temo.sousTitreForme')}
+                {lang === 'en' ? t('temo.sousTitreForme') : 'Partagez votre expérience avec le Thé Pio Pio'}
               </p>
 
               {submitted && (
                 <div style={{ background: '#0D2318', border: '1px solid #2D6A4F', borderRadius: 8, padding: '14px 16px', marginBottom: 20, display: 'flex', gap: 10, alignItems: 'center' }}>
                   <span style={{ fontSize: 20 }}>✅</span>
                   <p style={{ fontSize: 14, color: '#95D5B2', fontFamily: 'Arial, sans-serif' }}>
-                    {lang === 'en' ? t('temo.merciDetail')}
+                    {lang === 'en' ? t('temo.merciDetail') : 'Votre témoignage a bien été envoyé. Il sera publié après validation.'}
                   </p>
                 </div>
               )}
@@ -517,4 +526,5 @@ export default function Temoignages() {
       `}</style>
     </>
   )
+}
 }
