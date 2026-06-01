@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'tropicana-backend.onrender.com',
+        hostname: '*.onrender.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tropicanapiopio.com',
       },
       {
         protocol: 'http',
