@@ -143,11 +143,6 @@ function ModalCommande({ panier, onClose, onSuccess }: {
       .catch(() => {});
   }, []);
 
-  // Mettre à jour les frais selon la ville
-  useEffect(() => {
-    const zone = zones.find(z => z.ville.toLowerCase() === form.ville_livraison.toLowerCase());
-    setFraisLivraison(zone ? zone.prix : 0);
-  }, [form.ville_livraison, zones]);
 
   const validerCodePromo = async () => {
     if (!codePromo.trim()) return;
@@ -175,6 +170,11 @@ function ModalCommande({ panier, onClose, onSuccess }: {
     mode_paiement: 'mtn_money',
     notes: ''
   })
+  // Mettre à jour les frais selon la ville
+  useEffect(() => {
+    const zone = zones.find(z => z.ville.toLowerCase() === form.ville_livraison.toLowerCase());
+    setFraisLivraison(zone ? zone.prix : 0);
+  }, [form.ville_livraison, zones]);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
