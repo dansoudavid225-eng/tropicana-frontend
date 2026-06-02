@@ -26,7 +26,7 @@ type AuthContextType = {
     mot_de_passe: string; confirmation: string
   }) => Promise<{ ok: boolean; message: string }>
   connecter: (email: string, mot_de_passe: string) => Promise<{ ok: boolean; message: string }>
-  connecterGoogle: (googleData: {
+  connecterGoogle: (googleData?: {
     credential: string; google_id: string; email: string;
     prenom: string; nom: string; photo_url?: string
   }) => Promise<{ ok: boolean; message: string }>
@@ -187,7 +187,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   // ── Connexion Google ─────────────────────────────────────────────────────
-  const connecterGoogle = async (googleData: {
+  const connecterGoogle = async (googleData?: {
     credential: string; google_id: string; email: string;
     prenom: string; nom: string; photo_url?: string
   }) => {
