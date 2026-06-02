@@ -23,7 +23,7 @@ export default function Inscription() {
     if (!form.prenom || !form.email || !form.mdp) return
     if (form.mdp !== form.confirmer) { setStatus('error'); setErrMsg(lang === 'en' ? 'Passwords do not match.' : 'Les mots de passe ne correspondent pas.'); return }
     setStatus('loading')
-    const res = await inscrire({ prenom:form.prenom, nom:form.nom, email:form.email, telephone:form.telephone, ville:form.ville, password:form.mdp })
+    const res = await inscrire({ prenom:form.prenom, nom:form.nom, email:form.email, telephone:form.telephone, ville:form.ville, mot_de_passe:form.mdp, confirmation:form.confirmer })
     if (res.ok) router.replace('/espace-client')
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Registration error. Try again.' : "Erreur d'inscription. Réessayez.")) }
   }

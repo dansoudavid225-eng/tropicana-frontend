@@ -38,7 +38,7 @@ export default function FAQPage() {
   const [open, setOpen] = useState<number | null>(null)
   const [cat, setCat] = useState('Tous')
   const [loading, setLoading] = useState(true)
-  const { lang } = useLang()
+  const { lang, t } = useLang()
 
   useEffect(() => {
     fetch(`${API_BASE}/faq/`)
@@ -132,7 +132,7 @@ export default function FAQPage() {
                   </button>
                   {open === faq.id && (
                     <div style={{ padding:'0 22px 22px 22px', borderTop:'1px solid #F0EBE0' }}>
-                      <div style={{ marginTop:16, paddingLeft:42, borderLeft:'3px solid #C9973A', paddingLeft:16 }}>
+                      <div style={{ marginTop:16, paddingLeft:16, borderLeft:'3px solid #C9973A' }}>
                         <p style={{ fontSize:14, color:'#5A4A3A', fontFamily:'Arial, sans-serif', lineHeight:1.85 }}>{faq.reponse}</p>
                       </div>
                     </div>

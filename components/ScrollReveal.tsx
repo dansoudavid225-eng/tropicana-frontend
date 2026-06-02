@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import { useScrollReveal, revealStyles } from '@/hooks/useScrollReveal'
 
 type Animation = 'fadeUp' | 'fadeIn' | 'slideLeft' | 'slideRight' | 'scaleUp'
@@ -10,7 +11,7 @@ interface Props {
   threshold?: number
   style?: React.CSSProperties
   className?: string
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof React.JSX.IntrinsicElements
 }
 
 export default function ScrollReveal({

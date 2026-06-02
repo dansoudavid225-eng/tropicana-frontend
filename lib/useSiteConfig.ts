@@ -49,11 +49,11 @@ export function useSiteConfig(): SiteConfig {
   const [cfg, setCfg] = useState<SiteConfig>(cache ?? defaults)
 
   useEffect(() => {
-    if (cache) { setCfg(cache); return }
+    if (cache) { setCfg(cache as SiteConfig); return }
     fetch(`${API_BASE}/config-site/`)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
-        if (data) { cache = { ...defaults, ...data }; setCfg(cache) }
+        if (data) { cache = { ...defaults, ...data }; setCfg(cache as SiteConfig) }
       })
       .catch(() => {})
   }, [])
