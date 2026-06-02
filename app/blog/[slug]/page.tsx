@@ -14,8 +14,9 @@ async function getArticle(slug: string) {
   } catch { return null }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = await getArticle(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const article = await getArticle(slug)
   if (!article) return { title: 'Article — Tropicana Pio Pio' }
   return { title: `${article.titre} — Tropicana Pio Pio`, description: article.extrait }
 }
@@ -25,8 +26,9 @@ function formatDate(d: string) {
   catch { return d }
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticle(params.slug)
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const article = await getArticle(slug)
   if (!article) notFound()
 
   return (
