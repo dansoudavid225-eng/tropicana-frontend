@@ -418,7 +418,13 @@ export default function Boutique() {
   useEffect(() => {
     try {
       const saved = lireStorage('pio_panier')
-      if (saved) setPanier(JSON.parse(saved))
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved)
+          const valid = parsed.filter((l: any) => l && l.produit && l.produit.id)
+          setPanier(valid)
+        } catch {}
+      }
     } catch {}
     setPanierCharge(true)
   }, [])
