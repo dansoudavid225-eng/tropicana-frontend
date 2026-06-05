@@ -56,7 +56,7 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
   onSupprimer: (id: number) => void
 }) {
   const { lang, t } = useLang()
-  const total = panier.reduce((s, l) => s + l.produit.prix * l.quantite, 0)
+  const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   return (
     <div style={{
@@ -118,7 +118,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
   onSuccess: (id: number, mode?: string) => void
 }) {
   const { lang, t } = useLang()
-  const total = panier.reduce((s, l) => s + l.produit.prix * l.quantite, 0)
+  const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   // Pré-remplir depuis le profil stocké
   const utilisateur = (() => {
