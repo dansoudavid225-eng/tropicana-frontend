@@ -151,7 +151,7 @@ export default function EspaceClient() {
     return () => clearInterval(interval)
   }, [commandes, chargerCommandes])
 
-  if (!user && loading) {
+  if (!user) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#F5F0E8', gap: 16 }}>
         <div style={{ width: 40, height: 40, border: '3px solid #D4C9B0', borderTop: '3px solid #2D6A4F', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
