@@ -125,7 +125,7 @@ export default function EspaceClient() {
   const [dernierRefresh, setDernierRefresh] = useState<Date | null>(null)
 
   useEffect(() => {
-    if (!loading && !user) router.push('/connexion')
+    if (!loading && !user) { window.location.href = '/connexion' }
   }, [user, loading])
 
   const chargerCommandes = useCallback(() => {
@@ -151,7 +151,7 @@ export default function EspaceClient() {
     return () => clearInterval(interval)
   }, [commandes, chargerCommandes])
 
-  if (loading || !user) {
+  if (!user && loading) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#F5F0E8', gap: 16 }}>
         <div style={{ width: 40, height: 40, border: '3px solid #D4C9B0', borderTop: '3px solid #2D6A4F', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
@@ -166,7 +166,7 @@ export default function EspaceClient() {
 
   const handleDeconnexion = () => {
     deconnecter()
-    router.push('/')
+    window.location.href = '/'
   }
 
   return (

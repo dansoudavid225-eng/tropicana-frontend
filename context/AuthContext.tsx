@@ -98,19 +98,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const access = localStorage.getItem('pio_access')
       if (!access) { setLoading(false); return }
 
+      // Charger immédiatement depuis le cache pour éviter l'écran blanc
+      const cached = localStorage.getItem('pio_user')
+      if (cached) {
+        try { setUser(JSON.parse(cached)) } catch {}
+        setLoading(false)
+      }
+
+      // Puis rafraîchir en arrière-plan
       try {
         const res = await fetchAvecAuth(`${API_BASE}/auth/profil/`)
         if (res.ok) {
           const data = await res.json()
           setUser(data)
           localStorage.setItem('pio_user', JSON.stringify(data))
-        } else {
+        } else if (!cached) {
           supprimerTokens()
         }
       } catch {
-        // Réseau indisponible — charger depuis le cache local
-        const cached = localStorage.getItem('pio_user')
-        if (cached) setUser(JSON.parse(cached))
+        if (!cached) supprimerTokens()
       } finally {
         setLoading(false)
       }
