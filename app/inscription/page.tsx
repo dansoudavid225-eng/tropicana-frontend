@@ -15,7 +15,7 @@ export default function Inscription() {
   const [status, setStatus] = useState<'idle'|'loading'|'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
 
-  if (user) { router.replace('/espace-client'); return null }
+  if (user) { window.location.href = '/espace-client'; return null }
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -24,14 +24,14 @@ export default function Inscription() {
     if (form.mdp !== form.confirmer) { setStatus('error'); setErrMsg(lang === 'en' ? 'Passwords do not match.' : 'Les mots de passe ne correspondent pas.'); return }
     setStatus('loading')
     const res = await inscrire({ prenom:form.prenom, nom:form.nom, email:form.email, telephone:form.telephone, ville:form.ville, mot_de_passe:form.mdp, confirmation:form.confirmer })
-    if (res.ok) router.replace('/espace-client')
+    if (res.ok) window.location.href = '/espace-client'
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Registration error. Try again.' : "Erreur d'inscription. Réessayez.")) }
   }
 
   const handleGoogle = async () => {
     setStatus('loading')
     const res = await connecterGoogle()
-    if (res.ok) router.replace('/espace-client')
+    if (res.ok) window.location.href = '/espace-client'
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Google sign-in error.' : 'Erreur connexion Google.')) }
   }
 
