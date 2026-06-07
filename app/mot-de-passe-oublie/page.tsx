@@ -19,7 +19,9 @@ export default function MotDePasseOublie() {
         method:'POST', headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({ email })
       })
-      setStatus(res.ok ? 'sent' : 'error')
+      // Toujours afficher succès (sécurité: ne pas révéler si email existe)
+      if (res.status !== 500) setStatus('sent')
+      else setStatus('error')
     } catch { setStatus('error') }
   }
 
