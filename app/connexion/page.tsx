@@ -22,14 +22,14 @@ export default function Connexion() {
     if (!email || !mdp) return
     setStatus('loading')
     const res = await connecter(email, mdp)
-    if (res.ok) { router.push('/espace-client') }
+    if (res.ok) { window.location.replace('/espace-client') }
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Incorrect email or password.' : 'Email ou mot de passe incorrect.')) }
   }
 
   const handleGoogle = async () => {
     setStatus('loading')
     const res = await connecterGoogle()
-    if (res.ok) router.push('/espace-client')
+    if (res.ok) window.location.replace('/espace-client')
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Google sign-in error.' : 'Erreur connexion Google.')) }
   }
 
