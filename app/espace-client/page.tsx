@@ -125,7 +125,7 @@ export default function EspaceClient() {
   const [dernierRefresh, setDernierRefresh] = useState<Date | null>(null)
 
   useEffect(() => {
-    if (!loading && !user) { window.location.href = '/connexion' }
+    if (!loading && !user) { router.push('/connexion') }
   }, [user, loading])
 
   const chargerCommandes = useCallback(() => {

@@ -16,20 +16,20 @@ export default function Connexion() {
   const [status, setStatus] = useState<'idle'|'loading'|'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
 
-  if (user) { window.location.href = '/espace-client'; return null }
+  if (user) { router.push('/espace-client'); return null }
 
   const handleSubmit = async () => {
     if (!email || !mdp) return
     setStatus('loading')
     const res = await connecter(email, mdp)
-    if (res.ok) { window.location.href = '/espace-client' }
+    if (res.ok) { router.push('/espace-client') }
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Incorrect email or password.' : 'Email ou mot de passe incorrect.')) }
   }
 
   const handleGoogle = async () => {
     setStatus('loading')
     const res = await connecterGoogle()
-    if (res.ok) window.location.href = '/espace-client'
+    if (res.ok) router.push('/espace-client')
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Google sign-in error.' : 'Erreur connexion Google.')) }
   }
 
