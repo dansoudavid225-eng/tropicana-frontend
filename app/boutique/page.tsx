@@ -57,7 +57,6 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
 }) {
   const { lang, t } = useLang()
   const { user: authUser } = useAuth()
-  const { user: authUser } = useAuth()
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   return (
@@ -120,7 +119,6 @@ function ModalCommande({ panier, onClose, onSuccess }: {
   onSuccess: (id: number, mode?: string) => void
 }) {
   const { lang, t } = useLang()
-  const { user: authUser } = useAuth()
   const { user: authUser } = useAuth()
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
@@ -391,7 +389,6 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 export default function Boutique() {
   const site = useSiteConfig()
   const { lang, t } = useLang()
-  const { user: authUser } = useAuth()
   const { user: authUser } = useAuth()
   const [produits, setProduits] = useState<Produit[]>([])
   const [loading, setLoading]   = useState(true)
