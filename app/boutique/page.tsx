@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
 import { useSiteConfig } from '@/lib/useSiteConfig'
 import { useLang } from '@/context/LanguageContext'
-import { fetchAvecAuth } from '@/context/AuthContext'
+import { fetchAvecAuth, useAuth } from '@/context/AuthContext'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -56,6 +56,8 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
   onSupprimer: (id: number) => void
 }) {
   const { lang, t } = useLang()
+  const { user: authUser } = useAuth()
+  const { user: authUser } = useAuth()
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   return (
@@ -118,10 +120,12 @@ function ModalCommande({ panier, onClose, onSuccess }: {
   onSuccess: (id: number, mode?: string) => void
 }) {
   const { lang, t } = useLang()
+  const { user: authUser } = useAuth()
+  const { user: authUser } = useAuth()
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   // Pré-remplir depuis le profil stocké
-  const utilisateur = (() => {
+  const utilisateur = authUser || (() => {
     try {
       const raw = lireStorage('pio_user')
       return raw ? JSON.parse(raw) : null
@@ -387,6 +391,8 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 export default function Boutique() {
   const site = useSiteConfig()
   const { lang, t } = useLang()
+  const { user: authUser } = useAuth()
+  const { user: authUser } = useAuth()
   const [produits, setProduits] = useState<Produit[]>([])
   const [loading, setLoading]   = useState(true)
   const [estConnecte, setEstConnecte] = useState(false)
