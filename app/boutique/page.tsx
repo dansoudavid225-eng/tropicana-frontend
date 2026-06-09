@@ -56,7 +56,6 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
   onSupprimer: (id: number) => void
 }) {
   const { lang, t } = useLang()
-  const { user: authUser } = useAuth()
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   return (
