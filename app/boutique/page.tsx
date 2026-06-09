@@ -122,7 +122,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
   const total = panier.filter(l => l?.produit?.id).reduce((s, l) => s + l.produit.prix * l.quantite, 0)
 
   // Pré-remplir depuis le profil stocké
-  const utilisateur = authUser || (() => {
+  const utilisateur = (() => {
     try {
       const raw = lireStorage('pio_user')
       return raw ? JSON.parse(raw) : null
@@ -388,6 +388,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 export default function Boutique() {
   const site = useSiteConfig()
   const { lang, t } = useLang()
+  const { user: authUser } = useAuth()
   const [produits, setProduits] = useState<Produit[]>([])
   const [loading, setLoading]   = useState(true)
   const [estConnecte, setEstConnecte] = useState(false)
