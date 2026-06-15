@@ -470,8 +470,9 @@ export default function Boutique() {
         setPanier(prev => {
           const fusionné = [...prev]
           for (const ligne of data.lignes) {
-            const existe = fusionné.find(l => l.produit.id === ligne.produit.id)
-            if (!existe && ligne.produit) fusionné.push({ produit: ligne.produit, quantite: ligne.quantite })
+            if (!ligne || !ligne.produit || !ligne.produit.id) continue
+            const existe = fusionné.find(l => l.produit && l.produit.id === ligne.produit.id)
+            if (!existe) fusionné.push({ produit: ligne.produit, quantite: ligne.quantite })
           }
           return fusionné
         })
