@@ -216,7 +216,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 
       // ── FedaPay sélectionné mais pas d'URL → erreur, ne pas confirmer ──
       if (form.mode_paiement === 'fedapay') {
-        setError('Le service de paiement en ligne est temporairement indisponible. Veuillez choisir un autre mode de paiement ou réessayer.')
+        setError('Le service de paiement en ligne est temporairement indisponible. Veuillez réessayer.')
         return
       }
 
