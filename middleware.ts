@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const ROUTES_PROTEGEES = ['/espace-client', '/admin-panel']
+const ROUTES_PROTEGEES = ['/espace-client']
 const ROUTES_AUTH_SEULEMENT = ['/connexion', '/inscription']
 
 export function middleware(request: NextRequest) {
@@ -23,21 +23,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Protéger /admin-panel : vérifier is_staff dans le cookie user
-  if (pathname.startsWith('/admin-panel') && token) {
-    try {
-      const user = userCookie ? JSON.parse(decodeURIComponent(userCookie)) : null
-      if (!user?.is_staff) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/'
-        return NextResponse.redirect(url)
-      }
-    } catch {
-      const url = request.nextUrl.clone()
-      url.pathname = '/connexion'
-      return NextResponse.redirect(url)
-    }
-  }
+  // /admin-panel : la page gère elle-même la vérification is_staff
 
   // Rediriger vers accueil si déjà connecté et tente d'accéder à login/inscription
   if (routeAuthSeulement && token) {
