@@ -18,16 +18,20 @@ export default function Contact() {
     if (!form.nom || !form.email || !form.message)
       return alert(lang === 'en' ? 'Please fill in all required fields (Name, Email, Message).' : 'Veuillez remplir tous les champs obligatoires (Nom, Email, Message).')
     setStatus('sending')
-    const SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID  || 'service_f9r8pge'
-    const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_ozhth7f'
-    const PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  || 'PDL6VM6m6kWvVFByA'
     try {
-      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ service_id:SERVICE_ID, template_id:TEMPLATE_ID, user_id:PUBLIC_KEY,
-          template_params:{ name:form.nom, from_name:form.nom, from_email:form.email, telephone:form.telephone||'—', objet:form.objet||'—', message:form.message, reply_to:form.email, time:new Date().toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}) } }),
+        body: JSON.stringify({
+          access_key: '30484ae9-87aa-4add-a1b0-9c39b4994048',
+          name: form.nom,
+          email: form.email,
+          telephone: form.telephone || '—',
+          subject: form.objet || 'Message depuis Tropicana Pio Pio',
+          message: form.message,
+        }),
       })
-      if (res.ok) { setStatus('sent'); setForm({ nom:'', email:'', telephone:'', objet:'', message:'' }) }
+      const data = await res.json()
+      if (data.success) { setStatus('sent'); setForm({ nom:'', email:'', telephone:'', objet:'', message:'' }) }
       else setStatus('error')
     } catch { setStatus('error') }
   }
