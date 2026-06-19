@@ -125,8 +125,11 @@ export default function EspaceClient() {
   const [dernierRefresh, setDernierRefresh] = useState<Date | null>(null)
 
   useEffect(() => {
-    if (!loading && !user) { router.push('/connexion') }
-  }, [user, loading])
+  if (!loading && !user) {
+    const timer = setTimeout(() => router.push('/connexion'), 3000)
+    return () => clearTimeout(timer)
+  }
+}, [user, loading, router])
 
   const chargerCommandes = useCallback(() => {
     if (!user) return
