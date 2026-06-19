@@ -38,15 +38,23 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 // ── Helpers tokens ────────────────────────────────────────────────────────────
 
+// APRÈS
 function sauvegarderTokens(access: string, refresh: string) {
   localStorage.setItem('pio_access', access)
   localStorage.setItem('pio_refresh', refresh)
+  // Cookie pour le middleware Next.js
+  document.cookie = `pio_access=${access}; path=/; max-age=3600; SameSite=Lax`
+  document.cookie = `pio_user=1; path=/; max-age=3600; SameSite=Lax`
 }
 
+// APRÈS
 function supprimerTokens() {
   localStorage.removeItem('pio_access')
   localStorage.removeItem('pio_refresh')
   localStorage.removeItem('pio_user')
+  // Supprimer les cookies
+  document.cookie = 'pio_access=; path=/; max-age=0'
+  document.cookie = 'pio_user=; path=/; max-age=0'
 }
 
 async function refreshAccessToken(): Promise<string | null> {
