@@ -167,7 +167,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
     telephone_client: utilisateur?.telephone || '',
     ville_livraison: utilisateur?.ville || '',
     adresse_livraison: '',
-    mode_paiement: 'mtn_money',
+    mode_paiement: 'fedapay',
     notes: ''
   })
   // Mettre à jour les frais selon la ville
@@ -211,6 +211,12 @@ function ModalCommande({ panier, onClose, onSuccess }: {
       // ── Fedapay : redirection vers la page de paiement ──
       if (data.fedapay_url) {
         window.location.href = data.fedapay_url
+        return
+      }
+
+      // ── FedaPay sélectionné mais pas d'URL → erreur, ne pas confirmer ──
+      if (form.mode_paiement === 'fedapay') {
+        setError('Le service de paiement en ligne est temporairement indisponible. Veuillez réessayer.')
         return
       }
 
@@ -304,12 +310,6 @@ function ModalCommande({ panier, onClose, onSuccess }: {
               <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.modePaiement')}</label>
               <select name="mode_paiement" value={form.mode_paiement} onChange={handleChange} style={inputStyle}>
                 <option value="fedapay">💳 Carte / Mobile Money (Fedapay)</option>
-                <option value="mtn_money">📱 MTN Money (manuel)</option>
-                <option value="moov_money">📲 Moov Money (manuel)</option>
-                <option value="wave">🌊 Wave (manuel)</option>
-                <option value="orange_money">🟠 Orange Money (manuel)</option>
-                <option value="virement">🏦 Virement bancaire</option>
-                <option value="livraison">🚚 Paiement à la livraison</option>
               </select>
             </div>
           </div>
@@ -464,8 +464,9 @@ export default function Boutique() {
         setPanier(prev => {
           const fusionné = [...prev]
           for (const ligne of data.lignes) {
-            const existe = fusionné.find(l => l.produit.id === ligne.produit.id)
-            if (!existe && ligne.produit) fusionné.push({ produit: ligne.produit, quantite: ligne.quantite })
+            if (!ligne || !ligne.produit || !ligne.produit.id) continue
+            const existe = fusionné.find(l => l.produit && l.produit.id === ligne.produit.id)
+            if (!existe) fusionné.push({ produit: ligne.produit, quantite: ligne.quantite })
           }
           return fusionné
         })
