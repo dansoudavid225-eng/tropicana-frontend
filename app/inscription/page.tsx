@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,8 @@ export default function Inscription() {
   const [status, setStatus] = useState<'idle'|'loading'|'error'>('idle')
   const [errMsg, setErrMsg] = useState('')
 
-  if (user) { router.push('/espace-client'); return null }
+  useEffect(() => { if (user) router.push('/espace-client') }, [user, router])
+  if (user) return null
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value })
 
