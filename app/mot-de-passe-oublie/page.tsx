@@ -15,7 +15,7 @@ export default function MotDePasseOublie() {
     if (!email) return
     setStatus('loading')
     try {
-      const res = await fetch(`${API_BASE}/auth/password-reset/`, {
+      const res = await fetch(`${API_BASE}/auth/reset-mot-de-passe/`, {
         method:'POST', headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({ email })
       })
