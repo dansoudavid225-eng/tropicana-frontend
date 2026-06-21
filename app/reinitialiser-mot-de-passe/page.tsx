@@ -25,7 +25,7 @@ function ResetForm() {
     try {
       const res = await fetch(`${API_BASE}/auth/reset-mot-de-passe/confirmer/`, {
         method:'POST', headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({ token, uid, new_password:mdp, confirm_password:confirm })
+        body: JSON.stringify({ token, uid, nouveau_mot_de_passe:mdp })
       })
       setStatus(res.ok ? 'done' : 'error')
     } catch { setStatus('error') }
