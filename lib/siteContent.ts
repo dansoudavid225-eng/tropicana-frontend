@@ -1,7 +1,8 @@
 // ─── lib/siteContent.ts ───────────────────────────────────────────────────────
 // Source unique de vérité pour tout le contenu du site.
 // Les valeurs par défaut sont le contenu actuel codé en dur.
-// En production, ces valeurs sont écrasées par le JSON de /api/admin/config/
+// En production, ces valeurs sont écrasées par le JSON de /api/content-site/
+// (lui-même alimenté par /api/admin/config/, géré dans le panneau admin)
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -241,7 +242,7 @@ export const defaultContent: SiteContent = {
 // ─── Chargement serveur (Next.js Server Component) ───────────────────────────
 export async function getSiteContent(): Promise<SiteContent> {
   try {
-    const res = await fetch(`${API_BASE}/admin/config/`, {
+    const res = await fetch(`${API_BASE}/content-site/`, {
       next: { revalidate: 60 }, // cache 60s
     })
     if (!res.ok) return defaultContent

@@ -287,6 +287,9 @@ export const translations: Record<string, Record<Lang, string>> = {
   'boutique.errSession':      { fr: 'Votre session a expiré. Veuillez vous reconnecter et réessayer.', en: 'Your session has expired. Please log in again and retry.' },
   'boutique.errReseau':       { fr: 'Erreur réseau. Vérifiez votre connexion internet.', en: 'Network error. Please check your internet connection.' },
   'boutique.errGenerale':     { fr: 'Une erreur est survenue. Veuillez réessayer.', en: 'An error occurred. Please try again.' },
+  'boutique.promoErrReseau':  { fr: 'Erreur réseau.',               en: 'Network error.' },
+  'boutique.promoErrDefaut':  { fr: 'Code invalide.',               en: 'Invalid code.' },
+  'boutique.fedapayIndispo':  { fr: 'Le service de paiement en ligne est temporairement indisponible. Veuillez réessayer.', en: 'The online payment service is temporarily unavailable. Please try again.' },
   'boutique.cmdNum':          { fr: 'Commande #',                   en: 'Order #' },
 
   // Témoignages — textes inline manquants
@@ -310,6 +313,54 @@ export const translations: Record<string, Record<Lang, string>> = {
   'faq.toutesQuestions':      { fr: 'Toutes vos questions sur le Thé Pio Pio', en: 'All your questions about Thé Pio Pio' },
   'faq.whatsapp':             { fr: '💬 WhatsApp',                  en: '💬 WhatsApp' },
   'faq.repondre2h':           { fr: 'Notre équipe répond sous 2h sur WhatsApp.', en: 'Our team responds within 2h on WhatsApp.' },
+
+  // Suivi de commande
+  'suivi.titre':              { fr: 'Suivi de commande',            en: 'Order tracking' },
+  'suivi.sousTitre':          { fr: 'Entrez votre numéro de commande et votre email pour suivre votre livraison.', en: 'Enter your order number and email to track your delivery.' },
+  'suivi.numCommande':        { fr: 'Numéro de commande',           en: 'Order number' },
+  'suivi.numCommandePh':      { fr: 'Ex: 42',                       en: 'Ex: 42' },
+  'suivi.emailUtilise':       { fr: 'Email utilisé lors de la commande', en: 'Email used when ordering' },
+  'suivi.emailPh':            { fr: 'votre@email.com',              en: 'your@email.com' },
+  'suivi.erreurChamps':       { fr: 'Veuillez renseigner votre numéro de commande et votre email.', en: 'Please enter your order number and email.' },
+  'suivi.erreurIntrouvable':  { fr: 'Commande introuvable. Vérifiez votre numéro et votre email.', en: 'Order not found. Check your number and email.' },
+  'suivi.erreurReseau':       { fr: 'Erreur de connexion. Réessayez dans quelques instants.', en: 'Connection error. Please try again shortly.' },
+  'suivi.recherche':          { fr: '⏳ Recherche...',              en: '⏳ Searching...' },
+  'suivi.suivreBtn':          { fr: '🔍 Suivre ma commande',        en: '🔍 Track my order' },
+  'suivi.commandeNum':        { fr: 'Commande #',                   en: 'Order #' },
+  'suivi.client':             { fr: 'Client',                       en: 'Customer' },
+  'suivi.livraison':          { fr: 'Livraison',                    en: 'Delivery' },
+  'suivi.total':              { fr: 'Total',                        en: 'Total' },
+  'suivi.paiement':           { fr: 'Paiement',                     en: 'Payment' },
+  'suivi.payee':              { fr: '✓ Payée',                      en: '✓ Paid' },
+  'suivi.enAttentePaiement':  { fr: '○ En attente',                 en: '○ Pending' },
+  'suivi.produitsCommandes':  { fr: 'Produits commandés',           en: 'Ordered products' },
+  'suivi.question':           { fr: 'Une question ? Contactez-nous 📞', en: 'A question? Contact us 📞' },
+  'suivi.ou':                 { fr: 'ou',                           en: 'or' },
+  'suivi.etapeRecue':         { fr: 'Reçue',                        en: 'Received' },
+  'suivi.etapeConfirmee':     { fr: 'Confirmée',                    en: 'Confirmed' },
+  'suivi.etapeLivraison':     { fr: 'En livraison',                 en: 'Out for delivery' },
+  'suivi.etapeLivree':        { fr: 'Livrée',                       en: 'Delivered' },
+  'suivi.statutEnAttente':    { fr: 'En attente',                   en: 'Pending' },
+  'suivi.statutConfirmee':    { fr: 'Confirmée',                    en: 'Confirmed' },
+  'suivi.statutEnLivraison':  { fr: 'En livraison',                 en: 'Out for delivery' },
+  'suivi.statutLivree':       { fr: 'Livrée',                       en: 'Delivered' },
+  'suivi.statutAnnulee':      { fr: 'Annulée',                      en: 'Cancelled' },
+
+  // Témoignages — validation formulaire
+  'temoignage.errPrenom':     { fr: 'Veuillez entrer votre prénom.', en: 'Please enter your first name.' },
+  'temoignage.errVille':      { fr: 'Veuillez entrer votre ville.',  en: 'Please enter your city.' },
+  'temoignage.errTexteVide':  { fr: 'Rédigez un témoignage ou joignez une vidéo.', en: 'Write a review or attach a video.' },
+  'temoignage.errTexteCourt': { fr: 'Le témoignage doit faire au moins 20 caractères.', en: 'The review must be at least 20 characters long.' },
+  'temoignage.errVideoFichier': { fr: 'Sélectionnez un fichier vidéo.', en: 'Select a video file.' },
+  'temoignage.errVideoLien':  { fr: 'Entrez un lien YouTube ou TikTok.', en: 'Enter a YouTube or TikTok link.' },
+
+  // Footer — fallbacks CTA (si config admin vide)
+  'footer.ctaLabel':          { fr: 'Prêt à prendre soin de vous ?', en: 'Ready to take care of yourself?' },
+  'footer.ctaTexte':          { fr: "Commandez votre Thé Pio Pio dès aujourd'hui.", en: 'Order your Thé Pio Pio today.' },
+  'footer.ctaBouton':         { fr: 'Commander dès 1 000 FCFA',      en: 'Order from 1,000 FCFA' },
+
+  // Hero accueil — sous-titre par defaut (si admin n'a rien configure)
+  'hero.sousTitreDefaut':     { fr: 'Apaise ton stress, naturellement', en: 'Ease your stress, naturally' },
 
 }
 

@@ -42,10 +42,14 @@ export default function FAQPage() {
 
   useEffect(() => {
     fetch(`${API_BASE}/faq/`)
-      .then(r => r.json())
-      .then(d => { setFaqs(Array.isArray(d) ? d : d.results ?? []); setLoading(false) })
-      .catch(() => setLoading(false))
-  }, [])
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(d => {
+        const liste = Array.isArray(d) ? d : d.results ?? []
+        setFaqs(liste.length > 0 ? liste : (lang === 'en' ? faqFallbackEN : faqFallback))
+      })
+      .catch(() => setFaqs(lang === 'en' ? faqFallbackEN : faqFallback))
+      .finally(() => setLoading(false))
+  }, [lang])
 
   const cats = ['Tous', ...Array.from(new Set(faqs.map(f => f.categorie))).filter(Boolean)]
   const filtered = cat === 'Tous' ? faqs : faqs.filter(f => f.categorie === cat)
@@ -69,7 +73,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <section style={{ background:'#FAFAF7', padding:'60px 24px' }}>
+      <section style={{ background:'var(--bg-card-alt)', padding:'60px 24px' }}>
         <div style={{ maxWidth:800, margin:'0 auto' }}>
 
           {/* Filtres catégories */}
@@ -78,9 +82,9 @@ export default function FAQPage() {
               <button key={c} onClick={() => setCat(c)} style={{
                 padding:'9px 20px', borderRadius:50, border:'1.5px solid', cursor:'pointer',
                 fontSize:13, fontWeight:700, fontFamily:'Arial, sans-serif', transition:'all .2s',
-                background: cat === c ? '#1A3C2E' : '#fff',
-                color: cat === c ? '#F0EBE0' : '#1A3C2E',
-                borderColor: cat === c ? '#1A3C2E' : '#D4C9B0',
+                background: cat === c ? '#1A3C2E' : 'var(--bg-card)',
+                color: cat === c ? '#F0EBE0' : 'var(--text-primary)',
+                borderColor: cat === c ? '#1A3C2E' : 'var(--border-color)',
                 boxShadow: cat === c ? '0 4px 14px rgba(26,60,46,0.2)' : 'none',
               }}>
                 {catIcons[c] ?? ''} {c}
@@ -96,7 +100,7 @@ export default function FAQPage() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div style={{ textAlign:'center', color:'#888', padding:60, fontSize:15, fontFamily:'Arial, sans-serif' }}>
+            <div style={{ textAlign:'center', color:'var(--text-muted)', padding:60, fontSize:15, fontFamily:'Arial, sans-serif' }}>
               Aucune question dans cette catégorie.
             </div>
           ) : (
@@ -105,9 +109,9 @@ export default function FAQPage() {
                 <div
                   key={faq.id}
                   style={{
-                    background:'#fff',
+                    background:'var(--bg-card)',
                     borderRadius:16,
-                    border:`1.5px solid ${open === faq.id ? '#2D6A4F' : '#E8E2D6'}`,
+                    border:`1.5px solid ${open === faq.id ? '#2D6A4F' : 'var(--border-light)'}`,
                     overflow:'hidden',
                     transition:'border-color .25s, box-shadow .25s',
                     boxShadow: open === faq.id ? '0 8px 24px rgba(45,106,79,0.12)' : 'none',
@@ -121,19 +125,19 @@ export default function FAQPage() {
                   >
                     <div style={{ display:'flex', alignItems:'center', gap:12, flex:1 }}>
                       <span style={{ fontSize:18, flexShrink:0 }}>{catIcons[faq.categorie] ?? '💬'}</span>
-                      <span style={{ fontSize:15, fontWeight:600, color:'#1A3C2E', fontFamily:'Arial, sans-serif', lineHeight:1.4 }}>{faq.question}</span>
+                      <span style={{ fontSize:15, fontWeight:600, color:'var(--text-primary)', fontFamily:'Arial, sans-serif', lineHeight:1.4 }}>{faq.question}</span>
                     </div>
                     <div style={{
-                      width:28, height:28, borderRadius:'50%', background: open === faq.id ? '#1A3C2E' : '#F0EBE0',
+                      width:28, height:28, borderRadius:'50%', background: open === faq.id ? '#1A3C2E' : 'var(--green-pale)',
                       display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0,
-                      fontSize:18, color: open === faq.id ? '#fff' : '#1A3C2E',
+                      fontSize:18, color: open === faq.id ? '#fff' : 'var(--text-primary)',
                       transition:'all .3s', transform: open === faq.id ? 'rotate(45deg)' : 'none',
                     }}>+</div>
                   </button>
                   {open === faq.id && (
                     <div style={{ padding:'0 22px 22px 22px', borderTop:'1px solid #F0EBE0' }}>
                       <div style={{ marginTop:16, paddingLeft:16, borderLeft:'3px solid #C9973A' }}>
-                        <p style={{ fontSize:14, color:'#5A4A3A', fontFamily:'Arial, sans-serif', lineHeight:1.85 }}>{faq.reponse}</p>
+                        <p style={{ fontSize:14, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif', lineHeight:1.85 }}>{faq.reponse}</p>
                       </div>
                     </div>
                   )}

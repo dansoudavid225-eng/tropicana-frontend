@@ -26,10 +26,7 @@ type AuthContextType = {
     mot_de_passe: string; confirmation: string
   }) => Promise<{ ok: boolean; message: string }>
   connecter: (email: string, mot_de_passe: string) => Promise<{ ok: boolean; message: string }>
-  connecterGoogle: (googleData?: {
-    credential: string; google_id: string; email: string;
-    prenom: string; nom: string; photo_url?: string
-  }) => Promise<{ ok: boolean; message: string }>
+  connecterGoogle: (googleData: { credential: string }) => Promise<{ ok: boolean; message: string }>
   deconnecter: () => Promise<void>
   refreshUser: () => Promise<void>
 }
@@ -42,9 +39,9 @@ const AuthContext = createContext<AuthContextType | null>(null)
 function sauvegarderTokens(access: string, refresh: string) {
   localStorage.setItem('pio_access', access)
   localStorage.setItem('pio_refresh', refresh)
-  // Cookie pour le middleware Next.js
-  document.cookie = `pio_access=${access}; path=/; max-age=3600; SameSite=Lax`
-  document.cookie = `pio_user=1; path=/; max-age=3600; SameSite=Lax`
+  // Cookie pour le middleware Next.js — durée alignée sur ACCESS_TOKEN_LIFETIME (30 min, voir settings.py)
+  document.cookie = `pio_access=${access}; path=/; max-age=1800; SameSite=Lax`
+  document.cookie = `pio_user=1; path=/; max-age=1800; SameSite=Lax`
 }
 
 // APRÈS
@@ -69,6 +66,9 @@ async function refreshAccessToken(): Promise<string | null> {
     if (!res.ok) return null
     const data = await res.json()
     localStorage.setItem('pio_access', data.access)
+    // Renouveler aussi le cookie (lu par le middleware), même durée que sauvegarderTokens
+    document.cookie = `pio_access=${data.access}; path=/; max-age=1800; SameSite=Lax`
+    document.cookie = `pio_user=1; path=/; max-age=1800; SameSite=Lax`
     return data.access
   } catch {
     return null
@@ -201,15 +201,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   // ── Connexion Google ─────────────────────────────────────────────────────
-  const connecterGoogle = async (googleData?: {
-    credential: string; google_id: string; email: string;
-    prenom: string; nom: string; photo_url?: string
-  }) => {
+  const connecterGoogle = async (googleData: { credential: string }) => {
     try {
       const res = await fetch(`${API_BASE}/auth/google/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(googleData),
+        body: JSON.stringify({ credential: googleData.credential }),
       })
       const data = await res.json()
       if (!res.ok) {

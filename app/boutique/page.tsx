@@ -64,22 +64,22 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
       zIndex: 200, display: 'flex', justifyContent: 'flex-end'
     }}>
       <div style={{
-        background: '#fff', width: '100%', maxWidth: 400,
+        background: 'var(--bg-card)', width: '100%', maxWidth: 400,
         padding: 28, overflowY: 'auto',
         display: 'flex', flexDirection: 'column', gap: 16
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#1A3C2E' }}>{t('boutique.panierTitre')}</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)' }}>{t('boutique.panierTitre')}</h2>
           <button onClick={onClose} style={{ fontSize: 22, background: 'none', border: 'none', cursor: 'pointer' }}>×</button>
         </div>
 
         {panier.length === 0 ? (
-          <p style={{ color: '#888', fontSize: 14, textAlign: 'center', padding: '20px 0' }}>{t('boutique.panierVide')}</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 14, textAlign: 'center', padding: '20px 0' }}>{t('boutique.panierVide')}</p>
         ) : panier.map(l => (
-          <div key={l.produit.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid #eee', paddingBottom: 10 }}>
+          <div key={l.produit.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border-light)', paddingBottom: 10 }}>
             <div style={{ flex: 1 }}>
-              <p style={{ fontWeight: 600, fontSize: 14, color: '#1A3C2E' }}>{l.produit.nom}</p>
-              <p style={{ fontSize: 13, color: '#666' }}>{`${t('boutique.qty')} ${l.quantite}`}</p>
+              <p style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-primary)' }}>{l.produit.nom}</p>
+              <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{`${t('boutique.qty')} ${l.quantite}`}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
               <p style={{ fontWeight: 700, color: '#C9973A' }}>{(l.produit.prix * l.quantite).toLocaleString()} FCFA</p>
@@ -94,7 +94,7 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
         ))}
 
         <div style={{ borderTop: '2px solid #1A3C2E', paddingTop: 12, display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontWeight: 700, fontSize: 16, color: '#1A3C2E' }}>Total</span>
+          <span style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-primary)' }}>Total</span>
           <span style={{ fontWeight: 700, fontSize: 18, color: '#C9973A' }}>{total.toLocaleString()} FCFA</span>
         </div>
 
@@ -156,8 +156,8 @@ function ModalCommande({ panier, onClose, onSuccess }: {
       });
       const data = await res.json();
       if (res.ok) { setPromoApplique(data); }
-      else { setPromoErreur(data.detail || 'Code invalide.'); }
-    } catch { setPromoErreur('Erreur réseau.'); }
+      else { setPromoErreur(data.detail || t('boutique.promoErrDefaut')); }
+    } catch { setPromoErreur(t('boutique.promoErrReseau')); }
     finally { setPromoLoading(false); }
   };
 
@@ -216,7 +216,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 
       // ── FedaPay sélectionné mais pas d'URL → erreur, ne pas confirmer ──
       if (form.mode_paiement === 'fedapay') {
-        setError('Le service de paiement en ligne est temporairement indisponible. Veuillez réessayer.')
+        setError(t('boutique.fedapayIndispo'))
         return
       }
 
@@ -237,7 +237,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
-    border: '1.5px solid #D4C9B0',
+    border: '1.5px solid var(--border-color)',
     borderRadius: 10,
     padding: '11px 14px',
     fontSize: 14,
@@ -245,19 +245,19 @@ function ModalCommande({ panier, onClose, onSuccess }: {
     boxSizing: 'border-box',
     outline: 'none',
     transition: 'border-color 0.2s',
-    background: '#FAFAF7',
+    background: 'var(--bg-card-alt)',
   }
 
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 300, overflowY: 'auto', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '40px 16px' }}>
-      <div style={{ background: '#fff', borderRadius: 16, padding: 32, width: '100%', maxWidth: 520 }}>
+      <div style={{ background: 'var(--bg-card)', borderRadius: 16, padding: 32, width: '100%', maxWidth: 520 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: '#1A3C2E' }}>{t('boutique.finaliser')}</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)' }}>{t('boutique.finaliser')}</h2>
           <button onClick={onClose} style={{ fontSize: 22, background: 'none', border: 'none', cursor: 'pointer' }}>×</button>
         </div>
 
         {/* Récap */}
-        <div style={{ background: '#F5F0E8', borderRadius: 10, padding: '12px 16px', marginBottom: 20 }}>
+        <div style={{ background: 'var(--bg-page)', borderRadius: 10, padding: '12px 16px', marginBottom: 20 }}>
           {panier.map(l => (
             <div key={l.produit.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
               <span>{l.produit.nom} ×{l.quantite}</span>
@@ -265,18 +265,18 @@ function ModalCommande({ panier, onClose, onSuccess }: {
             </div>
           ))}
           {fraisLivraison > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#555', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>
               <span>🚚 Livraison ({zones.find(z=>z.ville.toLowerCase()===form.ville_livraison.toLowerCase())?.delai || ''})</span>
               <span>+{fraisLivraison.toLocaleString()} FCFA</span>
             </div>
           )}
           {promoApplique && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#2D6A4F', marginTop: 4 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--green-mid)', marginTop: 4 }}>
               <span>🎟️ Code promo ({codePromo.toUpperCase()})</span>
               <span>-{promoApplique.reduction.toLocaleString()} FCFA</span>
             </div>
           )}
-          <div style={{ borderTop: '1px solid #D4C9B0', marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: '#1A3C2E' }}>
+          <div style={{ borderTop: '1px solid var(--border-color)', marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: 'var(--text-primary)' }}>
             <span>Total TTC</span>
             <span style={{ color: '#C9973A' }}>
               {Math.max(0, total + fraisLivraison - (promoApplique?.reduction || 0)).toLocaleString()} FCFA
@@ -287,27 +287,27 @@ function ModalCommande({ panier, onClose, onSuccess }: {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.nomComplet')}</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.nomComplet')}</label>
               <input name="nom_client" required value={form.nom_client} onChange={handleChange} style={inputStyle} placeholder={t('boutique.votreNom')} />
             </div>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.telMM')}</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.telMM')}</label>
               <input name="telephone_client" required value={form.telephone_client} onChange={handleChange} style={inputStyle} placeholder="+229 01 XX XX XX XX ou +33 6 XX XX XX XX" pattern="^\+?[\d\s\-\.\(\)]{6,20}$" title="Numéro de téléphone valide (international accepté)" />
             </div>
           </div>
 
           <div>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>Email *</label>
+            <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Email *</label>
             <input name="email_client" type="email" required value={form.email_client} onChange={handleChange} style={inputStyle} placeholder="email@exemple.com" />
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.ville')}</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.ville')}</label>
               <input name="ville_livraison" required value={form.ville_livraison} onChange={handleChange} style={inputStyle} placeholder={t('boutique.villePh')} />
             </div>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.modePaiement')}</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.modePaiement')}</label>
               <select name="mode_paiement" value={form.mode_paiement} onChange={handleChange} style={inputStyle}>
                 <option value="fedapay">💳 Carte / Mobile Money (Fedapay)</option>
               </select>
@@ -315,18 +315,18 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           </div>
 
           <div>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.adresse')}</label>
+            <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.adresse')}</label>
             <input name="adresse_livraison" value={form.adresse_livraison} onChange={handleChange} style={inputStyle} placeholder={t('boutique.adressePh')} />
           </div>
 
           <div>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>{t('boutique.notes')}</label>
+            <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.notes')}</label>
             <textarea name="notes" value={form.notes} onChange={handleChange} style={{ ...inputStyle, height: 70, resize: 'none' }} placeholder={t('boutique.notesPh')} />
           </div>
 
           {/* ── Code promo ── */}
           <div>
-            <label style={{ fontSize: 12, fontWeight: 600, color: '#555', display: 'block', marginBottom: 4 }}>
+            <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>
               🎟️ Code promo (optionnel)
             </label>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -346,7 +346,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
               </button>
             </div>
             {promoApplique && (
-              <p style={{ color: '#2D6A4F', fontSize: 12, marginTop: 4 }}>
+              <p style={{ color: 'var(--green-mid)', fontSize: 12, marginTop: 4 }}>
                 ✅ Code valide — réduction de {promoApplique.reduction.toLocaleString()} FCFA
               </p>
             )}
@@ -354,22 +354,6 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           </div>
 
           {error && <p style={{ color: '#dc3545', fontSize: 13, background: '#fff0f0', padding: '8px 12px', borderRadius: 6 }}>{error}</p>}
-
-          {/* Instructions virement bancaire */}
-          {form.mode_paiement === 'virement' && (
-            <div style={{ background: '#F0F8FF', border: '1px solid #B0D4F0', borderRadius: 10, padding: '12px 16px', fontSize: 13 }}>
-              <div style={{ fontWeight: 700, marginBottom: 6, color: '#0A3D62' }}>Coordonnées bancaires</div>
-              <div style={{ color: '#1A3C2E', lineHeight: 1.8 }}>
-                <strong>Banque :</strong> NSIA Banque Bénin<br/>
-                <strong>Titulaire :</strong> Tropicana Pio Pio SARL<br/>
-                <strong>IBAN/RIB :</strong> BJ0601234567890123456<br/>
-                <strong>Référence :</strong> CMD-[votre numéro de commande]
-              </div>
-              <div style={{ marginTop: 8, color: '#555', fontSize: 12 }}>
-                Votre commande sera confirmée dès réception du virement (1–2 jours ouvrés).
-              </div>
-            </div>
-          )}
 
           <button type="submit" disabled={loading} className="btn-gold" style={{ width: '100%', opacity: loading ? 0.7 : 1 }}>
             {loading ? t('boutique.envoi')
@@ -512,11 +496,11 @@ export default function Boutique() {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 40 }}>
         <div style={{ fontSize: 64 }}>✅</div>
-        <h1 style={{ fontSize: 28, fontWeight: 700, color: '#1A3C2E', textAlign: 'center' }}>{`${t('boutique.cmdNum')}${confirmation} ${t('boutique.cmdConfirmee')}`}</h1>
-        <p style={{ color: '#555', fontSize: 16, textAlign: 'center', maxWidth: 440 }}>
+        <h1 style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>{`${t('boutique.cmdNum')}${confirmation} ${t('boutique.cmdConfirmee')}`}</h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: 16, textAlign: 'center', maxWidth: 440 }}>
           {t('boutique.merciCmd')}
         </p>
-        <p style={{ color: '#1A3C2E', fontWeight: 600 }}>📞 {site.telephone}</p>
+        <p style={{ color: 'var(--text-primary)', fontWeight: 600 }}>📞 {site.telephone}</p>
         <Link href="/" className="btn-gold">← Retour à l&apos;accueil</Link>
       </div>
     )
@@ -527,20 +511,20 @@ export default function Boutique() {
       {/* Modal connexion requise */}
       {showAuthModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div style={{ background: '#fff', borderRadius: 20, padding: '40px 32px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
+          <div style={{ background: 'var(--bg-card)', borderRadius: 20, padding: '40px 32px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
             <div style={{ fontSize: 52, marginBottom: 16 }}>🔒</div>
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: '#1A3C2E', marginBottom: 12 }}>{t('boutique.cnxRequise')}</h2>
-            <p style={{ fontSize: 15, color: '#666', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 28 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{t('boutique.cnxRequise')}</h2>
+            <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 28 }}>
               Pour passer une commande, vous devez être connecté à votre compte. C&apos;est rapide et gratuit !
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <Link href="/connexion" className="btn-gold" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15 }}>
                 → Se connecter
               </Link>
-              <Link href="/inscription" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15, background: '#EAF4EE', color: '#1A3C2E', borderRadius: 50, fontWeight: 700, fontFamily: 'Arial, sans-serif', textDecoration: 'none' }}>
+              <Link href="/inscription" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15, background: 'var(--green-pale)', color: 'var(--text-primary)', borderRadius: 50, fontWeight: 700, fontFamily: 'Arial, sans-serif', textDecoration: 'none' }}>
                 Créer un compte gratuit
               </Link>
-              <button onClick={() => setShowAuthModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: '#999', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>
+              <button onClick={() => setShowAuthModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>
                 Continuer à parcourir la boutique
               </button>
             </div>
@@ -593,7 +577,7 @@ export default function Boutique() {
             <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: '#F0EBE0', marginTop: 12, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
               Commandez votre <em style={{ color: '#C9973A' }}>Thé Pio Pio</em>
             </h1>
-            <p style={{ color: '#95D5B2', fontSize: 15, fontFamily: 'Arial, sans-serif', marginTop: 10, maxWidth: 480, fontWeight: 300 }}>
+            <p style={{ color: 'var(--green-light)', fontSize: 15, fontFamily: 'Arial, sans-serif', marginTop: 10, maxWidth: 480, fontWeight: 300 }}>
               {t('boutique.labelSub')}
             </p>
           </div>
@@ -611,37 +595,37 @@ export default function Boutique() {
           ].map(item => (
             <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16 }}>{item.icon}</span>
-              <span style={{ fontSize: 13, color: '#95D5B2', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 500 }}>{item.text}</span>
+              <span style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 500 }}>{item.text}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Produits */}
-      <section style={{ background: '#FAFAF7', padding: '60px 24px' }}>
+      <section style={{ background: 'var(--bg-card-alt)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
             <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.nosProds')}</span>
-            <h2 style={{ fontSize: 30, fontWeight: 400, color: '#1A3C2E', marginTop: 8 }}>{t('boutique.cmderEnLigne')}</h2>
+            <h2 style={{ fontSize: 30, fontWeight: 400, color: 'var(--text-primary)', marginTop: 8 }}>{t('boutique.cmderEnLigne')}</h2>
           </div>
 
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ background: '#eee', borderRadius: 16, height: 380, width: 320, animation: 'pulse 1.5s infinite' }} />
+              <div style={{ background: 'var(--skeleton-from)', borderRadius: 16, height: 380, width: 320, animation: 'pulse 1.5s infinite' }} />
             </div>
           ) : produits.length === 0 ? (
-            <p style={{ textAlign: 'center', color: '#888', fontSize: 16 }}>
+            <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 16 }}>
               Aucun produit disponible pour le moment. Revenez bientôt !
             </p>
           ) : (
             <div style={{ display: 'flex', justifyContent: 'center', gap: 28, flexWrap: 'wrap' }}>
               {produits.map(produit => (
-                <div key={produit.id} style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.09)', display: 'flex', flexDirection: 'column', border: '1px solid #EDE6D9', transition: 'transform 0.3s ease, box-shadow 0.3s ease', width: '100%', maxWidth: 360 }}
+                <div key={produit.id} style={{ background: 'var(--bg-card)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.09)', display: 'flex', flexDirection: 'column', border: '1px solid var(--border-light)', transition: 'transform 0.3s ease, box-shadow 0.3s ease', width: '100%', maxWidth: 360 }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 48px rgba(0,0,0,0.14)' }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.09)' }}
                 >
                   {/* Image */}
-                  <div style={{ position: 'relative', height: 260, background: '#F5F0E8' }}>
+                  <div style={{ position: 'relative', height: 260, background: 'var(--bg-page)' }}>
                     {produit.image ? (
                       <Image
                         src={produit.image.startsWith('http') ? produit.image : `${MEDIA_BASE}${produit.image}`}
@@ -653,7 +637,7 @@ export default function Boutique() {
                       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60 }}>🌿</div>
                     )}
                     {produit.badge && (
-                      <span style={{ position: 'absolute', top: 12, right: 12, background: '#C9973A', color: '#1A3C2E', fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
+                      <span style={{ position: 'absolute', top: 12, right: 12, background: '#C9973A', color: 'var(--text-primary)', fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
                         {produit.badge}
                       </span>
                     )}
@@ -675,25 +659,25 @@ export default function Boutique() {
 
                   {/* Infos */}
                   <div style={{ padding: '20px 20px 16px', flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <h3 style={{ fontSize: 20, fontWeight: 400, color: '#1A3C2E', margin: 0, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.3px' }}>{produit.nom}</h3>
-                    <p style={{ fontSize: 13, color: '#666', lineHeight: 1.6, flex: 1 }}>
+                    <h3 style={{ fontSize: 20, fontWeight: 400, color: 'var(--text-primary)', margin: 0, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.3px' }}>{produit.nom}</h3>
+                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, flex: 1 }}>
                       {produit.description.slice(0, 120)}{produit.description.length > 120 ? '…' : ''}
                     </p>
                     <p style={{ fontSize: 24, fontWeight: 700, color: '#C9973A', margin: '4px 0', fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
-                      {produit.prix.toLocaleString()} FCFA <span style={{ fontSize: 13, color: '#999', fontWeight: 400 }}>/ {produit.unite}</span>
+                      {produit.prix.toLocaleString()} FCFA <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 400 }}>/ {produit.unite}</span>
                     </p>
 
                     {/* Zone commande selon statut connexion */}
                     {estConnecte ? (
                       <>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-                          <span style={{ fontSize: 13, color: '#555', fontFamily: 'Arial, sans-serif' }}>{lang === 'en' ? 'Qty:' : 'Quantité :'}</span>
-                          <div style={{ display: 'flex', border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
+                          <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif' }}>{lang === 'en' ? 'Qty:' : 'Quantité :'}</span>
+                          <div style={{ display: 'flex', border: '1px solid var(--border-light)', borderRadius: 8, overflow: 'hidden' }}>
                             <button
                               onClick={() => setQty(q => ({ ...q, [produit.id]: Math.max(produit.quantite_min || 1, (q[produit.id] || produit.quantite_min || 1) - 1) }))}
                               style={{ width: 34, height: 34, border: 'none', background: '#1A3C2E', cursor: 'pointer', fontSize: 18, color: '#F0EBE0', borderRadius: '8px 0 0 8px', fontWeight: 700 }}
                             >−</button>
-                            <span style={{ width: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 15, color: '#1A3C2E', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', background: '#F5F0E8' }}>
+                            <span style={{ width: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 15, color: 'var(--text-primary)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', background: 'var(--bg-page)' }}>
                               {quantities[produit.id] || produit.quantite_min || 1}
                             </span>
                             <button
@@ -706,7 +690,7 @@ export default function Boutique() {
                           </span>
                         </div>
                         {(produit.quantite_min || 1) > 1 && (
-                          <p style={{ fontSize: 11, color: '#888', fontFamily: 'Arial, sans-serif', margin: '0 0 8px', textAlign: 'center' }}>
+                          <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', margin: '0 0 8px', textAlign: 'center' }}>
                             {lang === 'en' ? `Min. order: ${produit.quantite_min} units` : `Commande min. : ${produit.quantite_min} unités`}
                           </p>
                         )}
@@ -715,15 +699,15 @@ export default function Boutique() {
                         </button>
                       </>
                     ) : (
-                      <div style={{ background: '#F5F0E8', borderRadius: 12, padding: '14px 16px', textAlign: 'center', border: '1px dashed #C9973A' }}>
-                        <p style={{ fontSize: 13, color: '#555', margin: '0 0 10px', fontFamily: 'Arial, sans-serif' }}>
+                      <div style={{ background: 'var(--bg-page)', borderRadius: 12, padding: '14px 16px', textAlign: 'center', border: '1px dashed #C9973A' }}>
+                        <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: '0 0 10px', fontFamily: 'Arial, sans-serif' }}>
                           🔒 Connectez-vous pour commander
                         </p>
                         <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
                           <Link href="/connexion" style={{ background: '#1A3C2E', color: '#F0EBE0', fontSize: 13, fontWeight: 700, padding: '8px 16px', borderRadius: 8, textDecoration: 'none', fontFamily: 'Arial, sans-serif' }}>
                             Se connecter
                           </Link>
-                          <Link href="/inscription" style={{ background: '#C9973A', color: '#1A3C2E', fontSize: 13, fontWeight: 700, padding: '8px 16px', borderRadius: 8, textDecoration: 'none', fontFamily: 'Arial, sans-serif' }}>
+                          <Link href="/inscription" style={{ background: '#C9973A', color: 'var(--text-primary)', fontSize: 13, fontWeight: 700, padding: '8px 16px', borderRadius: 8, textDecoration: 'none', fontFamily: 'Arial, sans-serif' }}>
                             S&apos;inscrire
                           </Link>
                         </div>
@@ -752,10 +736,10 @@ export default function Boutique() {
               { num: '4', icon: '📦', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
             ].map(e => (
               <div key={e.num} style={{ background: '#0D2318', border: '1px solid #2D6A4F', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: -14, left: 20, background: '#C9973A', color: '#1A3C2E', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>
+                <div style={{ position: 'absolute', top: -14, left: 20, background: '#C9973A', color: 'var(--text-primary)', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>
                 <div style={{ fontSize: 28, marginBottom: 12, marginTop: 6 }}>{e.icon}</div>
                 <h3 style={{ fontSize: 15, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif', marginBottom: 8 }}>{e.titre}</h3>
-                <p style={{ fontSize: 13, color: '#95D5B2', fontFamily: 'Arial, sans-serif', lineHeight: 1.6 }}>{e.desc}</p>
+                <p style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', lineHeight: 1.6 }}>{e.desc}</p>
               </div>
             ))}
           </div>

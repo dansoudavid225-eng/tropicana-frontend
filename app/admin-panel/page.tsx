@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'utilisateurs' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'tasse' | 'fondateur' | 'stats' | 'histoire' | 'blog' | 'partenaires' | 'annonces' | 'footer' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'utilisateurs' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'tasse' | 'fondateur' | 'stats' | 'histoire' | 'blog' | 'partenaires' | 'annonces' | 'footer' | 'contact' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -65,6 +65,7 @@ const NAV: { s: Section; label: string; group: string }[] = [
   { s: 'partenaires', label: 'Partenaires', group: 'Site' },
   { s: 'annonces', label: 'Annonces', group: 'Site' },
   { s: 'footer', label: 'Footer', group: 'Site' },
+  { s: 'contact', label: 'Contact & Prix', group: 'Site' },
   { s: 'couleurs',   label: 'Couleurs',      group: 'Site' },
   { s: 'promo',      label: '🎟️ Codes promo',  group: 'Gestion' },
   { s: 'zones',      label: '🚚 Livraison',     group: 'Gestion' },
@@ -80,7 +81,7 @@ const TITLES: Record<Section, string> = {
   plante: 'La Plante', bienfaits: 'Les Bienfaits', tasse: 'Section Tasse',
   fondateur: 'Bloc Fondateur', stats: 'Chiffres et Avis', histoire: 'Page Histoire',
   blog: 'Blog Articles', partenaires: 'Partenaires', annonces: 'Barre annonces',
-  footer: 'Pied de page', couleurs: 'Palette couleurs',
+  footer: 'Pied de page', contact: 'Contact & Prix', couleurs: 'Palette couleurs',
   promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
   alertes: 'Alertes Stock', rapport: 'Rapport PDF',
 }
@@ -781,6 +782,68 @@ function SectionAnnonces({ token }: { token: string }) {
   )
 }
 
+function SectionContactConfig({ token }: { token: string }) {
+  type CfgSite = {
+    telephone: string; telephone_raw: string; email: string; adresse: string
+    tiktok_url: string; facebook_url: string; paiements: string
+    prix_affiche: string; prix_mini: string
+  }
+  const empty: CfgSite = { telephone: '', telephone_raw: '', email: '', adresse: '', tiktok_url: '', facebook_url: '', paiements: '', prix_affiche: '', prix_mini: '' }
+  const [c, setC] = useState<CfgSite>(empty)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
+
+  useEffect(() => {
+    fetch(`${API}/admin/config-site/`, { headers: ah(token) })
+      .then(r => r.ok ? r.json() : Promise.resolve({} as Partial<CfgSite>))
+      .then((d: Partial<CfgSite>) => { setC({ ...empty, ...d }); setLoading(false) })
+      .catch(() => setLoading(false))
+  }, [token])
+
+  const upd = (k: keyof CfgSite, v: string) => setC(p => ({ ...p, [k]: v }))
+
+  const save = async () => {
+    setSaving(true)
+    const res = await fetch(`${API}/admin/config-site/`, { method: 'PATCH', headers: ah(token), body: JSON.stringify(c) })
+    setSaving(false)
+    setToast(res.ok ? { msg: 'Sauvegarde reussie !', ok: true } : { msg: 'Erreur de sauvegarde', ok: false })
+    setTimeout(() => setToast(null), 3000)
+  }
+
+  if (loading) return <Loader />
+  return (
+    <div>
+      {toast && <Toast {...toast} />}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: '#1A3C2E' }}>Coordonnees</h3>
+          <FL label="Telephone affiche"><Inp value={c.telephone} onChange={v => upd('telephone', v)} placeholder="+229 01 95 96 77 62" /></FL>
+          <FL label="Telephone brut (liens tel: / WhatsApp, sans espaces ni +)"><Inp value={c.telephone_raw} onChange={v => upd('telephone_raw', v)} placeholder="2290195967762" /></FL>
+          <FL label="Email"><Inp value={c.email} onChange={v => upd('email', v)} placeholder="tropicanapiopio@gmail.com" /></FL>
+          <FL label="Adresse"><Inp value={c.adresse} onChange={v => upd('adresse', v)} placeholder="Oganla Gare Nord, Porto-Novo, Benin" /></FL>
+        </div>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: '#1A3C2E' }}>Reseaux sociaux</h3>
+          <FL label="TikTok (URL)"><Inp value={c.tiktok_url} onChange={v => upd('tiktok_url', v)} placeholder="https://www.tiktok.com/@..." /></FL>
+          <FL label="Facebook (URL)"><Inp value={c.facebook_url} onChange={v => upd('facebook_url', v)} placeholder="https://facebook.com/..." /></FL>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '20px 0 16px', color: '#1A3C2E' }}>Paiements</h3>
+          <FL label="Modes acceptes (separes par des virgules)"><Inp value={c.paiements} onChange={v => upd('paiements', v)} placeholder="MTN Money,Moov Money,Wave,Orange" /></FL>
+        </div>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 6px', color: '#1A3C2E' }}>Prix affiches sur le site</h3>
+          <p style={{ fontSize: 12, color: '#64748B', margin: '0 0 16px' }}>
+            Apparaissent sur les boutons "Commander" (accueil, boutique, footer, WhatsApp).
+          </p>
+          <FL label="Prix affiche (bouton boutique / footer)"><Inp value={c.prix_affiche} onChange={v => upd('prix_affiche', v)} placeholder="des 2 500 FCFA" /></FL>
+          <FL label="Prix minimum (bouton accueil)"><Inp value={c.prix_mini} onChange={v => upd('prix_mini', v)} placeholder="1 000 FCFA" /></FL>
+        </div>
+      </div>
+      <SaveBar onSave={save} saving={saving} label="les infos de contact" />
+    </div>
+  )
+}
+
 function SectionFooter({ token }: { token: string }) {
   const { config, loading, saving, save, toast } = useConfig(token)
   const [f, setF] = useState<Partial<SiteContent>>({})
@@ -1289,7 +1352,7 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 12px', color: '#1E293B' }}>Modifier le contenu du site</h3>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {(['hero', 'arguments', 'bienfaits', 'plante', 'blog', 'histoire', 'partenaires', 'annonces', 'footer', 'couleurs'] as Section[]).map(s => (
+          {(['hero', 'arguments', 'bienfaits', 'plante', 'blog', 'histoire', 'partenaires', 'annonces', 'footer', 'contact', 'couleurs'] as Section[]).map(s => (
             <button key={s} onClick={() => setSection(s)} style={{ background: '#F0FDF4', color: '#2D6A4F', border: '1px solid #D1FAE5', borderRadius: 8, padding: '8px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{TITLES[s]}</button>
           ))}
         </div>
@@ -1665,6 +1728,7 @@ export default function AdminPanel() {
           {section === 'partenaires' && <SectionPartenaires token={token} />}
           {section === 'annonces' && <SectionAnnonces token={token} />}
           {section === 'footer' && <SectionFooter token={token} />}
+          {section === 'contact' && <SectionContactConfig token={token} />}
           {section === 'couleurs' && <SectionCouleurs token={token} />}
           {section === 'promo' && <SectionPromo token={token} />}
           {section === 'zones' && <SectionZones token={token} />}

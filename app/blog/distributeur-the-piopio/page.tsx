@@ -18,19 +18,19 @@ export default function ArticleDistributeur() {
       </section>
 
       {/* Contenu */}
-      <section style={{ background: '#FAFAF7', padding: '60px 24px' }}>
+      <section style={{ background: 'var(--bg-card-alt)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
 
-          <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 28 }}>
+          <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 28 }}>
             Le marché du bien-être naturel est en pleine explosion en Afrique. Avec une population de plus en plus consciente de l'importance de la santé naturelle et des produits bio, le <strong>Thé Pio Pio représente une opportunité sérieuse</strong> pour tout revendeur, grossiste ou entrepreneur souhaitant s'engager dans ce secteur porteur.
           </p>
 
-          <h2 style={{ fontSize: 22, fontWeight: 400, color: '#1A3C2E', marginBottom: 20, marginTop: 36 }}>Pourquoi le marché du bien-être naturel explose en Afrique ?</h2>
-          <p style={{ fontSize: 14, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 20 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 20, marginTop: 36 }}>Pourquoi le marché du bien-être naturel explose en Afrique ?</h2>
+          <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 20 }}>
             Les consommateurs béninois et ouest-africains se tournent massivement vers les remèdes naturels et les plantes médicinales. La méfiance envers les produits chimiques et industriels grandit, pendant que la confiance envers le patrimoine naturel africain se renforce. Le Thé Pio Pio se positionne exactement à cette intersection.
           </p>
 
-          <h2 style={{ fontSize: 22, fontWeight: 400, color: '#1A3C2E', marginBottom: 20, marginTop: 36 }}>Les avantages concrets pour un distributeur</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 20, marginTop: 36 }}>Les avantages concrets pour un distributeur</h2>
           {[
             { icon: '💰', titre: 'Prix préférentiels dès 10 unités', texte: 'À partir de 10 boîtes commandées, vous bénéficiez de tarifs grossiste attractifs, vous permettant une marge commerciale intéressante à la revente.' },
             { icon: '📦', titre: 'Livraison nationale assurée', texte: 'Que vous soyez à Cotonou, Parakou, Natitingou ou ailleurs, notre logistique couvre tout le territoire béninois. Vous recevez votre stock rapidement.' },
@@ -41,18 +41,18 @@ export default function ArticleDistributeur() {
             <div key={item.titre} style={{ display: 'flex', gap: 16, marginBottom: 20, alignItems: 'flex-start' }}>
               <span style={{ fontSize: 26, flexShrink: 0 }}>{item.icon}</span>
               <div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#1A3C2E', fontFamily: 'Arial, sans-serif', marginBottom: 6 }}>{item.titre}</h3>
-                <p style={{ fontSize: 13, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>{item.texte}</p>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 6 }}>{item.titre}</h3>
+                <p style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>{item.texte}</p>
               </div>
             </div>
           ))}
 
-          <h2 style={{ fontSize: 22, fontWeight: 400, color: '#1A3C2E', marginBottom: 16, marginTop: 36 }}>Qui peut devenir distributeur ?</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 16, marginTop: 36 }}>Qui peut devenir distributeur ?</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, marginBottom: 32 }}>
             {['Commerçants et boutiques', 'Pharmacies et parapharmacies', 'Hôtels et restaurants', 'Salons de beauté et spas', 'Revendeurs ambulants', 'Entrepreneurs indépendants'].map(item => (
-              <div key={item} style={{ background: '#EAF4EE', borderRadius: 8, padding: '12px 14px', display: 'flex', gap: 10, alignItems: 'center' }}>
+              <div key={item} style={{ background: 'var(--green-pale)', borderRadius: 8, padding: '12px 14px', display: 'flex', gap: 10, alignItems: 'center' }}>
                 <div style={{ width: 6, height: 6, background: '#2D6A4F', borderRadius: '50%', flexShrink: 0 }} />
-                <span style={{ fontSize: 12, color: '#1A3C2E', fontFamily: 'Arial, sans-serif' }}>{item}</span>
+                <span style={{ fontSize: 12, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>{item}</span>
               </div>
             ))}
           </div>
@@ -69,7 +69,7 @@ export default function ArticleDistributeur() {
             </div>
           </div>
 
-          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid #D4C9B0' }}>
+          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--border-color)' }}>
             <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>← Retour au Blog</Link>
           </div>
         </div>

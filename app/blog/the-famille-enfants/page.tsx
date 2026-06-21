@@ -18,21 +18,21 @@ export default function ArticleFamille() {
       </section>
 
       {/* Contenu */}
-      <section style={{ background: '#FAFAF7', padding: '60px 24px' }}>
+      <section style={{ background: 'var(--bg-card-alt)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
 
-          <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 28 }}>
+          <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.9, marginBottom: 28 }}>
             Le Thé Pio Pio est recommandé <strong>dès 2 ans</strong>. C'est l'une de ses grandes forces : toute la famille peut en profiter. Mais comment le préparer pour un enfant ? Quelles doses respecter ? On vous explique tout en détail.
           </p>
 
-          <div style={{ background: '#EAF4EE', borderRadius: 10, padding: '20px 22px', marginBottom: 36, borderLeft: '4px solid #2D6A4F' }}>
+          <div style={{ background: 'var(--green-pale)', borderRadius: 10, padding: '20px 22px', marginBottom: 36, borderLeft: '4px solid #2D6A4F' }}>
             <p style={{ fontSize: 13, fontWeight: 700, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', marginBottom: 6 }}>✅ Pourquoi dès 2 ans ?</p>
-            <p style={{ fontSize: 13, color: '#1A3C2E', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>
+            <p style={{ fontSize: 13, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>
               La verveine blanche citronnée est une plante douce, sans caféine, sans tanins agressifs. Elle ne contient aucun additif, aucun conservateur. Son profil est assez doux pour être adapté aux jeunes enfants, contrairement au thé noir ou vert classique.
             </p>
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 400, color: '#1A3C2E', marginBottom: 20, marginTop: 36 }}>Guide de préparation par tranche d'âge</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 20, marginTop: 36 }}>Guide de préparation par tranche d'âge</h2>
 
           {[
             {
@@ -64,18 +64,18 @@ export default function ArticleFamille() {
               note: 'Particulièrement bénéfique pour la circulation et les articulations',
             },
           ].map(item => (
-            <div key={item.age} style={{ background: '#fff', border: '0.5px solid #D4C9B0', borderRadius: 10, padding: '20px 20px', marginBottom: 16, display: 'flex', gap: 16, alignItems: 'flex-start' }}>
+            <div key={item.age} style={{ background: 'var(--bg-card)', border: '0.5px solid var(--border-color)', borderRadius: 10, padding: '20px 20px', marginBottom: 16, display: 'flex', gap: 16, alignItems: 'flex-start' }}>
               <span style={{ fontSize: 28, flexShrink: 0 }}>{item.icon}</span>
               <div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#1A3C2E', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>{item.age}</h3>
-                <p style={{ fontSize: 12, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Préparation :</strong> {item.prep}</p>
-                <p style={{ fontSize: 12, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Quand :</strong> {item.quand}</p>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>{item.age}</h3>
+                <p style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Préparation :</strong> {item.prep}</p>
+                <p style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Quand :</strong> {item.quand}</p>
                 <p style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, fontStyle: 'italic' }}>💡 {item.note}</p>
               </div>
             </div>
           ))}
 
-          <h2 style={{ fontSize: 22, fontWeight: 400, color: '#1A3C2E', marginBottom: 16, marginTop: 36 }}>Quelques précautions simples</h2>
+          <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 16, marginTop: 36 }}>Quelques précautions simples</h2>
           {[
             'Toujours utiliser de l\'eau propre bouillie et refroidie à température idéale (85-90°C).',
             'Ne pas donner de thé très chaud à un enfant — attendre qu\'il soit tiède.',
@@ -84,7 +84,7 @@ export default function ArticleFamille() {
           ].map(p => (
             <div key={p} style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
               <div style={{ width: 6, height: 6, background: '#C9973A', borderRadius: '50%', marginTop: 7, flexShrink: 0 }} />
-              <p style={{ fontSize: 13, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>{p}</p>
+              <p style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>{p}</p>
             </div>
           ))}
 
@@ -95,7 +95,7 @@ export default function ArticleFamille() {
             <Link href="/boutique" className="btn-gold">Commander maintenant</Link>
           </div>
 
-          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid #D4C9B0' }}>
+          <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--border-color)' }}>
             <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>← Retour au Blog</Link>
           </div>
         </div>

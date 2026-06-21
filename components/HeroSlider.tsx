@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useLang } from '@/context/LanguageContext'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -30,7 +31,8 @@ const FALLBACK: Slide[] = [
   },
 ]
 
-export default function HeroSlider() {
+export default function HeroSlider({ heroSousTitre, heroSousTitreEm }: { heroSousTitre?: string; heroSousTitreEm?: string } = {}) {
+  const { t } = useLang()
   const [slides, setSlides] = useState<Slide[]>(FALLBACK)
   const [current, setCurrent] = useState(0)
   const [loaded, setLoaded] = useState(false)
@@ -97,8 +99,8 @@ export default function HeroSlider() {
             )}
           </h1>
           <p style={{ color: 'rgba(240,235,224,0.88)', fontSize: 'clamp(15px, 2.5vw, 18px)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 36, maxWidth: 480, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
-            Apaise ton stress, naturellement{' '}
-            <span style={{ color: '#C9973A', fontStyle: 'italic' }}>| Mį sȩ sīn Bōwā sīn</span>
+            {heroSousTitre || t('hero.sousTitreDefaut')}{' '}
+            {heroSousTitreEm && <span style={{ color: '#C9973A', fontStyle: 'italic' }}>{heroSousTitreEm}</span>}
           </p>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
             <Link

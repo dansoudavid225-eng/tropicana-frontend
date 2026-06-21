@@ -127,7 +127,7 @@ function NewsletterForm() {
 
 export default function Footer() {
   const site = useSiteConfig()
-  const { lang } = useLang()
+  const { lang, t } = useLang()
   const [cfg, setCfg] = useState<any>(null)
 
   useEffect(() => {
@@ -163,10 +163,10 @@ export default function Footer() {
         <div style={{ position: 'absolute', right: -40, top: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,0.08)', pointerEvents: 'none' }} />
         <div>
           <p style={{ fontSize: 11, letterSpacing: '2.5px', fontWeight: 700, color: 'rgba(26,60,46,0.7)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textTransform: 'uppercase', marginBottom: 6 }}>
-            {cfg?.cta_label || 'Prêt à prendre soin de vous ?'}
+            {cfg?.cta_label || t('footer.ctaLabel')}
           </p>
           <p style={{ fontSize: 'clamp(16px,2.5vw,20px)', fontFamily: 'var(--font-cormorant), Georgia, serif', fontWeight: 500, color: '#1A3C2E', lineHeight: 1.3 }}>
-            {cfg?.cta_texte || "Commandez votre Thé Pio Pio dès aujourd'hui."}
+            {cfg?.cta_texte || t('footer.ctaTexte')}
           </p>
         </div>
         <Link href={cfg?.cta_lien || '/boutique'} style={{
@@ -184,7 +184,7 @@ export default function Footer() {
           flexShrink: 0,
           whiteSpace: 'nowrap',
         }}>
-          🛒 {cfg?.cta_bouton || 'Commander dès 1 000 FCFA'}
+          🛒 {cfg?.cta_bouton || t('footer.ctaBouton')}
         </Link>
       </div>
 

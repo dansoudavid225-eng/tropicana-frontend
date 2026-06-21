@@ -60,8 +60,8 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                   <div style={{ flex:1, minWidth:260, padding:'36px 32px', display:'flex', flexDirection:'column', justifyContent:'space-between' }}>
                     <div>
                       <div style={{ display:'flex', gap:16, alignItems:'center', marginBottom:16 }}>
-                        <span style={{ fontSize:12, color:'#8B8070', fontFamily:'Arial, sans-serif' }}>{fmtDate(featured.date_publication ?? '', lang)}</span>
-                        <span style={{ width:4, height:4, borderRadius:'50%', background:'#D4C9B0', display:'inline-block' }} />
+                        <span style={{ fontSize:12, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{fmtDate(featured.date_publication ?? '', lang)}</span>
+                        <span style={{ width:4, height:4, borderRadius:'50%', background:'var(--border-color)', display:'inline-block' }} />
                         <span style={{ fontSize:12, color:'#2D6A4F', fontFamily:'Arial, sans-serif', fontWeight:600 }}>📖 {featured.temps_lecture}</span>
                       </div>
                       <h2 style={{ fontSize:'clamp(20px,2.5vw,26px)', fontWeight:400, color:'var(--text-primary)', lineHeight:1.3, marginBottom:14 }}>{featured.titre}</h2>
@@ -92,7 +92,7 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                       </div>
                       <div style={{ padding:'20px 18px', display:'flex', flexDirection:'column', flex:1 }}>
                         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10 }}>
-                          <span style={{ fontSize:12, color:'#8B8070', fontFamily:'Arial, sans-serif' }}>{fmtDate(a.date_publication ?? '', lang)}</span>
+                          <span style={{ fontSize:12, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{fmtDate(a.date_publication ?? '', lang)}</span>
                           <span style={{ fontSize:12, color:'#6B9E7A', fontFamily:'Arial, sans-serif', fontWeight:600 }}>📖 {a.temps_lecture}</span>
                         </div>
                         <h3 style={{ fontSize:17, fontWeight:400, color:'var(--text-primary)', lineHeight:1.35, marginBottom:10, flex:1 }}>{a.titre}</h3>

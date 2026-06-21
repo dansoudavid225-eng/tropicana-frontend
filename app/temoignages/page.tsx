@@ -105,7 +105,7 @@ const t = (key: string): string => translations[key] ?? key
 // ─── Page principale ──────────────────────────────────────────────────────────
 
 export default function Temoignages() {
-  const { lang } = useLang()
+  const { lang, t } = useLang()
   const [temoignages, setTemoignages] = useState<Temoignage[]>(temoignagesInitiaux)
   const [form, setForm] = useState({ nom: '', ville: '', note: 5, texte: '' })
   const [typeVideo, setTypeVideo] = useState<TypeVideo>('aucune')
@@ -155,12 +155,12 @@ export default function Temoignages() {
 
   const validate = () => {
     const e: Record<string, string> = {}
-    if (!form.nom.trim()) e.nom = 'Veuillez entrer votre prénom.'
-    if (!form.ville.trim()) e.ville = 'Veuillez entrer votre ville.'
-    if (!form.texte.trim() && typeVideo === 'aucune') e.texte = 'Rédigez un témoignage ou joignez une vidéo.'
-    if (form.texte.trim() && form.texte.trim().length < 20) e.texte = 'Le témoignage doit faire au moins 20 caractères.'
-    if (typeVideo === 'upload' && !videoFichier) e.video = 'Sélectionnez un fichier vidéo.'
-    if (typeVideo === 'lien' && !videoLien.trim()) e.video = 'Entrez un lien YouTube ou TikTok.'
+    if (!form.nom.trim()) e.nom = t('temoignage.errPrenom')
+    if (!form.ville.trim()) e.ville = t('temoignage.errVille')
+    if (!form.texte.trim() && typeVideo === 'aucune') e.texte = t('temoignage.errTexteVide')
+    if (form.texte.trim() && form.texte.trim().length < 20) e.texte = t('temoignage.errTexteCourt')
+    if (typeVideo === 'upload' && !videoFichier) e.video = t('temoignage.errVideoFichier')
+    if (typeVideo === 'lien' && !videoLien.trim()) e.video = t('temoignage.errVideoLien')
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -239,6 +239,7 @@ export default function Temoignages() {
     } finally {
       setLoading(false)
     }
+  }
 
   function getEmbedUrl(url: string): string | null {
     if (!url) return null
@@ -254,21 +255,21 @@ export default function Temoignages() {
   }
 
   const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '12px 14px', border: '1.5px solid #D4C9B0',
+    width: '100%', padding: '12px 14px', border: '1.5px solid var(--border-color)',
     borderRadius: 6, fontSize: 15, fontFamily: 'Arial, sans-serif',
-    color: '#2C1A0E', background: '#fff', outline: 'none', boxSizing: 'border-box',
+    color: 'var(--text-primary)', background: 'var(--bg-card)', outline: 'none', boxSizing: 'border-box',
   }
   const labelStyle: React.CSSProperties = {
-    display: 'block', fontSize: 14, fontWeight: 700, color: '#1A3C2E',
+    display: 'block', fontSize: 14, fontWeight: 700, color: 'var(--text-primary)',
     fontFamily: 'Arial, sans-serif', marginBottom: 6,
   }
   const errStyle: React.CSSProperties = {
     fontSize: 13, color: '#B91C1C', fontFamily: 'Arial, sans-serif', marginTop: 4,
   }
   const tabStyle = (active: boolean): React.CSSProperties => ({
-    flex: 1, padding: '9px 8px', border: `1.5px solid ${active ? '#C9973A' : '#D4C9B0'}`,
-    borderRadius: 6, background: active ? '#FEF9F0' : '#fff',
-    color: active ? '#8A5A00' : '#5A4A3A', fontSize: 13,
+    flex: 1, padding: '9px 8px', border: `1.5px solid ${active ? '#C9973A' : 'var(--border-color)'}`,
+    borderRadius: 6, background: active ? 'rgba(201,151,58,0.12)' : 'var(--bg-card)',
+    color: active ? '#8A5A00' : 'var(--text-secondary)', fontSize: 13,
     fontFamily: 'Arial, sans-serif', fontWeight: active ? 700 : 400,
     cursor: 'pointer', transition: 'all 0.15s', textAlign: 'center' as const,
   })
@@ -290,12 +291,12 @@ export default function Temoignages() {
 
       {/* Stat rapide */}
       <div style={{ background: '#C9973A', padding: '14px 24px', textAlign: 'center' }}>
-        <p style={{ fontSize: 14, fontWeight: 700, color: '#1A3C2E', fontFamily: 'Arial, sans-serif', letterSpacing: '1px' }}>
+        <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', letterSpacing: '1px' }}>
           ⭐⭐⭐⭐⭐ &nbsp;·&nbsp; {temoignages.length} {lang === 'en' ? 'customer reviews' : 'avis clients'} &nbsp;·&nbsp; {lang === 'en' ? '100% recommend Thé Pio Pio' : '100% recommandent le Thé Pio Pio'}
         </p>
       </div>
 
-      <section style={{ background: '#F5F0E8', padding: '60px 24px' }}>
+      <section style={{ background: 'var(--bg-page)', padding: '60px 24px' }}>
         <div className="temoignages-layout" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gap: 48, alignItems: 'start' }}>
 
           {/* ===== FORMULAIRE ===== */}
@@ -449,8 +450,8 @@ export default function Temoignages() {
             </div>
 
             {/* CTA boutique */}
-            <div style={{ background: '#fff', border: '1px solid #D4C9B0', borderRadius: 10, padding: '20px 22px', marginTop: 16, textAlign: 'center' }}>
-              <p style={{ fontSize: 15, color: '#1A3C2E', fontFamily: 'Georgia, serif', marginBottom: 12 }}>
+            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: 10, padding: '20px 22px', marginTop: 16, textAlign: 'center' }}>
+              <p style={{ fontSize: 15, color: 'var(--text-primary)', fontFamily: 'Georgia, serif', marginBottom: 12 }}>
                 Pas encore client ? Découvrez le Thé Pio Pio.
               </p>
               <Link href="/boutique" className="btn-gold" style={{ fontSize: 14 }}>Commander — 1 000 FCFA</Link>
@@ -459,7 +460,7 @@ export default function Temoignages() {
 
           {/* ===== LISTE DES TÉMOIGNAGES ===== */}
           <div>
-            <h2 style={{ fontSize: 20, fontWeight: 400, color: '#1A3C2E', marginBottom: 20 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 20 }}>
               {temoignages.length} témoignages clients
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -467,8 +468,8 @@ export default function Temoignages() {
                 <div
                   key={i}
                   style={{
-                    background: '#fff',
-                    border: '0.5px solid #D4C9B0',
+                    background: 'var(--bg-card)',
+                    border: '0.5px solid var(--border-color)',
                     borderRadius: 10,
                     padding: '20px',
                     borderLeft: `4px solid ${t.a_video || t.type_video !== 'aucune' ? '#2D6A4F' : '#C9973A'}`,
@@ -476,7 +477,7 @@ export default function Temoignages() {
                 >
                   {/* Badge vidéo */}
                   {(t.a_video || t.type_video !== 'aucune') && (
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: '#EAF4EE', color: '#1A5C3E', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '3px 10px', borderRadius: 20, marginBottom: 10 }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'var(--green-pale)', color: '#1A5C3E', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '3px 10px', borderRadius: 20, marginBottom: 10 }}>
                       🎬 Témoignage vidéo
                     </div>
                   )}
@@ -488,7 +489,7 @@ export default function Temoignages() {
 
                   {/* Texte */}
                   {t.texte && (
-                    <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'Georgia, serif', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 12 }}>
+                    <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Georgia, serif', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 12 }}>
                       "{t.texte}"
                     </p>
                   )}
@@ -502,11 +503,11 @@ export default function Temoignages() {
                       {t.nom.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: '#1A3C2E', fontFamily: 'Arial, sans-serif', marginBottom: 2 }}>{t.nom}</p>
-                      <p style={{ fontSize: 13, color: '#7A6A5A', fontFamily: 'Arial, sans-serif' }}>{t.ville} · {t.date}</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 2 }}>{t.nom}</p>
+                      <p style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{t.ville} · {t.date}</p>
                     </div>
                     {t.isNew && (
-                      <span style={{ marginLeft: 'auto', background: '#EAF4EE', color: '#2D6A4F', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '4px 10px', borderRadius: 20 }}>
+                      <span style={{ marginLeft: 'auto', background: 'var(--green-pale)', color: 'var(--green-mid)', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '4px 10px', borderRadius: 20 }}>
                         ✓ Nouveau
                       </span>
                     )}
@@ -526,5 +527,4 @@ export default function Temoignages() {
       `}</style>
     </>
   )
-}
 }

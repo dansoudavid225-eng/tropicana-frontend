@@ -16,6 +16,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [menuUser, setMenuUser] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   const links = [
     { href: '/',             label: t('nav.accueil') },
@@ -29,10 +30,22 @@ export default function Navbar() {
   ]
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 40)
+      // Auto-hide mobile : on cache en descendant, on reaffiche en remontant.
+      // On ignore les tout petits deplacements et on ne cache jamais tout en haut,
+      // ni quand le menu mobile est ouvert.
+      if (!open) {
+        if (y > lastY + 5 && y > 120) setHidden(true)
+        else if (y < lastY - 5 || y < 120) setHidden(false)
+      }
+      lastY = y
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [open])
 
   const handleDeconnexion = () => {
     deconnecter()
@@ -78,12 +91,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, ...headerStyle }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 76, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+      <header
+        className={hidden ? 'header-hidden' : ''}
+        style={{ position: 'sticky', top: 0, zIndex: 100, transform: 'translateY(0)', transition: 'transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease', ...headerStyle }}
+      >
+        <div className="navbar-inner" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 76, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
 
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }} onClick={() => setOpen(false)}>
-            <div style={{
+            <div className="navbar-logo" style={{
               background: '#fff', borderRadius: 8,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 66, height: 66, overflow: 'hidden',
@@ -268,7 +284,7 @@ export default function Navbar() {
           </div>
 
           {/* Hamburger */}
-          <button className="hamburger-btn" onClick={() => setOpen(!open)} aria-label={open ? t('nav.fermer') : t('nav.menu')}
+          <button className="hamburger-btn" onClick={() => { setOpen(!open); setHidden(false) }} aria-label={open ? t('nav.fermer') : t('nav.menu')}
             style={{ display: 'none', background: open ? 'rgba(201,151,58,0.12)' : 'none', border: open ? '1px solid rgba(201,151,58,0.3)' : '1px solid transparent', borderRadius: 8, cursor: 'pointer', padding: '8px', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 5, width: 42, height: 42, transition: 'all 0.25s' }}>
             <span style={{ display: 'block', width: 22, height: 2, background: open ? '#C9973A' : '#8FC9A8', borderRadius: 2, transition: 'transform 0.25s', transform: open ? 'translateY(7px) rotate(45deg)' : 'none' }} />
             <span style={{ display: 'block', width: 22, height: 2, background: open ? '#C9973A' : '#8FC9A8', borderRadius: 2, opacity: open ? 0 : 1, transition: 'opacity 0.25s' }} />
@@ -350,6 +366,15 @@ export default function Navbar() {
           .desktop-cta { display: none !important; }
           .hamburger-btn { display: flex !important; }
           .mobile-menu { display: flex !important; }
+
+          /* Header plus compact sur mobile pour liberer de l'espace ecran */
+          .navbar-inner { height: 58px !important; padding: 0 14px !important; }
+          .navbar-logo { width: 46px !important; height: 46px !important; }
+          .navbar-logo img { width: 42px !important; height: 42px !important; }
+
+          /* Auto-hide : on cache le header en scrollant vers le bas,
+             il revient instantanement en scrollant vers le haut. */
+          .header-hidden { transform: translateY(-100%) !important; }
         }
       `}</style>
     </>

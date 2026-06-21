@@ -1,24 +1,28 @@
 'use client';
 import { useState } from 'react';
+import { useLang } from '@/context/LanguageContext';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
-const STATUTS: Record<string, { label: string; icon: string; couleur: string; etape: number }> = {
-  en_attente:   { label: 'En attente',    icon: '⏳', couleur: '#F4A261', etape: 1 },
-  confirmee:    { label: 'Confirmée',     icon: '✅', couleur: '#457B9D', etape: 2 },
-  en_livraison: { label: 'En livraison',  icon: '🚚', couleur: '#2D6A4F', etape: 3 },
-  livree:       { label: 'Livrée',        icon: '📦', couleur: '#40916C', etape: 4 },
-  annulee:      { label: 'Annulée',       icon: '❌', couleur: '#E63946', etape: 0 },
-};
-
-const ETAPES = [
-  { etape: 1, label: 'Reçue',       icon: '📋' },
-  { etape: 2, label: 'Confirmée',   icon: '✅' },
-  { etape: 3, label: 'En livraison', icon: '🚚' },
-  { etape: 4, label: 'Livrée',      icon: '📦' },
-];
-
 export default function SuiviCommandePage() {
+  const { lang, t } = useLang();
+  const locale = lang === 'en' ? 'en-US' : 'fr-FR';
+
+  const STATUTS: Record<string, { label: string; icon: string; couleur: string; etape: number }> = {
+    en_attente:   { label: t('suivi.statutEnAttente'),   icon: '⏳', couleur: '#F4A261', etape: 1 },
+    confirmee:    { label: t('suivi.statutConfirmee'),   icon: '✅', couleur: '#457B9D', etape: 2 },
+    en_livraison: { label: t('suivi.statutEnLivraison'), icon: '🚚', couleur: '#2D6A4F', etape: 3 },
+    livree:       { label: t('suivi.statutLivree'),      icon: '📦', couleur: '#40916C', etape: 4 },
+    annulee:      { label: t('suivi.statutAnnulee'),     icon: '❌', couleur: '#E63946', etape: 0 },
+  };
+
+  const ETAPES = [
+    { etape: 1, label: t('suivi.etapeRecue'),     icon: '📋' },
+    { etape: 2, label: t('suivi.etapeConfirmee'), icon: '✅' },
+    { etape: 3, label: t('suivi.etapeLivraison'), icon: '🚚' },
+    { etape: 4, label: t('suivi.etapeLivree'),    icon: '📦' },
+  ];
+
   const [commandeId, setCommandeId] = useState('');
   const [email, setEmail]           = useState('');
   const [commande, setCommande]     = useState<any>(null);
@@ -27,7 +31,7 @@ export default function SuiviCommandePage() {
 
   const chercher = async () => {
     if (!commandeId.trim() || !email.trim()) {
-      setErreur('Veuillez renseigner votre numéro de commande et votre email.');
+      setErreur(t('suivi.erreurChamps'));
       return;
     }
     setLoading(true);
@@ -35,19 +39,19 @@ export default function SuiviCommandePage() {
     setCommande(null);
     try {
       // Chercher dans les commandes publiques via email + id
-      const token = typeof window !== 'undefined' ? localStorage.getItem('tropicana_access') : null;
+      const token = typeof window !== 'undefined' ? localStorage.getItem('pio_access') : null;
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
       const res = await fetch(`${API_URL}/commandes/suivi/?id=${commandeId}&email=${encodeURIComponent(email)}`, { headers });
       if (!res.ok) {
-        setErreur('Commande introuvable. Vérifiez votre numéro et votre email.');
+        setErreur(t('suivi.erreurIntrouvable'));
         return;
       }
       const data = await res.json();
       setCommande(data);
     } catch {
-      setErreur('Erreur de connexion. Réessayez dans quelques instants.');
+      setErreur(t('suivi.erreurReseau'));
     } finally {
       setLoading(false);
     }
@@ -62,33 +66,33 @@ export default function SuiviCommandePage() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>📦</div>
-          <h1 style={{ color: '#2D6A4F', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>Suivi de commande</h1>
-          <p style={{ color: '#666', marginTop: 8 }}>Entrez votre numéro de commande et votre email pour suivre votre livraison.</p>
+          <h1 style={{ color: '#2D6A4F', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>{t('suivi.titre')}</h1>
+          <p style={{ color: '#666', marginTop: 8 }}>{t('suivi.sousTitre')}</p>
         </div>
 
         {/* Formulaire */}
         <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 2px 16px rgba(0,0,0,.08)', marginBottom: 24 }}>
           <div style={{ marginBottom: 16 }}>
             <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
-              Numéro de commande
+              {t('suivi.numCommande')}
             </label>
             <input
               type="number"
               value={commandeId}
               onChange={e => setCommandeId(e.target.value)}
-              placeholder="Ex: 42"
+              placeholder={t('suivi.numCommandePh')}
               style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
             />
           </div>
           <div style={{ marginBottom: 20 }}>
             <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
-              Email utilisé lors de la commande
+              {t('suivi.emailUtilise')}
             </label>
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="votre@email.com"
+              placeholder={t('suivi.emailPh')}
               style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
             />
           </div>
@@ -102,7 +106,7 @@ export default function SuiviCommandePage() {
             disabled={loading}
             style={{ width: '100%', padding: '14px', background: loading ? '#aaa' : '#2D6A4F', color: '#fff', border: 'none', borderRadius: 10, fontSize: '1rem', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer' }}
           >
-            {loading ? '⏳ Recherche...' : '🔍 Suivre ma commande'}
+            {loading ? t('suivi.recherche') : t('suivi.suivreBtn')}
           </button>
         </div>
 
@@ -114,7 +118,7 @@ export default function SuiviCommandePage() {
             <div style={{ textAlign: 'center', marginBottom: 28 }}>
               <div style={{ fontSize: '3rem', marginBottom: 8 }}>{statut.icon}</div>
               <div style={{ fontSize: '1.3rem', fontWeight: 800, color: statut.couleur }}>{statut.label}</div>
-              <div style={{ color: '#666', fontSize: '.875rem', marginTop: 4 }}>Commande #{commande.id}</div>
+              <div style={{ color: '#666', fontSize: '.875rem', marginTop: 4 }}>{t('suivi.commandeNum')}{commande.id}</div>
             </div>
 
             {/* Barre de progression */}
@@ -152,24 +156,24 @@ export default function SuiviCommandePage() {
             {/* Détails commande */}
             <div style={{ borderTop: '1px solid #F0F4F1', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Client</div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.client')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.nom_client}</div>
                 <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.telephone_client}</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Livraison</div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.livraison')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.ville_livraison}</div>
                 <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.adresse_livraison || '—'}</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Total</div>
-                <div style={{ fontWeight: 800, color: '#2D6A4F', fontSize: '1.1rem' }}>{Number(commande.total).toLocaleString('fr-FR')} FCFA</div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.total')}</div>
+                <div style={{ fontWeight: 800, color: '#2D6A4F', fontSize: '1.1rem' }}>{Number(commande.total).toLocaleString(locale)} FCFA</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Paiement</div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.paiement')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.mode_paiement}</div>
                 <div style={{ fontSize: '.875rem', color: commande.payee ? '#2D6A4F' : '#E63946' }}>
-                  {commande.payee ? '✓ Payée' : '○ En attente'}
+                  {commande.payee ? t('suivi.payee') : t('suivi.enAttentePaiement')}
                 </div>
               </div>
             </div>
@@ -177,11 +181,11 @@ export default function SuiviCommandePage() {
             {/* Produits */}
             {commande.lignes && commande.lignes.length > 0 && (
               <div style={{ marginTop: 20, borderTop: '1px solid #F0F4F1', paddingTop: 16 }}>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>Produits commandés</div>
+                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>{t('suivi.produitsCommandes')}</div>
                 {commande.lignes.map((l: any, i: number) => (
                   <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #F8FAF8', fontSize: '.9rem' }}>
                     <span>{l.produit_nom} <span style={{ color: '#999' }}>×{l.quantite}</span></span>
-                    <span style={{ fontWeight: 700 }}>{Number(l.sous_total).toLocaleString('fr-FR')} FCFA</span>
+                    <span style={{ fontWeight: 700 }}>{Number(l.sous_total).toLocaleString(locale)} FCFA</span>
                   </div>
                 ))}
               </div>
@@ -189,10 +193,10 @@ export default function SuiviCommandePage() {
 
             {/* Contact */}
             <div style={{ marginTop: 20, background: '#F0F4F1', borderRadius: 10, padding: 14, textAlign: 'center', fontSize: '.85rem', color: '#555' }}>
-              Une question ? Contactez-nous 📞{' '}
-              <a href="tel:+22901959677621" style={{ color: '#2D6A4F', fontWeight: 700 }}>+229 01 95 96 77 62</a>
-              {' '}ou{' '}
-              <a href="https://wa.me/22901959677621" target="_blank" style={{ color: '#2D6A4F', fontWeight: 700 }}>WhatsApp</a>
+              {t('suivi.question')}{' '}
+              <a href="tel:+2290195967762" style={{ color: '#2D6A4F', fontWeight: 700 }}>+229 01 95 96 77 62</a>
+              {' '}{t('suivi.ou')}{' '}
+              <a href="https://wa.me/2290195967762" target="_blank" style={{ color: '#2D6A4F', fontWeight: 700 }}>WhatsApp</a>
             </div>
           </div>
         )}
