@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'utilisateurs' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'tasse' | 'fondateur' | 'stats' | 'histoire' | 'blog' | 'partenaires' | 'annonces' | 'footer' | 'contact' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'utilisateurs' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'tasse' | 'fondateur' | 'stats' | 'histoire' | 'blog' | 'partenaires' | 'annonces' | 'footer' | 'contact' | 'accueilConfig' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -66,6 +66,7 @@ const NAV: { s: Section; label: string; group: string }[] = [
   { s: 'annonces', label: 'Annonces', group: 'Site' },
   { s: 'footer', label: 'Footer', group: 'Site' },
   { s: 'contact', label: 'Contact & Prix', group: 'Site' },
+  { s: 'accueilConfig', label: 'CTA & Accueil', group: 'Site' },
   { s: 'couleurs',   label: 'Couleurs',      group: 'Site' },
   { s: 'promo',      label: '🎟️ Codes promo',  group: 'Gestion' },
   { s: 'zones',      label: '🚚 Livraison',     group: 'Gestion' },
@@ -81,7 +82,7 @@ const TITLES: Record<Section, string> = {
   plante: 'La Plante', bienfaits: 'Les Bienfaits', tasse: 'Section Tasse',
   fondateur: 'Bloc Fondateur', stats: 'Chiffres et Avis', histoire: 'Page Histoire',
   blog: 'Blog Articles', partenaires: 'Partenaires', annonces: 'Barre annonces',
-  footer: 'Pied de page', contact: 'Contact & Prix', couleurs: 'Palette couleurs',
+  footer: 'Pied de page', contact: 'Contact & Prix', accueilConfig: 'CTA & Accueil', couleurs: 'Palette couleurs',
   promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
   alertes: 'Alertes Stock', rapport: 'Rapport PDF',
 }
@@ -221,13 +222,24 @@ function useConfig(token: string) {
 
   const save = useCallback(async (patch: Partial<SiteContent>) => {
     setSaving(true)
-    const next = { ...config, ...patch }
-    const res = await fetch(`${API}/admin/config/`, { method: 'POST', headers: ah(token), body: JSON.stringify(next) })
-    setSaving(false)
-    if (res.ok) {
-      setConfig(next)
-      showToast('Sauvegarde reussie !', true)
-    } else {
+    try {
+      // Relit la config actuelle depuis le serveur avant de fusionner,
+      // pour éviter d'écraser des changements faits depuis un autre onglet
+      // avec une version périmée gardée en mémoire locale.
+      const fresh = await fetch(`${API}/admin/config/`, { headers: ah(token) })
+        .then(r => r.ok ? r.json() : config)
+        .catch(() => config)
+      const next = { ...fresh, ...patch }
+      const res = await fetch(`${API}/admin/config/`, { method: 'POST', headers: ah(token), body: JSON.stringify(next) })
+      setSaving(false)
+      if (res.ok) {
+        setConfig(next)
+        showToast('Sauvegarde reussie !', true)
+      } else {
+        showToast('Erreur de sauvegarde', false)
+      }
+    } catch {
+      setSaving(false)
       showToast('Erreur de sauvegarde', false)
     }
   }, [config, token])
@@ -778,6 +790,69 @@ function SectionAnnonces({ token }: { token: string }) {
         </div>
       </div>
       <SaveBar onSave={() => save({ annonces: items })} saving={saving} label="les annonces" />
+    </div>
+  )
+}
+
+function SectionAccueilConfig({ token }: { token: string }) {
+  type AccueilCfg = {
+    tasse_label: string; tasse_citation: string; tasse_bouton: string; tasse_lien: string
+    cta_label: string; cta_texte: string; cta_bouton: string; cta_lien: string
+    slogan: string; heures_ouverture: string
+  }
+  const empty: AccueilCfg = { tasse_label: '', tasse_citation: '', tasse_bouton: '', tasse_lien: '',
+    cta_label: '', cta_texte: '', cta_bouton: '', cta_lien: '', slogan: '', heures_ouverture: '' }
+  const [c, setC] = useState<AccueilCfg>(empty)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
+
+  useEffect(() => {
+    fetch(`${API}/admin/config-accueil/`, { headers: ah(token) })
+      .then(r => r.ok ? r.json() : Promise.resolve({} as Partial<AccueilCfg>))
+      .then((d: Partial<AccueilCfg>) => { setC({ ...empty, ...d }); setLoading(false) })
+      .catch(() => setLoading(false))
+  }, [token])
+
+  const upd = (k: keyof AccueilCfg, v: string) => setC(p => ({ ...p, [k]: v }))
+
+  const save = async () => {
+    setSaving(true)
+    const res = await fetch(`${API}/admin/config-accueil/`, { method: 'PATCH', headers: ah(token), body: JSON.stringify(c) })
+    setSaving(false)
+    setToast(res.ok ? { msg: 'Sauvegarde reussie !', ok: true } : { msg: 'Erreur de sauvegarde', ok: false })
+    setTimeout(() => setToast(null), 3000)
+  }
+
+  if (loading) return <Loader />
+  return (
+    <div>
+      {toast && <Toast {...toast} />}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 6px', color: '#1A3C2E' }}>Section "Un moment pour vous" (tasse)</h3>
+          <FL label="Label"><Inp value={c.tasse_label} onChange={v => upd('tasse_label', v)} placeholder="Un moment rien que pour vous" /></FL>
+          <FL label="Citation"><Txta value={c.tasse_citation} onChange={v => upd('tasse_citation', v)} rows={2} /></FL>
+          <FL label="Texte du bouton"><Inp value={c.tasse_bouton} onChange={v => upd('tasse_bouton', v)} placeholder="Commander maintenant" /></FL>
+          <FL label="Lien du bouton"><Inp value={c.tasse_lien} onChange={v => upd('tasse_lien', v)} placeholder="/boutique" /></FL>
+        </div>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 6px', color: '#1A3C2E' }}>Bandeau CTA dore (bas de page / footer)</h3>
+          <p style={{ fontSize: 12, color: '#64748B', margin: '0 0 16px' }}>
+            C'est ce bandeau qui affiche "Commander dès X FCFA" en bas de chaque page, y compris sur mobile.
+          </p>
+          <FL label="Titre"><Inp value={c.cta_label} onChange={v => upd('cta_label', v)} placeholder="Prêt à prendre soin de vous ?" /></FL>
+          <FL label="Texte"><Txta value={c.cta_texte} onChange={v => upd('cta_texte', v)} rows={2} /></FL>
+          <FL label="Texte du bouton"><Inp value={c.cta_bouton} onChange={v => upd('cta_bouton', v)} placeholder="Commander dès 2 500 FCFA" /></FL>
+          <FL label="Lien du bouton"><Inp value={c.cta_lien} onChange={v => upd('cta_lien', v)} placeholder="/boutique" /></FL>
+        </div>
+        <div style={CS}>
+          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: '#1A3C2E' }}>Footer</h3>
+          <FL label="Slogan (sous le logo)"><Inp value={c.slogan} onChange={v => upd('slogan', v)} placeholder="Un sang qui circule, une vie qui rayonne." /></FL>
+          <FL label="Heures d'ouverture"><Inp value={c.heures_ouverture} onChange={v => upd('heures_ouverture', v)} placeholder="Lun – Sam : 8h00 – 18h00" /></FL>
+        </div>
+      </div>
+      <SaveBar onSave={save} saving={saving} label="l'accueil" />
     </div>
   )
 }
@@ -1352,7 +1427,7 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 12px', color: '#1E293B' }}>Modifier le contenu du site</h3>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {(['hero', 'arguments', 'bienfaits', 'plante', 'blog', 'histoire', 'partenaires', 'annonces', 'footer', 'contact', 'couleurs'] as Section[]).map(s => (
+          {(['hero', 'arguments', 'bienfaits', 'plante', 'blog', 'histoire', 'partenaires', 'annonces', 'footer', 'contact', 'accueilConfig', 'couleurs'] as Section[]).map(s => (
             <button key={s} onClick={() => setSection(s)} style={{ background: '#F0FDF4', color: '#2D6A4F', border: '1px solid #D1FAE5', borderRadius: 8, padding: '8px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{TITLES[s]}</button>
           ))}
         </div>
@@ -1729,6 +1804,7 @@ export default function AdminPanel() {
           {section === 'annonces' && <SectionAnnonces token={token} />}
           {section === 'footer' && <SectionFooter token={token} />}
           {section === 'contact' && <SectionContactConfig token={token} />}
+          {section === 'accueilConfig' && <SectionAccueilConfig token={token} />}
           {section === 'couleurs' && <SectionCouleurs token={token} />}
           {section === 'promo' && <SectionPromo token={token} />}
           {section === 'zones' && <SectionZones token={token} />}
