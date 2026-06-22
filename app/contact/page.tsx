@@ -23,6 +23,7 @@ export default function Contact() {
         method:'POST', headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({
           access_key: '30484ae9-87aa-4add-a1b0-9c39b4994048',
+          from_name: 'Tropicana Pio Pio — Site web',
           name: form.nom,
           email: form.email,
           telephone: form.telephone || '—',
