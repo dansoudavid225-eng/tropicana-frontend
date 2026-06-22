@@ -2,10 +2,22 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { WHATSAPP_URL } from '@/lib/constants'
+import { useLang } from '@/context/LanguageContext'
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 export default function WhatsAppButton() {
+  const { t } = useLang()
   const [visible, setVisible] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
+  const [ctaBouton, setCtaBouton] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch(`${API_BASE}/config-accueil/`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data?.cta_bouton) setCtaBouton(data.cta_bouton) })
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 120)
@@ -111,14 +123,14 @@ export default function WhatsAppButton() {
           className="btn-gold"
           style={{ flex: 1, textAlign: 'center', padding: '13px 10px', fontSize: 15 }}
         >
-          🛒 Commander dès 2 500 FCFA
+          🛒 {ctaBouton || t('footer.ctaBouton')}
         </Link>
         <Link
           href="/contact"
           className="btn-ghost"
           style={{ flex: 1, textAlign: 'center', padding: '13px 10px', fontSize: 15 }}
         >
-          ✉️ Contact
+          ✉️ {t('nav.contact')}
         </Link>
       </div>
 
