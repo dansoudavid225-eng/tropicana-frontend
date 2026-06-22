@@ -361,6 +361,25 @@ export const translations: Record<string, Record<Lang, string>> = {
 
   // Hero accueil — sous-titre par defaut (si admin n'a rien configure)
   'hero.sousTitreDefaut':     { fr: 'Apaise ton stress, naturellement', en: 'Ease your stress, naturally' },
+  'hero.btn1Defaut':          { fr: 'Commander dès 1 000 FCFA',     en: 'Order from 1,000 FCFA' },
+  'hero.btn2Defaut':          { fr: 'Notre histoire',                en: 'Our story' },
+
+  // Espace client — édition du profil
+  'espace.modifierInfos':     { fr: 'Modifier mes informations',    en: 'Edit my information' },
+  'espace.prenom':            { fr: 'Prénom',                       en: 'First name' },
+  'espace.nom':                { fr: 'Nom',                          en: 'Last name' },
+  'espace.telephone':         { fr: 'Téléphone',                    en: 'Phone' },
+  'espace.ville':             { fr: 'Ville',                         en: 'City' },
+  'espace.photoProfil':       { fr: 'Photo de profil',              en: 'Profile photo' },
+  'espace.changerPhoto':      { fr: 'Changer la photo',             en: 'Change photo' },
+  'espace.photoFormatInvalide': { fr: 'Format non autorisé. Utilisez JPEG, PNG ou WebP.', en: 'Invalid format. Use JPEG, PNG or WebP.' },
+  'espace.photoTropLourde':   { fr: "L'image dépasse 5 Mo.",        en: 'The image exceeds 5 MB.' },
+  'espace.profilMisAJour':    { fr: 'Profil mis à jour !',          en: 'Profile updated!' },
+  'espace.profilErreur':      { fr: 'Erreur lors de la mise à jour.', en: 'Error updating profile.' },
+  'espace.profilErreurReseau': { fr: 'Erreur réseau. Réessayez.',   en: 'Network error. Please try again.' },
+  'espace.enregistrer':       { fr: 'Enregistrer',                  en: 'Save' },
+  'espace.annuler':           { fr: 'Annuler',                      en: 'Cancel' },
+  'espace.enregistrement':    { fr: 'Enregistrement...',            en: 'Saving...' },
 
 }
 

@@ -117,12 +117,69 @@ function BarreProgression({ statut }: { statut: string }) {
 
 export default function EspaceClient() {
   const router = useRouter()
-  const { user, loading, deconnecter } = useAuth()
+  const { user, loading, deconnecter, refreshUser } = useAuth()
   const { lang, t } = useLang()
   const [commandes, setCommandes] = useState<Commande[]>([])
   const [cmdLoading, setCmdLoading] = useState(true)
   const [selectedCmd, setSelectedCmd] = useState<number | null>(null)
   const [dernierRefresh, setDernierRefresh] = useState<Date | null>(null)
+
+  // ── Édition du profil ─────────────────────────────────────────────────────
+  const [editing, setEditing] = useState(false)
+  const [editForm, setEditForm] = useState({ prenom: '', nom: '', telephone: '', ville: '' })
+  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
+  const [savingProfil, setSavingProfil] = useState(false)
+  const [profilMsg, setProfilMsg] = useState<{ ok: boolean; text: string } | null>(null)
+
+  useEffect(() => {
+    if (user) setEditForm({ prenom: user.prenom, nom: user.nom, telephone: user.telephone || '', ville: user.ville || '' })
+  }, [user])
+
+  const ouvrirEdition = () => { setEditing(true); setProfilMsg(null) }
+  const fermerEdition = () => { setEditing(false); setPhotoFile(null); setPhotoPreview(null); setProfilMsg(null) }
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setProfilMsg({ ok: false, text: t('espace.photoFormatInvalide') }); return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setProfilMsg({ ok: false, text: t('espace.photoTropLourde') }); return
+    }
+    setPhotoFile(file)
+    setPhotoPreview(URL.createObjectURL(file))
+    setProfilMsg(null)
+  }
+
+  const enregistrerProfil = async () => {
+    setSavingProfil(true)
+    setProfilMsg(null)
+    try {
+      const fd = new FormData()
+      fd.append('prenom', editForm.prenom)
+      fd.append('nom', editForm.nom)
+      fd.append('telephone', editForm.telephone)
+      fd.append('ville', editForm.ville)
+      if (photoFile) fd.append('photo', photoFile)
+
+      const res = await fetchAvecAuth(`${API_BASE}/auth/profil/`, { method: 'PATCH', body: fd })
+      if (res.ok) {
+        await refreshUser()
+        setProfilMsg({ ok: true, text: t('espace.profilMisAJour') })
+        setPhotoFile(null)
+        setPhotoPreview(null)
+        setTimeout(() => setEditing(false), 1200)
+      } else {
+        setProfilMsg({ ok: false, text: t('espace.profilErreur') })
+      }
+    } catch {
+      setProfilMsg({ ok: false, text: t('espace.profilErreurReseau') })
+    } finally {
+      setSavingProfil(false)
+    }
+  }
 
   useEffect(() => {
   if (!loading && !user) {
@@ -189,8 +246,10 @@ export default function EspaceClient() {
       <section style={{ background: '#1A3C2E', padding: '32px 24px', borderBottom: '1px solid #0D2318' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <div style={{ width: 56, height: 56, background: '#C9973A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', flexShrink: 0 }}>
-              {initiales}
+            <div style={{ width: 56, height: 56, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: '#C9973A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>
+              {user.photo_affichee
+                ? <img src={user.photo_affichee} alt={user.prenom} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                : initiales}
             </div>
             <div>
               <p style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 3 }}>Espace client</p>
@@ -216,23 +275,91 @@ export default function EspaceClient() {
 
             {/* Infos personnelles */}
             <div style={{ background: 'var(--bg-card)', border: '0.5px solid var(--border-color)', borderRadius: 14, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-              <div style={{ background: '#1A3C2E', padding: '16px 22px' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif' }}>👤 Mes informations</h2>
+              <div style={{ background: '#1A3C2E', padding: '16px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif', margin: 0 }}>👤 Mes informations</h2>
+                {!editing && (
+                  <button onClick={ouvrirEdition} style={{ background: 'transparent', border: '1px solid #C9973A', color: '#C9973A', padding: '6px 14px', borderRadius: 6, fontSize: 12, fontFamily: 'Arial, sans-serif', cursor: 'pointer', fontWeight: 700 }}>
+                    ✏️ {t('espace.modifierInfos')}
+                  </button>
+                )}
               </div>
-              <div style={{ padding: '20px 22px' }}>
-                {[
-                  { label: 'Nom complet', value: `${user.prenom} ${user.nom}` },
-                  { label: 'Email', value: user.email },
-                  { label: 'Téléphone', value: user.telephone },
-                  { label: 'Ville', value: user.ville },
-                  { label: 'Membre depuis', value: dateInscription },
-                ].map(info => (
-                  <div key={info.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #F0EBE0', flexWrap: 'wrap', gap: 4 }}>
-                    <span style={{ fontSize: 14, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{info.label}</span>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>{info.value}</span>
+
+              {!editing ? (
+                <div style={{ padding: '20px 22px' }}>
+                  {[
+                    { label: 'Nom complet', value: `${user.prenom} ${user.nom}` },
+                    { label: 'Email', value: user.email },
+                    { label: 'Téléphone', value: user.telephone },
+                    { label: 'Ville', value: user.ville },
+                    { label: 'Membre depuis', value: dateInscription },
+                  ].map(info => (
+                    <div key={info.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border-light)', flexWrap: 'wrap', gap: 4 }}>
+                      <span style={{ fontSize: 14, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{info.label}</span>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>{info.value}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ padding: '20px 22px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+                  {/* Photo de profil */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                    <div style={{ width: 64, height: 64, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: '#C9973A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>
+                      {photoPreview
+                        ? <img src={photoPreview} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        : user.photo_affichee
+                          ? <img src={user.photo_affichee} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          : initiales}
+                    </div>
+                    <label style={{ fontSize: 13, color: 'var(--green-mid)', fontFamily: 'Arial, sans-serif', fontWeight: 700, cursor: 'pointer', border: '1px solid var(--border-color)', padding: '8px 14px', borderRadius: 6 }}>
+                      📷 {t('espace.changerPhoto')}
+                      <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handlePhotoChange} style={{ display: 'none' }} />
+                    </label>
                   </div>
-                ))}
-              </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>{t('espace.prenom')}</label>
+                      <input value={editForm.prenom} onChange={e => setEditForm(f => ({ ...f, prenom: e.target.value }))}
+                        style={{ width: '100%', padding: '10px 12px', border: '1.5px solid var(--border-color)', borderRadius: 6, fontSize: 14, background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>{t('espace.nom')}</label>
+                      <input value={editForm.nom} onChange={e => setEditForm(f => ({ ...f, nom: e.target.value }))}
+                        style={{ width: '100%', padding: '10px 12px', border: '1.5px solid var(--border-color)', borderRadius: 6, fontSize: 14, background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>{t('espace.telephone')}</label>
+                    <input value={editForm.telephone} onChange={e => setEditForm(f => ({ ...f, telephone: e.target.value }))}
+                      style={{ width: '100%', padding: '10px 12px', border: '1.5px solid var(--border-color)', borderRadius: 6, fontSize: 14, background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>{t('espace.ville')}</label>
+                    <input value={editForm.ville} onChange={e => setEditForm(f => ({ ...f, ville: e.target.value }))}
+                      style={{ width: '100%', padding: '10px 12px', border: '1.5px solid var(--border-color)', borderRadius: 6, fontSize: 14, background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                  </div>
+
+                  {profilMsg && (
+                    <div style={{ padding: '8px 12px', borderRadius: 6, fontSize: 13, fontFamily: 'Arial, sans-serif', background: profilMsg.ok ? 'var(--green-pale)' : '#FEF2F2', color: profilMsg.ok ? 'var(--green-mid)' : '#B91C1C' }}>
+                      {profilMsg.text}
+                    </div>
+                  )}
+
+                  <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
+                    <button onClick={enregistrerProfil} disabled={savingProfil}
+                      style={{ flex: 1, background: '#2D6A4F', color: '#fff', border: 'none', padding: '11px', borderRadius: 6, fontSize: 14, fontFamily: 'Arial, sans-serif', fontWeight: 700, cursor: savingProfil ? 'not-allowed' : 'pointer', opacity: savingProfil ? 0.7 : 1 }}>
+                      {savingProfil ? t('espace.enregistrement') : t('espace.enregistrer')}
+                    </button>
+                    <button onClick={fermerEdition} disabled={savingProfil}
+                      style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-secondary)', padding: '11px 20px', borderRadius: 6, fontSize: 14, fontFamily: 'Arial, sans-serif', cursor: 'pointer' }}>
+                      {t('espace.annuler')}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Actions rapides */}

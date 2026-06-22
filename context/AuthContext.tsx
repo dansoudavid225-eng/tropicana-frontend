@@ -13,6 +13,7 @@ export type User = {
   ville: string
   date_inscription: string
   photo_url?: string | null
+  photo_affichee?: string | null
   google_id?: string | null
   is_staff?: boolean
 }
