@@ -1,6 +1,5 @@
 import HeroSlider from '@/components/HeroSlider'
 import HomePageClient from './HomePageClient'
-import { getSiteContent } from '@/lib/siteContent'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -32,16 +31,15 @@ async function get<T>(path: string, fallback: T): Promise<T> {
 }
 
 export default async function Home() {
-  const [testimonials, bienfaits, configAccueil, configSite, siteContent] = await Promise.all([
+  const [testimonials, bienfaits, configAccueil, configSite] = await Promise.all([
     get('/temoignages/', testimonialsDefaut),
     get('/bienfaits/', bienfaitsFallback),
     get('/config-accueil/', null),
     get('/config-site/', null),
-    getSiteContent(),
   ])
   return (
     <>
-      <HeroSlider heroSousTitre={siteContent.hero_sous_titre} heroSousTitreEm={siteContent.hero_sous_titre_em} />
+      <HeroSlider />
       <HomePageClient
         bienfaits={bienfaits as any}
         testimonials={testimonials as any}
