@@ -1056,7 +1056,18 @@ function Commandes({ token }: { token: string }) {
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <button
-                onClick={() => window.open(`${API}/admin/commandes/${sel.id}/bon/`, '_blank')}
+                onClick={async () => {
+                  try {
+                    const res = await fetch(`${API}/admin/commandes/${sel.id}/bon/`, { headers: ah(token) })
+                    if (!res.ok) { st('Erreur lors de la génération du bon.', false); return }
+                    const html = await res.text()
+                    const blob = new Blob([html], { type: 'text/html' })
+                    const url = URL.createObjectURL(blob)
+                    window.open(url, '_blank')
+                  } catch {
+                    st('Erreur réseau lors de la génération du bon.', false)
+                  }
+                }}
                 style={{ flex: 1, background: '#2D6A4F', color: '#fff', border: 'none', borderRadius: 8, padding: '10px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
               >🖨️ Imprimer le bon</button>
               <button
