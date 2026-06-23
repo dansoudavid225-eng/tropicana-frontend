@@ -9,11 +9,22 @@ type Bienfait  = { id?: number; icone?: string; titre?: string; title?: string; 
 type Temoignage= { nom?: string; name?: string; ville?: string; city?: string; texte?: string; text?: string; note?: number }
 type CfgAccueil= { tasse_image?: string; tasse_label?: string; tasse_citation?: string; tasse_lien?: string; tasse_bouton?: string } | null
 type CfgSite   = { arguments?: any[]; stats?: any[] } | null
+type SiteContentArgs = { arguments?: { icon: string; title: string; sub: string }[]; stats?: { num: string; label: string; icon: string; desc: string }[]; stats_bandeau?: string; temoignages_rapides?: { texte: string; nom: string; ville: string }[]; tasse_label?: string; tasse_citation?: string; tasse_citation_em?: string; tasse_btn?: string; fondateur_label?: string; fondateur_titre?: string; fondateur_citation?: string; fondateur_nom?: string; fondateur_sous?: string; fondateur_btn?: string; plante_label?: string; plante_titre?: string; plante_titre_em?: string; plante_texte?: string; plante_points?: string[] } | null
 
-interface Props { bienfaits: Bienfait[]; testimonials: Temoignage[]; configAccueil: CfgAccueil; configSite: CfgSite }
+interface Props { bienfaits: Bienfait[]; testimonials: Temoignage[]; configAccueil: CfgAccueil; configSite: CfgSite; siteContent?: SiteContentArgs }
 
-export default function HomePageClient({ bienfaits, testimonials, configAccueil, configSite }: Props) {
+export default function HomePageClient({ bienfaits, testimonials, configAccueil, configSite, siteContent }: Props) {
   const { lang, t } = useLang()
+
+  // Les arguments/stats configurés depuis le panneau admin (SiteContent) priment sur ConfigSite
+  // et le fallback codé en dur — on convertit leurs clés EN (icon/title/sub) vers FR (icone/titre/sous)
+  // attendues par le reste de ce composant.
+  const argumentsAdmin = siteContent?.arguments?.length
+    ? siteContent.arguments.map(a => ({ icone: a.icon, titre: a.title, sous: a.sub }))
+    : null
+  const statsAdmin = siteContent?.stats?.length
+    ? siteContent.stats.map(s => ({ num: s.num, label: s.label, icone: s.icon, desc: s.desc }))
+    : null
 
   const args = lang === 'en'
     ? [ { icone:'🌱', titre:'100% Organic', sous:'No fertilizer or herbicide' }, { icone:'🔬', titre:'Science-backed', sous:'Formulated by a veterinarian' }, { icone:'👨‍👩‍👧', titre:'Whole family', sous:'Recommended from age 2' }, { icone:'🇧🇯', titre:'Made in Benin', sous:'Nationwide delivery' } ]
@@ -50,7 +61,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       {/* STRIP ARGUMENTS */}
       <section style={{ background:'var(--bg-section)', borderBottom:'1px solid var(--border-color)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
-          {(configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
+          {(argumentsAdmin ?? configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
             <div key={item.titre ?? i} style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
               <div style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>{item.icone}</div>
               <div>
@@ -79,13 +90,13 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               <div style={{ width:7, height:7, background:'#C9973A', transform:'rotate(45deg)' }} />
               <div style={{ flex:1, height:1, background:'var(--border-color)' }} />
             </div>
-            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('home.planteLabel')}</span>
+            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{siteContent?.plante_label || t('home.planteLabel')}</span>
             <h2 style={{ fontSize:28, fontWeight:400, color:'var(--text-primary)', marginTop:8, marginBottom:16, lineHeight:1.3 }}>
-              {t('home.planteTitre1')}<br /><em style={{ color:'#C9973A' }}>{t('home.planteTitre2')}</em>
+              {siteContent?.plante_titre || t('home.planteTitre1')}<br /><em style={{ color:'#C9973A' }}>{siteContent?.plante_titre_em || t('home.planteTitre2')}</em>
             </h2>
-            <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif', lineHeight:1.9, marginBottom:20, fontWeight:300 }}>{t('home.planteDesc')}</p>
-            {planteBullets.map(b => (
-              <div key={b} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
+            <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif', lineHeight:1.9, marginBottom:20, fontWeight:300 }}>{siteContent?.plante_texte || t('home.planteDesc')}</p>
+            {(siteContent?.plante_points?.length ? siteContent.plante_points : planteBullets).map((b, i) => (
+              <div key={b || i} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
                 <div style={{ width:6, height:6, background:'#2D6A4F', borderRadius:'50%', flexShrink:0 }} />
                 <span style={{ fontSize:14, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif' }}>{b}</span>
               </div>
@@ -124,13 +135,14 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.65)', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', textAlign:'center', padding:24 }}>
           <ScrollReveal animation="fadeIn" style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
             <span style={{ fontSize:15, letterSpacing:'3px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase', marginBottom:12 }}>
-              {configAccueil?.tasse_label || (lang === 'en' ? 'A moment just for you' : 'Un moment rien que pour vous')}
+              {siteContent?.tasse_label || configAccueil?.tasse_label || (lang === 'en' ? 'A moment just for you' : 'Un moment rien que pour vous')}
             </span>
             <h2 style={{ fontSize:30, fontWeight:400, color:'#F0EBE0', lineHeight:1.3, maxWidth:480, marginBottom:20 }}>
-              &quot;{configAccueil?.tasse_citation || t('home.cta')}&quot;
+              &quot;{siteContent?.tasse_citation || configAccueil?.tasse_citation || t('home.cta')}&quot;
+              {siteContent?.tasse_citation_em && <em style={{ color:'#C9973A', fontStyle:'italic', display:'block', fontSize:'0.8em', marginTop:6 }}>{siteContent.tasse_citation_em}</em>}
             </h2>
             <Link href={configAccueil?.tasse_lien || '/boutique'} className="btn-gold">
-              {configAccueil?.tasse_bouton || (lang === 'en' ? 'Order now' : 'Commander maintenant')}
+              {siteContent?.tasse_btn || configAccueil?.tasse_bouton || (lang === 'en' ? 'Order now' : 'Commander maintenant')}
             </Link>
           </ScrollReveal>
         </div>
@@ -140,8 +152,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       <section style={{ background:'#1A3C2E', padding:'60px 24px' }}>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <ScrollReveal animation="slideLeft">
-            <span className="section-label">{t('home.fondateurLabel')}</span>
-            <h2 className="section-title light">{t('home.fondateurTitre')}</h2>
+            <span className="section-label">{siteContent?.fondateur_label || t('home.fondateurLabel')}</span>
+            <h2 className="section-title light">{siteContent?.fondateur_titre || t('home.fondateurTitre')}</h2>
           </ScrollReveal>
           <ScrollReveal animation="fadeUp" delay={150}>
             <div style={{ background:'#0D2318', borderRadius:12, padding:'32px 28px', display:'flex', gap:24, alignItems:'center', flexWrap:'wrap', marginTop:8 }}>
@@ -149,11 +161,11 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                 <Image src="/images/fondateur-durand.jpg" alt="Felicien Prosper Durand" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
               </div>
               <div style={{ flex:1, minWidth:240 }}>
-                <p style={{ fontSize:15, fontStyle:'italic', color:'#E8F5EE', lineHeight:1.8, marginBottom:14 }}>&quot;{t('home.fondateurCit')}&quot;</p>
-                <p style={{ fontSize:14, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'0.5px' }}>Felicien Prosper DURAND</p>
-                <p style={{ fontSize:15, color:'#6B9E7A', fontFamily:'Arial, sans-serif', marginTop:3 }}>{t('footer.fondateur')}</p>
+                <p style={{ fontSize:15, fontStyle:'italic', color:'#E8F5EE', lineHeight:1.8, marginBottom:14 }}>&quot;{siteContent?.fondateur_citation || t('home.fondateurCit')}&quot;</p>
+                <p style={{ fontSize:14, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'0.5px' }}>{siteContent?.fondateur_nom || 'Felicien Prosper DURAND'}</p>
+                <p style={{ fontSize:15, color:'#6B9E7A', fontFamily:'Arial, sans-serif', marginTop:3 }}>{siteContent?.fondateur_sous || t('footer.fondateur')}</p>
               </div>
-              <Link href="/histoire" className="btn-ghost" style={{ flexShrink:0 }}>{t('home.lireHistoire')}</Link>
+              <Link href="/histoire" className="btn-ghost" style={{ flexShrink:0 }}>{siteContent?.fondateur_btn || t('home.lireHistoire')}</Link>
             </div>
           </ScrollReveal>
         </div>
@@ -272,10 +284,10 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       {/* STATS */}
       <section style={{ background:'#0D2318', padding:'0' }}>
         <div style={{ background:'#C9973A', padding:'10px 24px', textAlign:'center' }}>
-          <p style={{ fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', letterSpacing:'1.5px', textTransform:'uppercase' }}>{t('home.bannerTxt')}</p>
+          <p style={{ fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', letterSpacing:'1.5px', textTransform:'uppercase' }}>{siteContent?.stats_bandeau || t('home.bannerTxt')}</p>
         </div>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', maxWidth:1200, margin:'0 auto', padding:'48px 24px', gap:32 }}>
-          {(configSite?.stats ?? stats).map((s:any) => (
+          {(statsAdmin ?? configSite?.stats ?? stats).map((s:any) => (
             <div key={s.num} style={{ textAlign:'center', padding:'8px' }}>
               <div style={{ fontSize:36, marginBottom:10 }}>{s.icone}</div>
               <span style={{ display:'block', fontSize:38, fontWeight:400, color:'#C9973A', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:8 }}>{s.num}</span>
@@ -285,6 +297,26 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
           ))}
         </div>
       </section>
+
+      {/* AVIS RAPIDES */}
+      {siteContent?.temoignages_rapides && siteContent.temoignages_rapides.length > 0 && (
+        <section style={{ background:'var(--bg-page)', padding:'56px 24px' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:20 }}>
+              {siteContent.temoignages_rapides.map((avis, i) => (
+                <div key={i} style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, padding:'20px 22px' }}>
+                  <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Georgia, serif', fontStyle:'italic', lineHeight:1.6, marginBottom:14 }}>
+                    « {avis.texte} »
+                  </p>
+                  <p style={{ fontSize:13, fontWeight:700, color:'var(--text-primary)', fontFamily:'Arial, sans-serif' }}>
+                    {avis.nom}{avis.ville ? <span style={{ color:'var(--text-muted)', fontWeight:400 }}> — {avis.ville}</span> : null}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }

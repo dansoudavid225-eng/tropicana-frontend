@@ -9,6 +9,7 @@ import AnnouncementBar from '@/components/AnnouncementBar'
 import { AuthProvider } from '@/context/AuthContext'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { getSiteContent } from '@/lib/siteContent'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -93,7 +94,25 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const HEX_VALIDE = /^#[0-9A-Fa-f]{6}$/
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const siteContent = await getSiteContent()
+
+  // Injection des couleurs personnalisées (panneau admin > Couleurs).
+  // On ne génère du CSS que pour les couleurs qui sont des hex valides ET différentes
+  // de la valeur par défaut, pour ne jamais envoyer de CSS inutile ou invalide.
+  const couleurs = [
+    { val: siteContent.couleur_fonce, defaut: '#1A3C2E', vars: ['--green-deep', '--navbar-bg'] },
+    { val: siteContent.couleur_vert,  defaut: '#2D6A4F', vars: ['--green-mid', '--scrollbar-thumb'] },
+    { val: siteContent.couleur_or,    defaut: '#C9973A', vars: ['--gold'] },
+    { val: siteContent.couleur_creme, defaut: '#F5F0E8', vars: ['--bg-section'] },
+  ]
+  const overrides = couleurs
+    .filter(c => c.val && HEX_VALIDE.test(c.val) && c.val.toUpperCase() !== c.defaut.toUpperCase())
+    .flatMap(c => c.vars.map(v => `${v}: ${c.val};`))
+    .join(' ')
+
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <head>
@@ -107,6 +126,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             } catch(e){}
           })();
         `}} />
+        {/* Couleurs personnalisées depuis le panneau admin (n'écrit rien si tout est par défaut) */}
+        {overrides && (
+          <style dangerouslySetInnerHTML={{ __html: `:root, [data-theme="light"], [data-theme="dark"] { ${overrides} }` }} />
+        )}
         {/* Schema.org JSON-LD — améliore le référencement Google */}
         <script
           type="application/ld+json"

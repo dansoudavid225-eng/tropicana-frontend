@@ -3,14 +3,26 @@ import { useState, useEffect } from 'react'
 import { useSiteConfig } from '@/lib/useSiteConfig'
 import { useLang } from '@/context/LanguageContext'
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+
 export default function AnnouncementBar() {
   const cfg = useSiteConfig()
   const { t } = useLang()
   const [current, setCurrent] = useState(0)
   const [visible, setVisible] = useState(true)
   const [fading, setFading] = useState(false)
+  const [annoncesAdmin, setAnnoncesAdmin] = useState<string[] | null>(null)
 
-  const messages = [
+  useEffect(() => {
+    fetch(`${API_BASE}/content-site/`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.annonces?.length) setAnnoncesAdmin(data.annonces)
+      })
+      .catch(() => {})
+  }, [])
+
+  const messages = annoncesAdmin ?? [
     t('annonce.livraison'),
     t('annonce.delai'),
     `${t('annonce.whatsapp')} : ${cfg.telephone}`,
