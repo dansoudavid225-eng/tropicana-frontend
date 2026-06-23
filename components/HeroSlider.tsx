@@ -80,7 +80,7 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm }: { heroSou
             alt={s.titre}
             fill
             priority={i === 0}
-            style={{ objectFit: 'cover', objectPosition: '60% center' }}
+            style={{ objectFit: 'cover', objectPosition: 'center center' }}
             unoptimized={!!s.image && s.image.startsWith('http')}
           />
         </div>
