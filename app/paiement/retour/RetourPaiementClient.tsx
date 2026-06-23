@@ -18,22 +18,30 @@ export default function RetourPaiementClient() {
   useEffect(() => {
     if (!commandeId) { router.replace('/boutique'); return }
 
-    if (statutParam === 'approved') {
-      setStatut('success')
-    } else if (statutParam === 'declined' || statutParam === 'canceled') {
-      setStatut('failed')
-    } else {
-      const token = localStorage.getItem('pio_access')
-      fetch(`${API_BASE}/commandes/${commandeId}/`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+    // On ne fait jamais confiance au seul paramètre `status` de l'URL (modifiable
+    // par n'importe qui) : on vérifie toujours le vrai statut auprès du backend,
+    // qui lui ne se base que sur le webhook FedaPay vérifié par signature.
+    // Endpoint public : fonctionne même si le client n'est pas connecté.
+    const verifier = () => fetch(`${API_BASE}/commandes/${commandeId}/statut-paiement/`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.payee || data.statut === 'confirmee') setStatut('success')
+        else if (data.statut === 'annulee') setStatut('failed')
+        else setStatut('pending')
       })
-        .then(r => r.json())
-        .then(data => {
-          if (data.payee || data.statut === 'confirmee') setStatut('success')
-          else if (data.statut === 'annulee') setStatut('failed')
-          else setStatut('pending')
-        })
-        .catch(() => setStatut('pending'))
+      .catch(() => setStatut('pending'))
+
+    verifier()
+    // Si FedaPay a redirigé avec un statut "decliné/annulé", pas besoin d'attendre :
+    // on l'affiche tout de suite (ça n'autorise rien, juste un message plus rapide).
+    if (statutParam === 'declined' || statutParam === 'canceled') {
+      setStatut('failed')
+    }
+    // Si la commande semble "approved" côté URL mais que le webhook n'est pas encore
+    // arrivé, on réessaie la vérification réelle après quelques secondes.
+    if (statutParam === 'approved') {
+      const retry = setTimeout(verifier, 3000)
+      return () => clearTimeout(retry)
     }
   }, [commandeId, statutParam, router])
 
