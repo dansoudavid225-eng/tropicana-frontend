@@ -1061,7 +1061,13 @@ function Commandes({ token }: { token: string }) {
               >🖨️ Imprimer le bon</button>
               <button
                 onClick={async () => {
-                  if (!confirm('Rembourser cette commande et notifier le client ?')) return
+                  if (!confirm(
+                    "⚠️ FedaPay ne propose pas de remboursement automatique par API.\n\n" +
+                    "Ce bouton ne fait QUE : marquer la commande comme remboursée dans ce système, " +
+                    "et envoyer un email au client pour le prévenir.\n\n" +
+                    "Si l'argent n'a pas encore été rendu, fais-le D'ABORD manuellement depuis ton " +
+                    "dashboard FedaPay (Remboursements), puis clique OK pour continuer ici."
+                  )) return
                   const note = prompt('Motif du remboursement :') || ''
                   const res = await fetch(`${API}/admin/commandes/${sel.id}/rembourser/`, { method: 'POST', headers: ah(token), body: JSON.stringify({ note }) })
                   const d = await res.json()
@@ -1069,7 +1075,7 @@ function Commandes({ token }: { token: string }) {
                   if (res.ok) { setSel(null); charger() }
                 }}
                 style={{ flex: 1, background: '#FEE2E2', color: '#DC2626', border: 'none', borderRadius: 8, padding: '10px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
-              >💰 Rembourser</button>
+              >💰 Marquer remboursé</button>
             </div>
           </div>
         </div>
