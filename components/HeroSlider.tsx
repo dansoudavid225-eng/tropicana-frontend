@@ -17,7 +17,6 @@ type Slide = {
   ordre: number
 }
 
-// Slide de secours si l'API ne répond pas
 const FALLBACK: Slide[] = [
   {
     id: 0,
@@ -52,7 +51,6 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm }: { heroSou
   const next = useCallback(() => setCurrent(c => (c + 1) % slides.length), [slides.length])
   const prev = () => setCurrent(c => (c - 1 + slides.length) % slides.length)
 
-  // Défilement automatique toutes les 5 secondes
   useEffect(() => {
     if (slides.length <= 1) return
     const timer = setInterval(next, 5000)
@@ -62,100 +60,253 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm }: { heroSou
   const slide = slides[current]
 
   return (
-    <section style={{ position: 'relative', minHeight: '100svh', display: 'flex', alignItems: 'flex-start', overflow: 'hidden' }}>
+    <>
+      <section style={{ position: 'relative', minHeight: '100svh', display: 'flex', alignItems: 'flex-start', overflow: 'hidden' }}>
 
-      {/* Images de fond — une par slide */}
-      {slides.map((s, i) => (
-        <div
-          key={s.id}
-          style={{
-            position: 'absolute', inset: 0,
-            opacity: i === current ? 1 : 0,
-            transition: 'opacity 0.8s ease-in-out',
-            zIndex: 0,
-          }}
-        >
-          <Image
-            src={s.image || '/images/hero-tasse.jpg'}
-            alt={s.titre}
-            fill
-            priority={i === 0}
-            style={{ objectFit: 'cover', objectPosition: 'center center' }}
-            unoptimized={!!s.image && s.image.startsWith('http')}
-          />
-        </div>
-      ))}
+        {/* Images de fond */}
+        {slides.map((s, i) => (
+          <div
+            key={s.id}
+            style={{
+              position: 'absolute', inset: 0,
+              opacity: i === current ? 1 : 0,
+              transition: 'opacity 0.8s ease-in-out',
+              zIndex: 0,
+            }}
+          >
+            <Image
+              src={s.image || '/images/hero-tasse.jpg'}
+              alt={s.titre}
+              fill
+              priority={i === 0}
+              style={{ objectFit: 'cover', objectPosition: 'center center' }}
+              unoptimized={!!s.image && s.image.startsWith('http')}
+            />
+          </div>
+        ))}
 
-      {/* Overlay dégradé */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,30,20,0.88) 0%, rgba(10,30,20,0.55) 45%, rgba(10,30,20,0.10) 100%)', zIndex: 1 }} />
+        {/* Overlay — plus sombre sur mobile pour lisibilité */}
+        <div className="hero-overlay" style={{ position: 'absolute', inset: 0, zIndex: 1 }} />
 
-      {/* Contenu du slide actif */}
-      <div style={{ position: 'relative', zIndex: 10, width: '100%', padding: '140px 28px 60px' }}>
-        <div style={{ maxWidth: 620 }}>
-          <h1 style={{ fontSize: 'clamp(38px, 7vw, 64px)', fontWeight: 700, color: '#F0EBE0', lineHeight: 1.1, marginBottom: 20, marginTop: 0, textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}>
-            {slide.titre}<br />
-            {slide.sous_titre && (
-              <em style={{ color: '#C9973A', fontStyle: 'italic' }}>{slide.sous_titre}</em>
-            )}
-          </h1>
-          <p style={{ color: 'rgba(240,235,224,0.88)', fontSize: 'clamp(15px, 2.5vw, 18px)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 36, maxWidth: 480, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
-            {heroSousTitre || t('hero.sousTitreDefaut')}{' '}
-            {heroSousTitreEm && <span style={{ color: '#C9973A', fontStyle: 'italic' }}>{heroSousTitreEm}</span>}
-          </p>
-          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-            <Link
-              href={slide.lien || '/boutique'}
-              className="btn-gold"
-              style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50 }}
-            >
-              {slide.texte_bouton || 'Commander dès 1 000 FCFA'}
-            </Link>
-            <Link
-              href="/histoire"
-              className="btn-ghost"
-              style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50, color: '#fff', borderColor: 'rgba(255,255,255,0.6)' }}
-            >
-              Notre histoire
-            </Link>
+        {/* Contenu */}
+        <div className="hero-content" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
+          <div className="hero-text-block">
+            <h1 className="hero-title">
+              {slide.titre}<br />
+              {slide.sous_titre && (
+                <em style={{ color: '#C9973A', fontStyle: 'italic' }}>{slide.sous_titre}</em>
+              )}
+            </h1>
+            <p className="hero-sub">
+              {heroSousTitre || t('hero.sousTitreDefaut')}{' '}
+              {heroSousTitreEm && <span style={{ color: '#C9973A', fontStyle: 'italic' }}>{heroSousTitreEm}</span>}
+            </p>
+            <div className="hero-cta-row">
+              <Link
+                href={slide.lien || '/boutique'}
+                className="btn-gold"
+                style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50 }}
+              >
+                {slide.texte_bouton || 'Commander dès 1 000 FCFA'}
+              </Link>
+              <Link
+                href="/histoire"
+                className="btn-ghost"
+                style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50, color: '#fff', borderColor: 'rgba(255,255,255,0.6)' }}
+              >
+                Notre histoire
+              </Link>
+            </div>
+
+            {/* Badge confiance — visible sur mobile comme CEVADEL */}
+            <div className="hero-badges">
+              <span className="hero-badge">✅ 100% Bio</span>
+              <span className="hero-badge">🌿 Made in Bénin</span>
+              <span className="hero-badge">⭐ 500+ familles</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Boutons précédent / suivant — seulement si plusieurs slides */}
-      {slides.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', width: 44, height: 44, borderRadius: '50%', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
-            aria-label="Slide précédent"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', width: 44, height: 44, borderRadius: '50%', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
-            aria-label="Slide suivant"
-          >
-            ›
-          </button>
-        </>
-      )}
-
-      {/* Indicateurs points en bas */}
-      {slides.length > 1 && (
-        <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, zIndex: 20, alignItems: 'center' }}>
-          {slides.map((_, i) => (
+        {/* Boutons précédent / suivant */}
+        {slides.length > 1 && (
+          <>
             <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              style={{ width: i === current ? 24 : 8, height: 8, borderRadius: 4, background: i === current ? '#C9973A' : 'rgba(255,255,255,0.4)', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
-              aria-label={`Aller au slide ${i + 1}`}
-            />
-          ))}
-        </div>
-      )}
+              onClick={prev}
+              style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', width: 44, height: 44, borderRadius: '50%', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
+              aria-label="Slide précédent"
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              style={{ position: 'absolute', right: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 20, background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', width: 44, height: 44, borderRadius: '50%', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}
+              aria-label="Slide suivant"
+            >
+              ›
+            </button>
+          </>
+        )}
 
+        {/* Indicateurs */}
+        {slides.length > 1 && (
+          <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, zIndex: 20, alignItems: 'center' }}>
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                style={{ width: i === current ? 24 : 8, height: 8, borderRadius: 4, background: i === current ? '#C9973A' : 'rgba(255,255,255,0.4)', border: 'none', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
+                aria-label={`Aller au slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </section>
 
-    </section>
+      <style>{`
+        /* ── Hero overlay ── */
+        .hero-overlay {
+          background: linear-gradient(to right, rgba(10,30,20,0.88) 0%, rgba(10,30,20,0.55) 45%, rgba(10,30,20,0.10) 100%);
+        }
+
+        /* ── Hero content wrapper ── */
+        .hero-content {
+          padding: 140px 28px 60px;
+        }
+
+        /* ── Bloc texte ── */
+        .hero-text-block {
+          max-width: 620px;
+        }
+
+        /* ── Titre principal ── */
+        .hero-title {
+          font-size: clamp(38px, 7vw, 64px);
+          font-weight: 700;
+          color: #F0EBE0;
+          line-height: 1.1;
+          margin-bottom: 20px;
+          margin-top: 0;
+          text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+
+        /* ── Sous-titre ── */
+        .hero-sub {
+          color: rgba(240,235,224,0.88);
+          font-size: clamp(15px, 2.5vw, 18px);
+          font-family: Arial, sans-serif;
+          line-height: 1.7;
+          margin-bottom: 36px;
+          max-width: 480px;
+          text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+        }
+
+        /* ── Boutons CTA ── */
+        .hero-cta-row {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+
+        /* ── Badges confiance ── */
+        .hero-badges {
+          display: none; /* caché desktop, visible mobile */
+          margin-top: 24px;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .hero-badge {
+          background: rgba(255,255,255,0.12);
+          border: 1px solid rgba(201,151,58,0.35);
+          color: #F0EBE0;
+          font-size: 12px;
+          font-family: Arial, sans-serif;
+          font-weight: 600;
+          padding: 5px 10px;
+          border-radius: 20px;
+          backdrop-filter: blur(4px);
+          white-space: nowrap;
+        }
+
+        /* ════════════════════════════════════════
+           MOBILE — ≤ 768px
+           Objectif: rendu proche de CEVADEL
+        ════════════════════════════════════════ */
+        @media (max-width: 768px) {
+
+          /* Overlay plus sombre sur mobile pour lisibilité */
+          .hero-overlay {
+            background: linear-gradient(
+              180deg,
+              rgba(10,30,20,0.60) 0%,
+              rgba(10,30,20,0.82) 55%,
+              rgba(10,30,20,0.92) 100%
+            );
+          }
+
+          /* Contenu centré sur mobile comme CEVADEL */
+          .hero-content {
+            padding: 100px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .hero-text-block {
+            max-width: 100%;
+            text-align: center;
+          }
+
+          /* Titre plus compact mais impactant */
+          .hero-title {
+            font-size: clamp(30px, 8vw, 42px);
+            margin-bottom: 14px;
+          }
+
+          /* Sous-titre centré */
+          .hero-sub {
+            font-size: 15px;
+            margin-bottom: 28px;
+            max-width: 100%;
+          }
+
+          /* CTA centrés et plein-largeur sur très petit écran */
+          .hero-cta-row {
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .hero-cta-row a {
+            flex: 1;
+            min-width: 140px;
+            text-align: center !important;
+            padding: 13px 16px !important;
+            font-size: 14px !important;
+          }
+
+          /* Badges visibles sur mobile */
+          .hero-badges {
+            display: flex;
+            justify-content: center;
+          }
+        }
+
+        /* ── Très petit écran ≤ 380px ── */
+        @media (max-width: 380px) {
+          .hero-content {
+            padding: 90px 16px 70px;
+          }
+          .hero-title {
+            font-size: 28px;
+          }
+          .hero-cta-row {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .hero-cta-row a {
+            text-align: center !important;
+          }
+        }
+      `}</style>
+    </>
   )
 }

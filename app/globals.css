@@ -442,3 +442,152 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Transition globale pour les éléments interactifs */
 a, button { transition: all 0.2s ease; }
+
+/* ══════════════════════════════════════════════════════════════
+   AMÉLIORATIONS MOBILE — Style CEVADEL
+   Sections bien empilées, CTA fixe, lisibilité optimisée
+══════════════════════════════════════════════════════════════ */
+
+/* ── CTA flottant en bas sur mobile (comme CEVADEL) ── */
+.mobile-sticky-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  /* CTA fixe en bas */
+  .mobile-sticky-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    padding: 10px 16px 16px;
+    background: linear-gradient(to top, rgba(10,30,20,0.98) 60%, transparent);
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-sticky-cta a {
+    flex: 1;
+    max-width: 280px;
+    text-align: center !important;
+    padding: 14px 16px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 20px rgba(201,151,58,0.35) !important;
+  }
+
+  /* Compenser l'espace du CTA fixe */
+  body {
+    padding-bottom: 72px;
+  }
+
+  /* ── Strip arguments — plus grand sur mobile ── */
+  .args-strip-item {
+    padding: 16px 14px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .args-strip-icon {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+
+  .args-strip-titre {
+    font-size: 15px !important;
+  }
+
+  .args-strip-sous {
+    font-size: 13px !important;
+  }
+
+  /* ── Section plante — image au-dessus texte ── */
+  .plante-grid {
+    flex-direction: column !important;
+    gap: 28px !important;
+  }
+
+  .plante-image-block {
+    width: 100% !important;
+    height: 280px !important;
+    flex-shrink: unset !important;
+  }
+
+  /* ── Bienfaits — 2 colonnes sur mobile ── */
+  .bienfaits-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  /* ── Section produit — empilé ── */
+  .produit-card {
+    flex-direction: column !important;
+  }
+
+  .produit-image-block {
+    flex: unset !important;
+    width: 100% !important;
+    min-height: 200px !important;
+    height: 200px !important;
+    position: relative !important;
+  }
+
+  /* ── Stats — 2 colonnes ── */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    padding: 36px 16px !important;
+  }
+
+  /* ── Section fondateur — padding réduit ── */
+  .fondateur-card {
+    padding: 20px 16px !important;
+  }
+
+  /* ── Temoignages — 1 colonne ── */
+  .temo-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Sections générales — padding réduit ── */
+  .section-mobile-pad {
+    padding: 40px 16px !important;
+  }
+
+  /* ── Section localisation ── */
+  .loc-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* ── Tasse / CTA banner ── */
+  .tasse-section {
+    height: 280px !important;
+  }
+
+  /* ── Connexion visible dans menu mobile ── */
+  .mobile-auth-highlight {
+    display: flex !important;
+    background: linear-gradient(135deg, rgba(201,151,58,0.12), rgba(201,151,58,0.06)) !important;
+    border: 1px solid rgba(201,151,58,0.3) !important;
+    border-radius: 10px !important;
+    margin: 8px 12px !important;
+  }
+}
+
+/* ── Très petit écran ≤ 380px ── */
+@media (max-width: 380px) {
+  .bienfaits-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

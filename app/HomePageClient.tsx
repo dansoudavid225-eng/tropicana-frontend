@@ -16,9 +16,6 @@ interface Props { bienfaits: Bienfait[]; testimonials: Temoignage[]; configAccue
 export default function HomePageClient({ bienfaits, testimonials, configAccueil, configSite, siteContent }: Props) {
   const { lang, t } = useLang()
 
-  // Les arguments/stats configurés depuis le panneau admin (SiteContent) priment sur ConfigSite
-  // et le fallback codé en dur — on convertit leurs clés EN (icon/title/sub) vers FR (icone/titre/sous)
-  // attendues par le reste de ce composant.
   const argumentsAdmin = siteContent?.arguments?.length
     ? siteContent.arguments.map(a => ({ icone: a.icon, titre: a.title, sous: a.sub }))
     : null
@@ -58,15 +55,22 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
   return (
     <>
+      {/* ── CTA FIXE MOBILE (comme CEVADEL "Voir nos produits") ── */}
+      <div className="mobile-sticky-cta">
+        <Link href="/boutique" className="btn-gold">
+          ⭐ {lang === 'en' ? 'Order now' : 'Voir nos produits'}
+        </Link>
+      </div>
+
       {/* STRIP ARGUMENTS */}
       <section style={{ background:'var(--bg-section)', borderBottom:'1px solid var(--border-color)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {(argumentsAdmin ?? configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
-            <div key={item.titre ?? i} style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
-              <div style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>{item.icone}</div>
+            <div key={item.titre ?? i} className="args-strip-item" style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
+              <div className="args-strip-icon" style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>{item.icone}</div>
               <div>
-                <div style={{ fontSize:14, fontWeight:700, color:'var(--text-primary)', fontFamily:'Arial, sans-serif', marginBottom:2 }}>{item.titre}</div>
-                <div style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{item.sous}</div>
+                <div className="args-strip-titre" style={{ fontSize:14, fontWeight:700, color:'var(--text-primary)', fontFamily:'Arial, sans-serif', marginBottom:2 }}>{item.titre}</div>
+                <div className="args-strip-sous" style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{item.sous}</div>
               </div>
             </div>
           ))}
@@ -74,9 +78,9 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* LA PLANTE */}
-      <section style={{ background:'var(--bg-page)', padding:'60px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap' }}>
-          <div style={{ position:'relative', width:340, height:400, flexShrink:0 }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-page)', padding:'60px 24px' }}>
+        <div className="plante-grid" style={{ maxWidth:1200, margin:'0 auto', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap' }}>
+          <div className="plante-image-block" style={{ position:'relative', width:340, height:400, flexShrink:0 }}>
             <div style={{ position:'absolute', top:14, left:14, right:-14, bottom:-14, borderRadius:20, border:'2px solid rgba(201,151,58,0.35)', background:'rgba(201,151,58,0.06)' }} />
             <div style={{ position:'relative', width:'100%', height:'100%', borderRadius:20, overflow:'hidden', background:'#1A3C2E', boxShadow:'0 20px 60px rgba(0,0,0,0.25)' }}>
               <Image src="/images/plante-verveine.jpg" alt="Verveine blanche citronnée" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
@@ -106,14 +110,14 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* BIENFAITS */}
-      <section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
         <style>{`.bienfait-card{background:var(--bg-card);border:0.5px solid var(--border-color);border-radius:10px;padding:16px 14px;display:flex;gap:12px;align-items:flex-start;cursor:default;transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.28s ease,border-color 0.28s ease;will-change:transform}.bienfait-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 32px rgba(26,60,46,0.13);border-color:var(--gold)}.bienfait-icone{font-size:20px;flex-shrink:0;margin-top:2px;display:inline-block;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1)}.bienfait-card:hover .bienfait-icone{transform:scale(1.35) rotate(-8deg)}.bienfait-titre{font-size:14px;font-weight:700;color:var(--text-primary);font-family:Arial,sans-serif;margin-bottom:4px;transition:color 0.2s ease}.bienfait-card:hover .bienfait-titre{color:var(--gold)}.bienfait-desc{font-size:14px;color:var(--text-secondary);font-family:Arial,sans-serif;line-height:1.5}`}</style>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <ScrollReveal animation="fadeUp">
             <span className="section-label">{t('home.bienfaitsLabel')}</span>
             <h2 className="section-title">{t('home.bienfaitsTitre')}</h2>
           </ScrollReveal>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(240px, 1fr))', gap:14 }}>
+          <div className="bienfaits-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(240px, 1fr))', gap:14 }}>
             {bienfaits.map((b:any, i:number) => (
               <ScrollReveal key={b.id ?? b.titre} animation="scaleUp" delay={i*80}>
                 <div className="bienfait-card">
@@ -130,7 +134,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* TASSE */}
-      <section style={{ position:'relative', height:340, overflow:'hidden' }}>
+      <section className="tasse-section" style={{ position:'relative', height:340, overflow:'hidden' }}>
         <Image src={configAccueil?.tasse_image || '/images/tasse-dessus.jpg'} alt="Tasse de Thé Pio Pio" fill style={{ objectFit:'cover' }} unoptimized={!!configAccueil?.tasse_image} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.65)', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', textAlign:'center', padding:24 }}>
           <ScrollReveal animation="fadeIn" style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
@@ -149,14 +153,14 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* FONDATEUR */}
-      <section style={{ background:'#1A3C2E', padding:'60px 24px' }}>
+      <section className="section-mobile-pad" style={{ background:'#1A3C2E', padding:'60px 24px' }}>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <ScrollReveal animation="slideLeft">
             <span className="section-label">{siteContent?.fondateur_label || t('home.fondateurLabel')}</span>
             <h2 className="section-title light">{siteContent?.fondateur_titre || t('home.fondateurTitre')}</h2>
           </ScrollReveal>
           <ScrollReveal animation="fadeUp" delay={150}>
-            <div style={{ background:'#0D2318', borderRadius:12, padding:'32px 28px', display:'flex', gap:24, alignItems:'center', flexWrap:'wrap', marginTop:8 }}>
+            <div className="fondateur-card" style={{ background:'#0D2318', borderRadius:12, padding:'32px 28px', display:'flex', gap:24, alignItems:'center', flexWrap:'wrap', marginTop:8 }}>
               <div style={{ position:'relative', width:90, height:90, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'3px solid #C9973A' }}>
                 <Image src="/images/fondateur-durand.jpg" alt="Felicien Prosper Durand" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
               </div>
@@ -172,15 +176,15 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* PRODUIT */}
-      <section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <ScrollReveal animation="fadeUp">
             <span className="section-label">{t('home.boutiqueLabel')}</span>
             <h2 className="section-title">{t('home.produitTitre')}</h2>
           </ScrollReveal>
           <ScrollReveal animation="scaleUp" delay={200} style={{ maxWidth:680, marginTop:16 }}>
-            <div style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, overflow:'hidden', display:'flex', flexWrap:'wrap' }}>
-              <div style={{ position:'relative', flex:'0 0 260px', minHeight:220 }}>
+            <div className="produit-card" style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, overflow:'hidden', display:'flex', flexWrap:'wrap' }}>
+              <div className="produit-image-block" style={{ position:'relative', flex:'0 0 260px', minHeight:220 }}>
                 <Image src="/images/produit-tasse.jpg" alt="Thé Pio Pio" fill style={{ objectFit:'cover' }} />
                 <div style={{ position:'absolute', top:12, left:12, background:'#C9973A', color:'var(--text-primary)', fontSize:14, fontWeight:700, padding:'4px 10px', borderRadius:3, fontFamily:'Arial, sans-serif' }}>
                   {lang === 'en' ? '⭐ Popular' : '⭐ Populaire'}
@@ -209,7 +213,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       <Partenaires />
 
       {/* LOCALISATION */}
-      <section style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', padding:'90px 24px', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
+      <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', padding:'90px 24px', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
         <div style={{ position:'absolute', inset:0, opacity:0.15, backgroundImage:'linear-gradient(rgba(201,151,58,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,151,58,0.1) 1px, transparent 1px)', backgroundSize:'60px 60px', pointerEvents:'none' }} />
         <div style={{ maxWidth:1100, margin:'0 auto', position:'relative', zIndex:1 }}>
           <div style={{ marginBottom:52 }}>
@@ -218,7 +222,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               {t('home.cultive')}{' '}<em style={{ color:'#C9973A', fontStyle:'italic', fontWeight:400 }}>{t('home.location')}</em>
             </h2>
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))', gap:28, alignItems:'start' }}>
+          <div className="loc-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))', gap:28, alignItems:'start' }}>
             <div style={{ borderRadius:20, overflow:'hidden', boxShadow:'0 30px 70px rgba(0,0,0,0.5)', border:'1px solid rgba(201,151,58,0.2)' }}>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.052!2d2.6198!3d6.4969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023531cf0c5695b%3A0x97f7d7c0ecd8e1bb!2sOganla%2C%20Porto-Novo%2C%20Benin!5e0!3m2!1sfr!2sbj!4v1716559000000!5m2!1sfr!2sbj"
@@ -249,7 +253,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* TÉMOIGNAGES */}
-      <section style={{ background:'#1A3C2E', padding:'60px 24px' }}>
+      <section className="section-mobile-pad" style={{ background:'#1A3C2E', padding:'60px 24px' }}>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:8 }}>
             <div>
@@ -258,7 +262,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             </div>
             <Link href="/temoignages" className="btn-ghost" style={{ fontSize:14, padding:'10px 20px', marginBottom:8 }}>{t('temo.laisser')}</Link>
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:16, marginTop:8 }}>
+          <div className="temo-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:16, marginTop:8 }}>
             {testimonials.map((t2:any, i:number) => (
               <div key={t2.nom ?? t2.name ?? i} style={{ background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20 }}>
                 <div style={{ color:'#C9973A', fontSize:14, letterSpacing:3, marginBottom:12 }}>{'★'.repeat(Math.min(5, t2.note ?? 5))}</div>
@@ -286,7 +290,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <div style={{ background:'#C9973A', padding:'10px 24px', textAlign:'center' }}>
           <p style={{ fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', letterSpacing:'1.5px', textTransform:'uppercase' }}>{siteContent?.stats_bandeau || t('home.bannerTxt')}</p>
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', maxWidth:1200, margin:'0 auto', padding:'48px 24px', gap:32 }}>
+        <div className="stats-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', maxWidth:1200, margin:'0 auto', padding:'48px 24px', gap:32 }}>
           {(statsAdmin ?? configSite?.stats ?? stats).map((s:any) => (
             <div key={s.num} style={{ textAlign:'center', padding:'8px' }}>
               <div style={{ fontSize:36, marginBottom:10 }}>{s.icone}</div>
@@ -300,7 +304,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
       {/* AVIS RAPIDES */}
       {siteContent?.temoignages_rapides && siteContent.temoignages_rapides.length > 0 && (
-        <section style={{ background:'var(--bg-page)', padding:'56px 24px' }}>
+        <section className="section-mobile-pad" style={{ background:'var(--bg-page)', padding:'56px 24px' }}>
           <div style={{ maxWidth:1200, margin:'0 auto' }}>
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:20 }}>
               {siteContent.temoignages_rapides.map((avis, i) => (
