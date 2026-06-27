@@ -30,7 +30,7 @@ const FALLBACK: Slide[] = [
   },
 ]
 
-export default function HeroSlider({ heroSousTitre, heroSousTitreEm }: { heroSousTitre?: string; heroSousTitreEm?: string } = {}) {
+export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, heroBtn2 }: { heroSousTitre?: string; heroSousTitreEm?: string; heroBtn1?: string; heroBtn2?: string } = {}) {
   const { t } = useLang()
   const [slides, setSlides] = useState<Slide[]>(FALLBACK)
   const [current, setCurrent] = useState(0)
