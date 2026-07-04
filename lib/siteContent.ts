@@ -243,7 +243,7 @@ export const defaultContent: SiteContent = {
 export async function getSiteContent(): Promise<SiteContent> {
   try {
     const res = await fetch(`${API_BASE}/content-site/`, {
-      next: { revalidate: 60 }, // cache 60s
+      next: { revalidate: 0 }, // cache 60s
     })
     if (!res.ok) return defaultContent
     const remote = await res.json()
