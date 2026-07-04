@@ -24,7 +24,7 @@ const FALLBACK: Slide[] = [
     sous_titre: "dans votre tasse",
     image: '/images/hero-tasse.jpg',
     lien: '/boutique',
-    texte_bouton: 'Commander dès 1 000 FCFA',
+    texte_bouton: 'Commander maintenant',
     actif: true,
     ordre: 0,
   },
@@ -107,7 +107,7 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, h
                 className="btn-gold"
                 style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50 }}
               >
-                {slide.texte_bouton || 'Commander dès 1 000 FCFA'}
+                {slide.texte_bouton || 'Commander maintenant'}
               </Link>
               <Link
                 href="/histoire"

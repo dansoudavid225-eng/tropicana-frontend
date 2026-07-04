@@ -23,7 +23,7 @@ export const translations: Record<string, Record<Lang, string>> = {
   'nav.deconnexion':      { fr: 'Se déconnecter',    en: 'Log out' },
   'nav.fermer':           { fr: 'Fermer',            en: 'Close' },
   'nav.menu':             { fr: 'Menu',              en: 'Menu' },
-  'nav.commanderMobile':  { fr: '🛒 Commander dès 1 000 FCFA', en: '🛒 Order from 1,000 FCFA' },
+  'nav.commanderMobile':  { fr: '🛒 Commander maintenant', en: '🛒 Order from 1,000 FCFA' },
   'nav.modeJour':         { fr: 'Passer en mode jour', en: 'Switch to light mode' },
   'nav.modeNuit':         { fr: 'Passer en mode nuit', en: 'Switch to dark mode' },
 
@@ -357,11 +357,11 @@ export const translations: Record<string, Record<Lang, string>> = {
   // Footer — fallbacks CTA (si config admin vide)
   'footer.ctaLabel':          { fr: 'Prêt à prendre soin de vous ?', en: 'Ready to take care of yourself?' },
   'footer.ctaTexte':          { fr: "Commandez votre Thé Pio Pio dès aujourd'hui.", en: 'Order your Thé Pio Pio today.' },
-  'footer.ctaBouton':         { fr: 'Commander dès 1 000 FCFA',      en: 'Order from 1,000 FCFA' },
+  'footer.ctaBouton':         { fr: 'Commander maintenant',      en: 'Order from 1,000 FCFA' },
 
   // Hero accueil — sous-titre par defaut (si admin n'a rien configure)
   'hero.sousTitreDefaut':     { fr: 'Apaise ton stress, naturellement', en: 'Ease your stress, naturally' },
-  'hero.btn1Defaut':          { fr: 'Commander dès 1 000 FCFA',     en: 'Order from 1,000 FCFA' },
+  'hero.btn1Defaut':          { fr: 'Commander maintenant',     en: 'Order from 1,000 FCFA' },
   'hero.btn2Defaut':          { fr: 'Notre histoire',                en: 'Our story' },
 
   // Espace client — édition du profil
