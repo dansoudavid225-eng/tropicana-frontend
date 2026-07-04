@@ -165,7 +165,7 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, h
       <style>{`
         /* ── Hero overlay ── */
         .hero-overlay {
-          background: linear-gradient(to right, rgba(10,30,20,0.88) 0%, rgba(10,30,20,0.55) 45%, rgba(10,30,20,0.10) 100%);
+          background: linear-gradient(to right, rgba(10,30,20,0.55) 0%, rgba(10,30,20,0.30) 45%, rgba(10,30,20,0.05) 100%);
         }
 
         /* ── Hero content wrapper ── */
@@ -237,9 +237,9 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, h
           .hero-overlay {
             background: linear-gradient(
               180deg,
-              rgba(10,30,20,0.60) 0%,
-              rgba(10,30,20,0.82) 55%,
-              rgba(10,30,20,0.92) 100%
+              rgba(10,30,20,0.40) 0%,
+              rgba(10,30,20,0.55) 55%,
+              rgba(10,30,20,0.70) 100%
             );
           }
 
