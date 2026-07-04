@@ -112,7 +112,7 @@ export const defaultContent: SiteContent = {
   hero_titre_em:    'dans votre tasse',
   hero_sous_titre:  'Apaise ton stress, naturellement ',
   hero_sous_titre_em: '| Mį sȩ sīn Bōwā sīn',
-  hero_btn1:        'Commander dès 1 000 FCFA',
+  hero_btn1:        'Commander maintenant',
   hero_btn2:        'Notre histoire',
 
   // 4 arguments
