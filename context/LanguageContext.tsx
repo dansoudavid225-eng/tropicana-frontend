@@ -23,14 +23,14 @@ export const translations: Record<string, Record<Lang, string>> = {
   'nav.deconnexion':      { fr: 'Se déconnecter',    en: 'Log out' },
   'nav.fermer':           { fr: 'Fermer',            en: 'Close' },
   'nav.menu':             { fr: 'Menu',              en: 'Menu' },
-  'nav.commanderMobile':  { fr: '🛒 Commander maintenant', en: '🛒 Order from 1,000 FCFA' },
+  'nav.commanderMobile':  { fr: 'Commander maintenant', en: 'Order from 1,000 FCFA' },
   'nav.modeJour':         { fr: 'Passer en mode jour', en: 'Switch to light mode' },
   'nav.modeNuit':         { fr: 'Passer en mode nuit', en: 'Switch to dark mode' },
 
   // AnnouncementBar
-  'annonce.livraison':    { fr: '🚚 Livraison gratuite à partir de 5 000 FCFA — partout au Bénin', en: '🚚 Free delivery from 5,000 FCFA — across Benin' },
-  'annonce.delai':        { fr: '⚡ Commandez avant 18h, livré dès demain', en: '⚡ Order before 6 PM, delivered tomorrow' },
-  'annonce.whatsapp':     { fr: '📞 Commande rapide par WhatsApp', en: '📞 Quick order via WhatsApp' },
+  'annonce.livraison':    { fr: 'Livraison gratuite à partir de 5 000 FCFA — partout au Bénin', en: 'Free delivery from 5,000 FCFA — across Benin' },
+  'annonce.delai':        { fr: 'Commandez avant 18h, livré dès demain', en: 'Order before 6 PM, delivered tomorrow' },
+  'annonce.whatsapp':     { fr: 'Commande rapide par WhatsApp', en: 'Quick order via WhatsApp' },
 
   // Footer
   'footer.newsletter':    { fr: 'Newsletter',          en: 'Newsletter' },
@@ -105,8 +105,8 @@ export const translations: Record<string, Record<Lang, string>> = {
   'boutique.offerte':     { fr: 'Offerte',             en: 'Free' },
   'boutique.supprimer':   { fr: '✕ Supprimer',         en: '✕ Remove' },
   'boutique.garantie':    { fr: '✅ Paiement sécurisé — Mobile Money accepté', en: '✅ Secure payment — Mobile Money accepted' },
-  'boutique.livInfo':     { fr: '🚚 Livraison 24h partout au Bénin', en: '🚚 Delivery 24h across Benin' },
-  'boutique.naturel':     { fr: '🌿 100% naturel, sans additif', en: '🌿 100% natural, no additives' },
+  'boutique.livInfo':     { fr: 'Livraison 24h partout au Bénin', en: 'Delivery 24h across Benin' },
+  'boutique.naturel':     { fr: '100% naturel, sans additif', en: '100% natural, no additives' },
 
   // Contact
   'contact.titre':        { fr: 'Nous sommes à votre écoute', en: 'We are here for you' },
@@ -241,7 +241,7 @@ export const translations: Record<string, Record<Lang, string>> = {
   'home.location':        { fr: 'Porto-Novo, Bénin',  en: 'Porto-Novo, Benin' },
   'home.temoLabel':       { fr: 'Ils nous font confiance', en: 'They trust us' },
   'home.temoTitre':       { fr: 'Ce que disent nos clients', en: 'What our customers say' },
-  'home.bannerTxt':       { fr: '🌿 Cultivé à Porto-Novo · Formulé par un vétérinaire · Livraison nationale au Bénin', en: '🌿 Grown in Porto-Novo · Formulated by a veterinarian · Nationwide delivery in Benin' },
+  'home.bannerTxt':       { fr: 'Cultivé à Porto-Novo · Formulé par un vétérinaire · Livraison nationale au Bénin', en: 'Grown in Porto-Novo · Formulated by a veterinarian · Nationwide delivery in Benin' },
   'home.ouvrirMaps':      { fr: 'Ouvrir dans Google Maps →', en: 'Open in Google Maps →' },
   // Clés manquantes — page connexion
   'page.connexion':           { fr: 'Connexion',                    en: 'Sign in' },
@@ -250,7 +250,7 @@ export const translations: Record<string, Record<Lang, string>> = {
   'home.cta':                 { fr: 'Votre bien-être, notre mission.', en: 'Your wellbeing, our mission.' },
 
   // Boutique — textes inline manquants
-  'boutique.panierTitre':     { fr: '🛒 Votre panier',              en: '🛒 Your cart' },
+  'boutique.panierTitre':     { fr: 'Votre panier',              en: 'Your cart' },
   'boutique.panierVide':      { fr: 'Votre panier est vide.',       en: 'Your cart is empty.' },
   'boutique.finaliser':       { fr: 'Finaliser la commande',        en: 'Checkout' },
   'boutique.nomComplet':      { fr: 'Nom complet *',                en: 'Full name *' },

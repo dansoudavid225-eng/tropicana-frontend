@@ -26,7 +26,7 @@ export default function Navbar() {
     { href: '/temoignages',  label: t('nav.temoignages') },
     { href: '/faq',          label: t('nav.faq') },
     { href: '/contact',      label: t('nav.contact') },
-    { href: '/suivi-commande', label: '📦 Suivi commande' },
+    { href: '/suivi-commande', label: 'Suivi commande' },
   ]
 
   useEffect(() => {

@@ -120,9 +120,9 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, h
 
             {/* Badge confiance — visible sur mobile comme CEVADEL */}
             <div className="hero-badges">
-              <span className="hero-badge">✅ 100% Bio</span>
-              <span className="hero-badge">🌿 Made in Bénin</span>
-              <span className="hero-badge">⭐ 500+ familles</span>
+              <span className="hero-badge">100% Bio</span>
+              <span className="hero-badge">Made in Benin</span>
+              <span className="hero-badge">500+ familles</span>
             </div>
           </div>
         </div>
