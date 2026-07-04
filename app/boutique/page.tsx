@@ -309,7 +309,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
             <div>
               <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>{t('boutique.modePaiement')}</label>
               <select name="mode_paiement" value={form.mode_paiement} onChange={handleChange} style={inputStyle}>
-                <option value="fedapay">💳 Carte / Mobile Money (Fedapay)</option>
+                <option value="fedapay">Carte / Mobile Money (Fedapay)</option>
               </select>
             </div>
           </div>
@@ -347,7 +347,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
             </div>
             {promoApplique && (
               <p style={{ color: 'var(--green-mid)', fontSize: 12, marginTop: 4 }}>
-                ✅ Code valide — réduction de {promoApplique.reduction.toLocaleString()} FCFA
+                Code valide — réduction de {promoApplique.reduction.toLocaleString()} FCFA
               </p>
             )}
             {promoErreur && <p style={{ color: '#dc3545', fontSize: 12, marginTop: 4 }}>⚠️ {promoErreur}</p>}
@@ -358,8 +358,8 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           <button type="submit" disabled={loading} className="btn-gold" style={{ width: '100%', opacity: loading ? 0.7 : 1 }}>
             {loading ? t('boutique.envoi')
               : form.mode_paiement === 'fedapay'
-                ? `💳 Payer ${total.toLocaleString()} FCFA en ligne`
-                : `✅ Confirmer — ${total.toLocaleString()} FCFA`}
+                ? `Payer ${total.toLocaleString()} FCFA en ligne`
+                : `Confirmer — ${total.toLocaleString()} FCFA`}
           </button>
         </form>
       </div>
@@ -420,7 +420,7 @@ export default function Boutique() {
     try { localStorage.setItem('pio_panier', JSON.stringify(panier)) } catch {}
   }, [panier, panierCharge])
 
-  // ✅ Sauvegarde panier backend quand l'utilisateur est connecté
+  // Sauvegarde panier backend quand l'utilisateur est connecté
   useEffect(() => {
     if (!panierCharge || !estConnecte || panier.length === 0) return
     const token = lireStorage('pio_access')
@@ -433,7 +433,7 @@ export default function Boutique() {
     }).catch(() => {}) // Silencieux — localStorage reste la source principale
   }, [panier, panierCharge, estConnecte])
 
-  // ✅ Restaurer le panier depuis le backend à la connexion
+  // Restaurer le panier depuis le backend à la connexion
   useEffect(() => {
     if (!estConnecte || !panierCharge) return
     const token = lireStorage('pio_access')
@@ -641,7 +641,7 @@ export default function Boutique() {
                         {produit.badge}
                       </span>
                     )}
-                    {/* ✅ Badge épuisé */}
+                    {/* Badge épuisé */}
                     {!produit.en_stock && (
                       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span style={{ background: '#EF4444', color: '#fff', fontSize: 14, fontWeight: 700, padding: '8px 18px', borderRadius: 8, fontFamily: 'Arial, sans-serif', letterSpacing: 1 }}>

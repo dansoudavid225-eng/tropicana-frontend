@@ -58,7 +58,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       {/* ── CTA FIXE MOBILE (comme CEVADEL "Voir nos produits") ── */}
       <div className="mobile-sticky-cta">
         <Link href="/boutique" className="btn-gold">
-          ⭐ {lang === 'en' ? 'Order now' : 'Voir nos produits'}
+          {lang === 'en' ? 'Order now' : 'Voir nos produits'}
         </Link>
       </div>
 
@@ -187,7 +187,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               <div className="produit-image-block" style={{ position:'relative', flex:'0 0 260px', minHeight:220 }}>
                 <Image src="/images/produit-tasse.jpg" alt="Thé Pio Pio" fill style={{ objectFit:'cover' }} />
                 <div style={{ position:'absolute', top:12, left:12, background:'#C9973A', color:'var(--text-primary)', fontSize:14, fontWeight:700, padding:'4px 10px', borderRadius:3, fontFamily:'Arial, sans-serif' }}>
-                  {lang === 'en' ? '⭐ Popular' : '⭐ Populaire'}
+                  {lang === 'en' ? 'Popular' : 'Populaire'}
                 </div>
               </div>
               <div style={{ flex:1, minWidth:220, padding:'24px 22px', display:'flex', flexDirection:'column', justifyContent:'space-between' }}>
