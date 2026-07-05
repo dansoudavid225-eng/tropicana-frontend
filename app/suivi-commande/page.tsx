@@ -12,7 +12,7 @@ export default function SuiviCommandePage() {
     en_attente:   { label: t('suivi.statutEnAttente'),   icon: '⏳', couleur: '#F4A261', etape: 1 },
     confirmee:    { label: t('suivi.statutConfirmee'),   icon: '✅', couleur: '#457B9D', etape: 2 },
     en_livraison: { label: t('suivi.statutEnLivraison'), icon: '🚚', couleur: '#2D6A4F', etape: 3 },
-    livree:       { label: t('suivi.statutLivree'),      icon: '📦', couleur: '#40916C', etape: 4 },
+    livree:       { label: t('suivi.statutLivree'),      icon: '', couleur: '#40916C', etape: 4 },
     annulee:      { label: t('suivi.statutAnnulee'),     icon: '❌', couleur: '#E63946', etape: 0 },
   };
 
@@ -20,7 +20,7 @@ export default function SuiviCommandePage() {
     { etape: 1, label: t('suivi.etapeRecue'),     icon: '📋' },
     { etape: 2, label: t('suivi.etapeConfirmee'), icon: '✅' },
     { etape: 3, label: t('suivi.etapeLivraison'), icon: '🚚' },
-    { etape: 4, label: t('suivi.etapeLivree'),    icon: '📦' },
+    { etape: 4, label: t('suivi.etapeLivree'),    icon: '' },
   ];
 
   const [commandeId, setCommandeId] = useState('');
@@ -65,7 +65,7 @@ export default function SuiviCommandePage() {
 
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>📦</div>
+          <div style={{ fontSize: '2.5rem', marginBottom: 8 }}></div>
           <h1 style={{ color: '#2D6A4F', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>{t('suivi.titre')}</h1>
           <p style={{ color: '#666', marginTop: 8 }}>{t('suivi.sousTitre')}</p>
         </div>

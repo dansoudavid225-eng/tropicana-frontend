@@ -155,7 +155,7 @@ export default function FAQPage() {
             </div>
             <div style={{ display:'flex', gap:12, flexWrap:'wrap', position:'relative', zIndex:1 }}>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-gold" style={{ fontSize:14, padding:'12px 22px', textDecoration:'none' }}>
-                💬 WhatsApp
+                WhatsApp
               </a>
               <Link href="/contact" className="btn-ghost" style={{ fontSize:14, padding:'12px 22px', color:'#fff', borderColor:'rgba(255,255,255,0.3)' }}>
                 📧 Formulaire
