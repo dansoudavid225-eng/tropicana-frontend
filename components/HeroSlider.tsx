@@ -90,39 +90,41 @@ export default function HeroSlider({ heroSousTitre, heroSousTitreEm, heroBtn1, h
 
         {/* Contenu */}
         <div className="hero-content" style={{ position: 'relative', zIndex: 10, width: '100%' }}>
-          <div className="hero-text-block">
-            <h1 className="hero-title">
-              {slide.titre}<br />
-              {slide.sous_titre && (
-                <em style={{ color: '#C9973A', fontStyle: 'italic' }}>{slide.sous_titre}</em>
-              )}
-            </h1>
-            <p className="hero-sub">
-              {heroSousTitre || t('hero.sousTitreDefaut')}{' '}
-              {heroSousTitreEm && <span style={{ color: '#C9973A', fontStyle: 'italic' }}>{heroSousTitreEm}</span>}
-            </p>
-            <div className="hero-cta-row">
-              <Link
-                href={slide.lien || '/boutique'}
-                className="btn-gold"
-                style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50 }}
-              >
-                {slide.texte_bouton || 'Commander maintenant'}
-              </Link>
-              <Link
-                href="/histoire"
-                className="btn-ghost"
-                style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50, color: '#fff', borderColor: 'rgba(255,255,255,0.6)' }}
-              >
-                Notre histoire
-              </Link>
-            </div>
+          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+            <div className="hero-text-block">
+              <h1 className="hero-title">
+                {slide.titre}<br />
+                {slide.sous_titre && (
+                  <em style={{ color: '#C9973A', fontStyle: 'italic' }}>{slide.sous_titre}</em>
+                )}
+              </h1>
+              <p className="hero-sub">
+                {heroSousTitre || t('hero.sousTitreDefaut')}{' '}
+                {heroSousTitreEm && <span style={{ color: '#C9973A', fontStyle: 'italic' }}>{heroSousTitreEm}</span>}
+              </p>
+              <div className="hero-cta-row">
+                <Link
+                  href={slide.lien || '/boutique'}
+                  className="btn-gold"
+                  style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50 }}
+                >
+                  {slide.texte_bouton || 'Commander maintenant'}
+                </Link>
+                <Link
+                  href="/histoire"
+                  className="btn-ghost"
+                  style={{ fontSize: 15, padding: '14px 28px', borderRadius: 50, color: '#fff', borderColor: 'rgba(255,255,255,0.6)' }}
+                >
+                  Notre histoire
+                </Link>
+              </div>
 
-            {/* Badge confiance — visible sur mobile comme CEVADEL */}
-            <div className="hero-badges">
-              <span className="hero-badge">100% Bio</span>
-              <span className="hero-badge">Made in Benin</span>
-              <span className="hero-badge">500+ familles</span>
+              {/* Badge confiance — visible sur mobile comme CEVADEL */}
+              <div className="hero-badges">
+                <span className="hero-badge">100% Bio</span>
+                <span className="hero-badge">Made in Benin</span>
+                <span className="hero-badge">500+ familles</span>
+              </div>
             </div>
           </div>
         </div>
