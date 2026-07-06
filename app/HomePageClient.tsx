@@ -67,7 +67,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
       {/* STRIP ARGUMENTS */}
       <section style={{ background:'var(--bg-section)', borderBottom:'1px solid var(--border-color)' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 24px', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {(argumentsAdmin ?? configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
             <div key={item.titre ?? i} className="args-strip-item" style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
                <div className="args-strip-icon" style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }} dangerouslySetInnerHTML={{ __html: item.icone || '' }} />
@@ -81,8 +81,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* LA PLANTE */}
-      <section className="section-mobile-pad" style={{ background:'var(--bg-page)', padding:'60px 24px' }}>
-        <div className="plante-grid" style={{ maxWidth:1200, margin:'0 auto', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-page)' }}>
+        <div className="plante-grid" style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap' }}>
           <div className="plante-image-block" style={{ position:'relative', width:340, height:400, flexShrink:0 }}>
             <div style={{ position:'absolute', top:14, left:14, right:-14, bottom:-14, borderRadius:20, border:'2px solid rgba(201,151,58,0.35)', background:'rgba(201,151,58,0.06)' }} />
             <div style={{ position:'relative', width:'100%', height:'100%', borderRadius:20, overflow:'hidden', background:'#1A3C2E', boxShadow:'0 20px 60px rgba(0,0,0,0.25)' }}>
@@ -113,9 +113,9 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* BIENFAITS */}
-      <section className="section-mobile-pad" style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-section)' }}>
         <style>{`.bienfait-card{background:var(--bg-card);border:0.5px solid var(--border-color);border-radius:10px;padding:16px 14px;display:flex;gap:12px;align-items:flex-start;cursor:default;transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.28s ease,border-color 0.28s ease;will-change:transform}.bienfait-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 32px rgba(26,60,46,0.13);border-color:var(--gold)}.bienfait-icone{font-size:20px;flex-shrink:0;margin-top:2px;display:inline-block;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1)}.bienfait-card:hover .bienfait-icone{transform:scale(1.35) rotate(-8deg)}.bienfait-titre{font-size:14px;font-weight:700;color:var(--text-primary);font-family:Arial,sans-serif;margin-bottom:4px;transition:color 0.2s ease}.bienfait-card:hover .bienfait-titre{color:var(--gold)}.bienfait-desc{font-size:14px;color:var(--text-secondary);font-family:Arial,sans-serif;line-height:1.5}`}</style>
-        <div style={{ maxWidth:1200, margin:'0 auto' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <ScrollReveal animation="fadeUp">
             <span className="section-label">{t('home.bienfaitsLabel')}</span>
             <h2 className="section-title">{t('home.bienfaitsTitre')}</h2>
@@ -156,8 +156,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* FONDATEUR */}
-      <section className="section-mobile-pad" style={{ background:'#1A3C2E', padding:'60px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto' }}>
+      <section className="section-mobile-pad" style={{ background:'#1A3C2E' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <ScrollReveal animation="slideLeft">
             <span className="section-label">{siteContent?.fondateur_label || t('home.fondateurLabel')}</span>
             <h2 className="section-title light">{siteContent?.fondateur_titre || t('home.fondateurTitre')}</h2>
@@ -179,8 +179,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* PRODUIT */}
-      <section className="section-mobile-pad" style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--bg-section)' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <ScrollReveal animation="fadeUp">
             <span className="section-label">{t('home.boutiqueLabel')}</span>
             <h2 className="section-title">{t('home.produitTitre')}</h2>
@@ -216,9 +216,9 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       <Partenaires />
 
       {/* LOCALISATION */}
-      <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', padding:'90px 24px', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
+      <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
         <div style={{ position:'absolute', inset:0, opacity:0.15, backgroundImage:'linear-gradient(rgba(201,151,58,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,151,58,0.1) 1px, transparent 1px)', backgroundSize:'60px 60px', pointerEvents:'none' }} />
-        <div style={{ maxWidth:1200, margin:'0 auto', position:'relative', zIndex:1 }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'90px 24px', position:'relative', zIndex:1 }}>
           <div style={{ marginBottom:52 }}>
             <span style={{ fontSize:11, letterSpacing:'3px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('home.ouTrouver')}</span>
             <h2 style={{ fontSize:'clamp(28px, 4vw, 46px)', fontWeight:300, color:'#F0EBE0', margin:'8px 0 0', lineHeight:1.15, fontFamily:'Georgia, serif' }}>
@@ -256,8 +256,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* TÉMOIGNAGES */}
-      <section className="section-mobile-pad" style={{ background:'#1A3C2E', padding:'60px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto' }}>
+      <section className="section-mobile-pad" style={{ background:'#1A3C2E' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:8 }}>
             <div>
               <span className="section-label">{t('home.temoLabel')}</span>
@@ -307,8 +307,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
       {/* AVIS RAPIDES */}
       {siteContent?.temoignages_rapides && siteContent.temoignages_rapides.length > 0 && (
-        <section className="section-mobile-pad" style={{ background:'var(--bg-page)', padding:'56px 24px' }}>
-          <div style={{ maxWidth:1200, margin:'0 auto' }}>
+        <section className="section-mobile-pad" style={{ background:'var(--bg-page)' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto', padding:'56px 24px' }}>
             <div style={{ maxHeight:360, overflowY:'auto', display:'flex', flexDirection:'column', gap:16, paddingRight:8, scrollbarWidth:'thin', scrollbarColor:'#C9973A transparent' }}>
               {siteContent.temoignages_rapides.map((avis, i) => (
                 <div key={i} style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, padding:'20px 22px', flexShrink:0 }}>
