@@ -212,6 +212,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+p { text-align: justify; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
   font-weight: 400;

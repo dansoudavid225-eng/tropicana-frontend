@@ -12,7 +12,6 @@ const navLinks = [
   { href: '/boutique', label: 'Boutique' },
   { href: '/histoire', label: 'Notre Histoire' },
   { href: '/bienfaits', label: 'Bienfaits' },
-  { href: '/blog', label: 'Blog' },
   { href: '/temoignages', label: 'Avis clients' },
   { href: '/contact', label: 'Contact' },
 ]

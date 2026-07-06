@@ -22,7 +22,6 @@ export default function Navbar() {
     { href: '/',             label: t('nav.accueil') },
     { href: '/boutique',     label: t('nav.boutique') },
     { href: '/histoire',     label: t('nav.histoire') },
-    { href: '/blog',         label: t('nav.blog') },
     { href: '/temoignages',  label: t('nav.temoignages') },
     { href: '/contact',      label: t('nav.contact') },
     { href: '/suivi-commande', label: 'Suivi commande' },

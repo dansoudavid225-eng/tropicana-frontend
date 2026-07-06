@@ -53,7 +53,7 @@ export default function Contact() {
       {/* Hero */}
       <section style={{ position:'relative', height:260, overflow:'hidden' }}>
         <Image src="/images/produit-bois.jpg" alt="Contact Tropicana Pio Pio" fill style={{ objectFit:'cover' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'40px' }}>
+        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'24px' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%' }}>
             <span style={{ fontSize:14, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
             <h1 style={{ fontSize:34, fontWeight:400, color:'#F0EBE0', marginTop:8 }}>
@@ -81,48 +81,6 @@ export default function Contact() {
 
       <section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
         <div className="contact-grid" style={{ maxWidth:1200, margin:'0 auto' }}>
-
-          {/* Coordonnées */}
-          <div>
-            <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:24 }}>{t('contact.coordonnees')}</h2>
-            {coordItems.map(c => (
-              <div key={c.label} style={{ display:'flex', gap:14, marginBottom:18, alignItems:'flex-start' }}>
-                <div>
-                  <p style={{ fontSize:13, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px', textTransform:'uppercase', marginBottom:2 }}>{c.label}</p>
-                  <p style={{ fontSize:15, color:'var(--text-primary)', fontFamily:'Arial, sans-serif' }}>{c.value}</p>
-                </div>
-              </div>
-            ))}
-
-            {/* Carte Google Maps */}
-            <div style={{ borderRadius:10, overflow:'hidden', marginTop:24, marginBottom:20, border:'1px solid rgba(45,106,79,0.3)' }}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.052!2d2.6198!3d6.4969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023531cf0c5695b%3A0x97f7d7c0ecd8e1bb!2sOganla%2C%20Porto-Novo%2C%20Benin!5e0!3m2!1sfr!2sbj!4v1716559000000!5m2!1sfr!2sbj"
-                width="100%" height="200"
-                style={{ border:0, display:'block' }}
-                allowFullScreen loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localisation Tropicana Pio Pio"
-              />
-              <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
-                style={{ display:'flex', alignItems:'center', gap:8, background:'#1A3C2E', padding:'10px 14px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
-                <span></span><span>{t('contact.ouvrirMaps')}</span>
-              </a>
-            </div>
-
-            <div style={{ background:'#1A3C2E', borderRadius:10, padding:'20px 18px', marginBottom:16 }}>
-              <h3 style={{ fontSize:15, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', marginBottom:8 }}>{t('contact.mobileMoney')}</h3>
-              <p style={{ fontSize:14, color:'#95D5B2', fontFamily:'Arial, sans-serif', marginBottom:4 }}>MTN Money / Moov Money</p>
-              <p style={{ fontSize:16, color:'#F0EBE0', fontFamily:'Arial, sans-serif', fontWeight:700 }}>{site.telephone}</p>
-            </div>
-
-            <div style={{ display:'flex', gap:10 }}>
-              <a href="https://www.tiktok.com/@thepio08" target="_blank" rel="noopener noreferrer"
-                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>TikTok @thepio08</a>
-              <a href="https://facebook.com/profile.php?id=61569744814995" target="_blank" rel="noopener noreferrer"
-                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>Facebook</a>
-            </div>
-          </div>
 
           {/* Formulaire */}
           <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
@@ -189,6 +147,49 @@ export default function Contact() {
               </>
             )}
           </div>
+
+          {/* Coordonnées */}
+          <div>
+            <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:24 }}>{t('contact.coordonnees')}</h2>
+            {coordItems.map(c => (
+              <div key={c.label} style={{ display:'flex', gap:14, marginBottom:18, alignItems:'flex-start' }}>
+                <div>
+                  <p style={{ fontSize:13, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px', textTransform:'uppercase', marginBottom:2 }}>{c.label}</p>
+                  <p style={{ fontSize:15, color:'var(--text-primary)', fontFamily:'Arial, sans-serif' }}>{c.value}</p>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ background:'#1A3C2E', borderRadius:10, padding:'20px 18px', marginBottom:16 }}>
+              <h3 style={{ fontSize:15, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', marginBottom:8 }}>{t('contact.mobileMoney')}</h3>
+              <p style={{ fontSize:14, color:'#95D5B2', fontFamily:'Arial, sans-serif', marginBottom:4 }}>MTN Money / Moov Money</p>
+              <p style={{ fontSize:16, color:'#F0EBE0', fontFamily:'Arial, sans-serif', fontWeight:700 }}>{site.telephone}</p>
+            </div>
+
+            <div style={{ display:'flex', gap:10 }}>
+              <a href="https://www.tiktok.com/@thepio08" target="_blank" rel="noopener noreferrer"
+                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>TikTok @thepio08</a>
+              <a href="https://facebook.com/profile.php?id=61569744814995" target="_blank" rel="noopener noreferrer"
+                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>Facebook</a>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Google Maps — pleine largeur */}
+        <div style={{ maxWidth:1200, margin:'24px auto 0', borderRadius:10, overflow:'hidden', border:'1px solid rgba(45,106,79,0.3)' }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.052!2d2.6198!3d6.4969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023531cf0c5695b%3A0x97f7d7c0ecd8e1bb!2sOganla%2C%20Porto-Novo%2C%20Benin!5e0!3m2!1sfr!2sbj!4v1716559000000!5m2!1sfr!2sbj"
+            width="100%" height="350"
+            style={{ border:0, display:'block' }}
+            allowFullScreen loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Localisation Tropicana Pio Pio"
+          />
+          <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
+            style={{ display:'flex', alignItems:'center', gap:8, background:'#1A3C2E', padding:'10px 14px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none', justifyContent:'center' }}>
+            <span>{t('contact.ouvrirMaps')}</span>
+          </a>
         </div>
       </section>
 
@@ -213,7 +214,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <style>{`.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:start}.form-row{grid-template-columns:1fr 1fr}@media(max-width:860px){.contact-grid{grid-template-columns:1fr;gap:32px}.form-row{grid-template-columns:1fr}}@media(max-width:500px){.contact-grid>div:last-child{padding:24px 18px!important}}`}</style>
+      <style>{`.contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}.form-row{grid-template-columns:1fr 1fr}@media(max-width:860px){.contact-grid{grid-template-columns:1fr;gap:32px}.form-row{grid-template-columns:1fr}}@media(max-width:500px){.contact-grid>div:last-child{padding:24px 18px!important}}`}</style>
     </>
   )
 }
