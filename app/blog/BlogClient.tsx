@@ -5,7 +5,7 @@ import { useLang } from '@/context/LanguageContext'
 
 type Article = { id?: number; slug?: string; categorie?: string; date_publication?: string; titre?: string; extrait?: string; image?: string | null; temps_lecture?: string }
 
-const emojiCat: Record<string,string> = { 'Plantes médicinales':'🌿', 'Famille & Santé':'👨‍👩‍👧', 'Distribution':'📦', 'Santé naturelle':'💚', default:'📖' }
+const emojiCat: Record<string,string> = { 'Plantes médicinales':'', 'Famille & Santé':'', 'Distribution':'', 'Santé naturelle':'', default:'' }
 
 function fmtDate(d: string, lang: string) {
   try { return new Date(d).toLocaleDateString(lang === 'en' ? 'en-GB' : 'fr-FR', { day:'2-digit', month:'long', year:'numeric' }) }
@@ -52,7 +52,7 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                     {featured.image
                       ? <Image src={featured.image} alt={featured.titre ?? ''} fill style={{ objectFit:'cover' }} unoptimized />
                       : <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', gap:12 }}>
-                          <span style={{ fontSize:64 }}>{emojiCat[featured.categorie ?? ''] ?? '🌿'}</span>
+                          <span style={{ fontSize:64 }}>{emojiCat[featured.categorie ?? ''] ?? ''}</span>
                         </div>
                     }
                     <div style={{ position:'absolute', top:16, left:16, background:'rgba(201,151,58,0.92)', color:'#1A3C2E', fontSize:11, fontWeight:700, padding:'5px 12px', borderRadius:10 }}>{featured.categorie}</div>
@@ -62,13 +62,13 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                       <div style={{ display:'flex', gap:16, alignItems:'center', marginBottom:16 }}>
                         <span style={{ fontSize:12, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{fmtDate(featured.date_publication ?? '', lang)}</span>
                         <span style={{ width:4, height:4, borderRadius:'50%', background:'var(--border-color)', display:'inline-block' }} />
-                        <span style={{ fontSize:12, color:'#2D6A4F', fontFamily:'Arial, sans-serif', fontWeight:600 }}>📖 {featured.temps_lecture}</span>
+                        <span style={{ fontSize:12, color:'#2D6A4F', fontFamily:'Arial, sans-serif', fontWeight:600 }}>{featured.temps_lecture}</span>
                       </div>
                       <h2 style={{ fontSize:'clamp(20px,2.5vw,26px)', fontWeight:400, color:'var(--text-primary)', lineHeight:1.3, marginBottom:14 }}>{featured.titre}</h2>
                       <p style={{ fontSize:14, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', lineHeight:1.75, marginBottom:24 }}>{featured.extrait}</p>
                     </div>
                     <span style={{ display:'inline-flex', alignItems:'center', gap:8, fontSize:14, color:'#2D6A4F', fontWeight:700, fontFamily:'Arial, sans-serif' }}>
-                      {t('blog.lire')} <span style={{ fontSize:18 }}>→</span>
+                      {t('blog.lire')} <span style={{ fontSize:18 }}></span>
                     </span>
                   </div>
                 </div>
@@ -86,18 +86,18 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                       <div style={{ position:'relative', height:190, background:'linear-gradient(135deg, #1A3C2E, #0D2318)', flexShrink:0, overflow:'hidden' }}>
                         {a.image
                           ? <Image src={a.image} alt={a.titre ?? ''} fill style={{ objectFit:'cover' }} unoptimized />
-                          : <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}><span style={{ fontSize:48 }}>{emojiCat[a.categorie ?? ''] ?? '🌿'}</span></div>
+                          : <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}><span style={{ fontSize:48 }}>{emojiCat[a.categorie ?? ''] ?? ''}</span></div>
                         }
                         <div style={{ position:'absolute', top:12, left:12, background:'rgba(201,151,58,0.9)', color:'#1A3C2E', fontSize:10, fontWeight:700, padding:'4px 10px', borderRadius:8 }}>{a.categorie}</div>
                       </div>
                       <div style={{ padding:'20px 18px', display:'flex', flexDirection:'column', flex:1 }}>
                         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10 }}>
                           <span style={{ fontSize:12, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{fmtDate(a.date_publication ?? '', lang)}</span>
-                          <span style={{ fontSize:12, color:'#6B9E7A', fontFamily:'Arial, sans-serif', fontWeight:600 }}>📖 {a.temps_lecture}</span>
+                          <span style={{ fontSize:12, color:'#6B9E7A', fontFamily:'Arial, sans-serif', fontWeight:600 }}>{a.temps_lecture}</span>
                         </div>
                         <h3 style={{ fontSize:17, fontWeight:400, color:'var(--text-primary)', lineHeight:1.35, marginBottom:10, flex:1 }}>{a.titre}</h3>
                         <p style={{ fontSize:13, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', lineHeight:1.65, marginBottom:16 }}>{(a.extrait ?? '').substring(0,100)}...</p>
-                        <span style={{ fontSize:13, color:'#2D6A4F', fontWeight:700, fontFamily:'Arial, sans-serif' }}>{t('blog.lire')} →</span>
+                        <span style={{ fontSize:13, color:'#2D6A4F', fontWeight:700, fontFamily:'Arial, sans-serif' }}>{t('blog.lire')}</span>
                       </div>
                     </div>
                   </Link>
@@ -108,7 +108,7 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
 
           <div style={{ background:'linear-gradient(135deg, #1A3C2E 0%, #0D2318 100%)', borderRadius:24, padding:'48px 40px', textAlign:'center', position:'relative', overflow:'hidden' }}>
             <div style={{ position:'relative', zIndex:1 }}>
-              <span style={{ fontSize:32, display:'block', marginBottom:16 }}>🌿</span>
+              <span style={{ fontSize:32, display:'block', marginBottom:16 }}></span>
               <h3 style={{ fontSize:'clamp(22px,3vw,30px)', fontWeight:400, color:'#F0EBE0', marginBottom:10 }}>
                 {t('blog.ctaTitre')} <em style={{ color:'#C9973A' }}>{t('blog.ctaEm')}</em>
               </h3>

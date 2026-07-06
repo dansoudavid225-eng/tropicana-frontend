@@ -36,7 +36,7 @@ function ResetForm() {
 
   if (status === 'done') return (
     <div style={{ textAlign:'center', padding:'20px 0' }}>
-      <div style={{ fontSize:52, marginBottom:16 }}>✅</div>
+      <div style={{ fontSize:52, marginBottom:16 }}></div>
       <h3 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>{t('auth.mdpModifie')}</h3>
       <Link href="/connexion" className="btn-gold" style={{ display:'inline-block', marginTop:12 }}>{t('auth.seConnecter')}</Link>
     </div>
@@ -57,7 +57,7 @@ function ResetForm() {
           <input type={showMdp?'text':'password'} value={mdp} onChange={e=>setMdp(e.target.value)} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} />
           <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
             style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
-            {showMdp ? '🙈' : '👁️'}
+            {showMdp ? '' : ''}
           </button>
         </div>
       </div>

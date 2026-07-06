@@ -5,12 +5,12 @@ import { getSiteContent } from '@/lib/siteContent'
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 const bienfaitsFallback = [
-  { id:0, icone:'❤️', titre:'Circulation sanguine', description:'Nourrit les cellules, libère les artères naturellement' },
-  { id:1, icone:'😴', titre:'Sommeil profond', description:'Endormissement rapide et repos vraiment réparateur' },
-  { id:2, icone:'🦴', titre:'Articulations', description:'Réduit les inflammations et soulage les douleurs' },
-  { id:3, icone:'🌿', titre:'Digestion douce', description:'Stimule le transit, apaise les ballonnements' },
-  { id:4, icone:'🧘', titre:'Anti-stress', description:'Effet relaxant naturel dès la première tasse' },
-  { id:5, icone:'✨', titre:'Purification', description:"Nettoie et détoxifie l'organisme en profondeur" },
+  { id:0, icone:'', titre:'Circulation sanguine', description:'Nourrit les cellules, libère les artères naturellement' },
+  { id:1, icone:'', titre:'Sommeil profond', description:'Endormissement rapide et repos vraiment réparateur' },
+  { id:2, icone:'', titre:'Articulations', description:'Réduit les inflammations et soulage les douleurs' },
+  { id:3, icone:'', titre:'Digestion douce', description:'Stimule le transit, apaise les ballonnements' },
+  { id:4, icone:'', titre:'Anti-stress', description:'Effet relaxant naturel dès la première tasse' },
+  { id:5, icone:'', titre:'Purification', description:"Nettoie et détoxifie l'organisme en profondeur" },
 ]
 const testimonialsDefaut = [
   { nom:'Agnès M.', ville:'Cotonou', texte:'Depuis que je bois le Thé Pio Pio chaque soir, je dors beaucoup mieux. Je le recommande à toute ma famille.', note:5 },

@@ -82,7 +82,7 @@ export async function fetchAvecAuth(url: string, options: RequestInit = {}): Pro
     ...options,
     headers: { ...options.headers, Authorization: `Bearer ${access}` },
   })
-  // Si 401 → essayer de rafraîchir le token
+  // Si 401 essayer de rafraîchir le token
   if (res.status === 401) {
     access = await refreshAccessToken()
     if (access) {

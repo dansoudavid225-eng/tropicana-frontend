@@ -41,11 +41,11 @@ export default function Contact() {
   const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', marginBottom:6, letterSpacing:'0.4px' }
 
   const coordItems = [
-    { icon:'📍', label:t('contact.adresse'),   value:site.adresse },
-    { icon:'📞', label:t('contact.telephone'), value:site.telephone },
-    { icon:'📧', label:t('contact.email'),     value:site.email },
-    { icon:'🕐', label:t('contact.dispo'),     value:t('contact.dispoVal') },
-    { icon:'📦', label:t('contact.livraison'), value:t('contact.livVal') },
+    { icon:'', label:t('contact.adresse'),   value:site.adresse },
+    { icon:'', label:t('contact.telephone'), value:site.telephone },
+    { icon:'', label:t('contact.email'),     value:site.email },
+    { icon:'', label:t('contact.dispo'),     value:t('contact.dispoVal') },
+    { icon:'', label:t('contact.livraison'), value:t('contact.livVal') },
   ]
 
   return (
@@ -71,7 +71,7 @@ export default function Contact() {
             {t('contact.whatsappDirect')}
           </a>
           <a href={`tel:${site.telephone_raw}`} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
-            📞 {site.telephone}
+            {site.telephone}
           </a>
           <a href={`mailto:${site.email}`} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
             {t('contact.emailDirect')}
@@ -87,7 +87,6 @@ export default function Contact() {
             <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:24 }}>{t('contact.coordonnees')}</h2>
             {coordItems.map(c => (
               <div key={c.label} style={{ display:'flex', gap:14, marginBottom:18, alignItems:'flex-start' }}>
-                <div style={{ width:42, height:42, background:'#1A3C2E', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>{c.icon}</div>
                 <div>
                   <p style={{ fontSize:13, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px', textTransform:'uppercase', marginBottom:2 }}>{c.label}</p>
                   <p style={{ fontSize:15, color:'var(--text-primary)', fontFamily:'Arial, sans-serif' }}>{c.value}</p>
@@ -107,7 +106,7 @@ export default function Contact() {
               />
               <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
                 style={{ display:'flex', alignItems:'center', gap:8, background:'#1A3C2E', padding:'10px 14px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
-                <span>📍</span><span>{t('contact.ouvrirMaps')}</span>
+                <span></span><span>{t('contact.ouvrirMaps')}</span>
               </a>
             </div>
 
@@ -129,7 +128,7 @@ export default function Contact() {
           <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
             {status === 'sent' ? (
               <div style={{ textAlign:'center', padding:'40px 0' }}>
-                <div style={{ fontSize:52, marginBottom:16 }}>✅</div>
+                <div style={{ fontSize:52, marginBottom:16 }}></div>
                 <h3 style={{ fontSize:24, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>{t('contact.envoye')}</h3>
                 <p style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', lineHeight:1.7, marginBottom:24 }}>{t('contact.merci')}</p>
                 <Link href="/boutique" className="btn-gold">{t('contact.voirBoutique')}</Link>
@@ -204,7 +203,7 @@ export default function Contact() {
                 ? ['Preferential price from 10 units', 'Fast national delivery', 'Commercial support included', '100% organic product']
                 : ['Prix préférentiels dès 10 unités', 'Livraison nationale rapide', 'Support commercial inclus', 'Produit 100% bio']
               ).map(item => (
-                <span key={item} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontSize:14, padding:'7px 13px', borderRadius:4, fontFamily:'Arial, sans-serif' }}>✓ {item}</span>
+                <span key={item} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontSize:14, padding:'7px 13px', borderRadius:4, fontFamily:'Arial, sans-serif' }}>{item}</span>
               ))}
             </div>
           </div>

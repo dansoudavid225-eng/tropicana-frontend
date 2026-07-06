@@ -5,7 +5,6 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
-import AnnouncementBar from '@/components/AnnouncementBar'
 import { AuthProvider } from '@/context/AuthContext'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { LanguageProvider } from '@/context/LanguageContext'
@@ -41,8 +40,8 @@ export const metadata: Metadata = {
   publisher: 'Tropicana Pio Pio',
 
   openGraph: {
-    title: 'Tropicana Pio Pio — Thé Naturel Bio 🌿',
-    description: '🌿 100% Bio · Cultivé à Porto-Novo, Bénin · Livraison nationale 24h. Découvrez le thé qui prend soin de votre famille.',
+    title: 'Tropicana Pio Pio — Thé Naturel Bio',
+    description: '100% Bio · Cultivé à Porto-Novo, Bénin · Livraison nationale 24h. Découvrez le thé qui prend soin de votre famille.',
     url: 'https://tropicanapiopio.com',
     siteName: 'Tropicana Pio Pio',
     locale: 'fr_BJ',
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Tropicana Pio Pio — Thé Naturel Bio 🌿',
+    title: 'Tropicana Pio Pio — Thé Naturel Bio',
     description: '100% Bio · Cultivé à Porto-Novo, Bénin · Livraison nationale 24h.',
     images: [OG_IMAGE],
   },
@@ -170,7 +169,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LanguageProvider>
           <ThemeProvider>
             <AuthProvider>
-              <AnnouncementBar />
               <Navbar />
               <main>{children}</main>
               <Footer />

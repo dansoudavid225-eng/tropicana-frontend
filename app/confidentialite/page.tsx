@@ -43,7 +43,7 @@ export default function ConfidentialitePage() {
       <div style={{ background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', padding: '60px 24px 48px' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <Link href="/" style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
-            ← Retour à l'accueil
+            Retour à l'accueil
           </Link>
           <span style={{ fontSize: 11, letterSpacing: '3px', color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 10 }}>Légal</span>
           <h1 style={{ fontSize: 'clamp(26px,4vw,40px)', fontWeight: 300, color: '#F0EBE0', fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>

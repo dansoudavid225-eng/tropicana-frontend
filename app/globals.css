@@ -86,6 +86,26 @@
 
   /* Inputs focus */
   --focus-ring: rgba(45,106,79,0.18);
+
+  /* États / statuts */
+  --bg-error:     #FFF0F0;
+  --border-error: #F8D7DA;
+  --text-error:   #E63946;
+  --bg-success:   #EAF4EE;
+  --border-success: #C8E6D3;
+
+  /* Panel admin (palette slate) */
+  --admin-bg:          #F8FAFC;
+  --admin-bg-alt:      #F1F5F9;
+  --admin-card:        #FFFFFF;
+  --admin-border:      #E2E8F0;
+  --admin-text:        #1E293B;
+  --admin-text-muted:  #64748B;
+  --admin-text-faint:  #94A3B8;
+  --admin-danger:      #DC2626;
+  --admin-danger-bg:   #FEE2E2;
+  --admin-success-bg:  #D1FAE5;
+  --admin-success-text: #065F46;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -144,6 +164,26 @@
   --gold:       #E8B84B;
   --gold-light: #F5CC6E;
   --gold-pale:  #FFE08A;
+
+  /* États / statuts */
+  --bg-error:     #2A1416;
+  --border-error: #4A2226;
+  --text-error:   #F27C86;
+  --bg-success:   #10251A;
+  --border-success: #1E3A28;
+
+  /* Panel admin (palette slate adaptée) */
+  --admin-bg:          #0F1A17;
+  --admin-bg-alt:      #16241F;
+  --admin-card:        #162218;
+  --admin-border:      #2E4232;
+  --admin-text:        #F2EEE6;
+  --admin-text-muted:  #9FB0A5;
+  --admin-text-faint:  #6E8078;
+  --admin-danger:      #F26A6A;
+  --admin-danger-bg:   #3A1A1C;
+  --admin-success-bg:  #163B29;
+  --admin-success-text: #6FCF9A;
 }
 
 /* ── Transition fluide entre modes ─────────────────── */

@@ -23,10 +23,10 @@ type Commande = {
 // ── Étapes de suivi dans l'ordre ──────────────────────────────────────────────
 // ETAPES défini à l'intérieur du composant via une fonction
 const getEtapes = (t: (k: string) => string) => [
-  { key: 'en_attente',   label: t('espace.etapeRecue'),     emoji: '📋', desc: t('espace.descRecue') },
-  { key: 'confirmee',    label: t('espace.etapeConfirmee'), emoji: '✅', desc: t('espace.descConfirmee') },
-  { key: 'en_livraison', label: t('espace.etapeLivraison'), emoji: '🚚', desc: t('espace.descLivraison') },
-  { key: 'livree',       label: t('espace.etapeLivree'),    emoji: '📦', desc: t('espace.descLivree') },
+  { key: 'en_attente',   label: t('espace.etapeRecue'),     emoji: '', desc: t('espace.descRecue') },
+  { key: 'confirmee',    label: t('espace.etapeConfirmee'), emoji: '', desc: t('espace.descConfirmee') },
+  { key: 'en_livraison', label: t('espace.etapeLivraison'), emoji: '', desc: t('espace.descLivraison') },
+  { key: 'livree',       label: t('espace.etapeLivree'),    emoji: '', desc: t('espace.descLivree') },
 ]
 
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -43,7 +43,7 @@ function BarreProgression({ statut }: { statut: string }) {
     return (
       <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 10, padding: '12px 16px', marginTop: 12 }}>
         <p style={{ fontSize: 13, color: '#B91C1C', fontFamily: 'Arial, sans-serif', margin: 0 }}>
-          ❌ Cette commande a été annulée. Contactez-nous au <strong>+229 01 95 96 77 62</strong>.
+          Cette commande a été annulée. Contactez-nous au <strong>+229 01 95 96 77 62</strong>.
         </p>
       </div>
     )
@@ -82,7 +82,7 @@ function BarreProgression({ statut }: { statut: string }) {
                 transition: 'all 0.4s ease',
                 boxShadow: actuelle ? '0 0 0 4px rgba(45,106,79,0.2)' : 'none',
               }}>
-                {fait ? (actuelle ? etape.emoji : '✓') : ''}
+                {fait ? (actuelle ? etape.emoji : '') : ''}
               </div>
             </div>
           )
@@ -203,7 +203,7 @@ export default function EspaceClient() {
   // Chargement initial
   useEffect(() => { chargerCommandes() }, [chargerCommandes])
 
-  // ✅ Auto-refresh toutes les 60 secondes pour les commandes actives
+  // Auto-refresh toutes les 60 secondes pour les commandes actives
   useEffect(() => {
     const commandesActives = commandes.some(c => !['livree', 'annulee'].includes(c.statut))
     if (!commandesActives) return
@@ -224,10 +224,10 @@ export default function EspaceClient() {
   if (!user) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-page)', gap: 16, padding: 24, textAlign: 'center' }}>
-        <div style={{ fontSize: 40 }}>🔒</div>
+        <div style={{ fontSize: 40 }}></div>
         <p style={{ fontSize: 15, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', fontWeight: 700 }}>Vous devez être connecté pour accéder à votre espace.</p>
         <p style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>Redirection vers la connexion…</p>
-        <Link href="/connexion" className="btn-gold" style={{ fontSize: 14 }}>Se connecter maintenant →</Link>
+        <Link href="/connexion" className="btn-gold" style={{ fontSize: 14 }}>Se connecter maintenant</Link>
       </div>
     )
   }
@@ -254,7 +254,7 @@ export default function EspaceClient() {
             <div>
               <p style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 3 }}>Espace client</p>
               <h1 style={{ fontSize: 22, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif' }}>
-                Bonjour, {user.prenom} ! 👋
+                Bonjour, {user.prenom} !
               </h1>
             </div>
           </div>
@@ -276,10 +276,10 @@ export default function EspaceClient() {
             {/* Infos personnelles */}
             <div style={{ background: 'var(--bg-card)', border: '0.5px solid var(--border-color)', borderRadius: 14, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
               <div style={{ background: '#1A3C2E', padding: '16px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif', margin: 0 }}>👤 Mes informations</h2>
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif', margin: 0 }}>Mes informations</h2>
                 {!editing && (
                   <button onClick={ouvrirEdition} style={{ background: 'transparent', border: '1px solid #C9973A', color: '#C9973A', padding: '6px 14px', borderRadius: 6, fontSize: 12, fontFamily: 'Arial, sans-serif', cursor: 'pointer', fontWeight: 700 }}>
-                    ✏️ {t('espace.modifierInfos')}
+                    {t('espace.modifierInfos')}
                   </button>
                 )}
               </div>
@@ -312,7 +312,7 @@ export default function EspaceClient() {
                           : initiales}
                     </div>
                     <label style={{ fontSize: 13, color: 'var(--green-mid)', fontFamily: 'Arial, sans-serif', fontWeight: 700, cursor: 'pointer', border: '1px solid var(--border-color)', padding: '8px 14px', borderRadius: 6 }}>
-                      📷 {t('espace.changerPhoto')}
+                      {t('espace.changerPhoto')}
                       <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handlePhotoChange} style={{ display: 'none' }} />
                     </label>
                   </div>
@@ -367,12 +367,12 @@ export default function EspaceClient() {
 
               {/* Commander */}
               <div style={{ background: '#1A3C2E', border: '1px solid #2D6A4F', borderRadius: 14, padding: '24px 22px' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#C9973A', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>🛒 Passer une commande</h2>
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#C9973A', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>Passer une commande</h2>
                 <p style={{ fontSize: 14, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 16 }}>
                   Commandez votre Thé Pio Pio — 1 000 FCFA, livraison partout au Bénin.
                 </p>
                 <Link href="/boutique" className="btn-gold" style={{ fontSize: 14, display: 'block', textAlign: 'center', padding: '12px' }}>
-                  Voir la boutique →
+                  Voir la boutique
                 </Link>
               </div>
 
@@ -383,13 +383,13 @@ export default function EspaceClient() {
                   Partagez votre expérience et aidez d'autres familles à découvrir le Thé Pio Pio.
                 </p>
                 <Link href="/temoignages" className="btn-ghost" style={{ fontSize: 14, display: 'block', textAlign: 'center', padding: '12px' }}>
-                  Écrire un avis →
+                  Écrire un avis
                 </Link>
               </div>
 
               {/* Contact */}
               <div style={{ background: 'var(--bg-card)', border: '0.5px solid var(--border-color)', borderRadius: 14, padding: '24px 22px' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>✉️ Besoin d'aide ?</h2>
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>Besoin d'aide ?</h2>
                 <p style={{ fontSize: 14, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 16 }}>
                   Notre équipe est disponible Lun–Sam 8h–18h pour toute question.
                 </p>
@@ -398,7 +398,7 @@ export default function EspaceClient() {
                     Formulaire
                   </Link>
                   <a href="tel:+2290195967762" style={{ flex: 1, background: 'var(--bg-page)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 14, fontFamily: 'Arial, sans-serif', padding: '10px', borderRadius: 6, textDecoration: 'none', textAlign: 'center', fontWeight: 700 }}>
-                    📞 Appeler
+                    Appeler
                   </a>
                 </div>
               </div>
@@ -409,7 +409,7 @@ export default function EspaceClient() {
           <div style={{ marginTop: 32 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>
-                🛒 Mes commandes
+                Mes commandes
               </h2>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 {dernierRefresh && (
@@ -421,7 +421,7 @@ export default function EspaceClient() {
                   onClick={chargerCommandes}
                   style={{ fontSize: 13, color: 'var(--green-mid)', background: 'var(--green-pale)', border: '1px solid #2D6A4F40', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: 'Arial, sans-serif', fontWeight: 600 }}
                 >
-                  🔄 Actualiser
+                  Actualiser
                 </button>
               </div>
             </div>
@@ -433,7 +433,7 @@ export default function EspaceClient() {
             ) : commandes.length === 0 ? (
               <div style={{ background: 'var(--bg-card)', border: '0.5px solid var(--border-color)', borderRadius: 14, padding: 32, textAlign: 'center' }}>
                 <p style={{ color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', fontSize: 14, marginBottom: 16 }}>Vous n'avez pas encore passé de commande.</p>
-                <Link href="/boutique" className="btn-gold" style={{ fontSize: 14 }}>Découvrir la boutique →</Link>
+                <Link href="/boutique" className="btn-gold" style={{ fontSize: 14 }}>Découvrir la boutique</Link>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -465,7 +465,7 @@ export default function EspaceClient() {
                       {isSelected && (
                         <div style={{ padding: '0 20px 20px', borderTop: '1px solid #F0EBE0' }}>
 
-                          {/* ✅ Barre de progression */}
+                          {/* Barre de progression */}
                           <BarreProgression statut={cmd.statut} />
 
                           {/* Détail produits */}
@@ -478,8 +478,8 @@ export default function EspaceClient() {
                               </div>
                             ))}
                             <div style={{ borderTop: '1px solid #F0EBE0', paddingTop: 10, marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-                              <span style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>📍 {cmd.ville_livraison}</span>
-                              <span style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>💳 {cmd.paiement_affiche}</span>
+                              <span style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{cmd.ville_livraison}</span>
+                              <span style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{cmd.paiement_affiche}</span>
                               <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>Total : {Number(cmd.total).toLocaleString()} FCFA</span>
                             </div>
                           </div>
@@ -491,7 +491,7 @@ export default function EspaceClient() {
                               target="_blank" rel="noopener noreferrer"
                               style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13, color: '#25D366', fontFamily: 'Arial, sans-serif', fontWeight: 600, textDecoration: 'none', background: '#F0FFF4', padding: '8px 14px', borderRadius: 8, border: '1px solid #BBF7D0' }}
                             >
-                              💬 Suivre via WhatsApp
+                              Suivre via WhatsApp
                             </a>
                           )}
                         </div>

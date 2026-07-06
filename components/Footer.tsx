@@ -20,9 +20,86 @@ const navLinks = [
 const legalLinks = [
   { href: '/conditions', label: 'CGV' },
   { href: '/confidentialite', label: 'Confidentialité' },
-  { href: '/suivi-commande',  label: '📦 Suivi commande' },
-  { href: '/faq', label: 'FAQ' },
+  { href: '/suivi-commande',  label: 'Suivi commande' },
 ]
+
+type FAQItem = { id: number; question: string; reponse: string; categorie: string }
+
+const faqFallback: FAQItem[] = [
+  { id:1, question:"Qu'est-ce que le Thé Pio Pio ?", reponse:"Le Thé Pio Pio est une infusion 100% naturelle à base de verveine blanche citronnée, cultivée au Bénin sans engrais ni herbicide. Formulé par un vétérinaire spécialisé en biologie cellulaire.", categorie:"Produit" },
+  { id:2, question:"Le thé est-il adapté aux enfants ?", reponse:"Oui, le Thé Pio Pio est recommandé à partir de 2 ans. Il est sans additifs, sans colorants et 100% naturel. Idéal pour toute la famille.", categorie:"Santé" },
+  { id:3, question:"Quels sont les principaux bienfaits ?", reponse:"Circulation sanguine, sommeil profond, articulations soulagées, digestion douce, anti-stress et purification de l'organisme. Ses vertus sont reconnues depuis des siècles.", categorie:"Santé" },
+  { id:4, question:"Comment passer une commande ?", reponse:"Rendez-vous sur notre page Boutique ou contactez-nous par WhatsApp au +229 01 95 96 77 62. Livraison partout au Bénin sous 24h à 48h.", categorie:"Commande" },
+  { id:5, question:"Quels modes de paiement acceptez-vous ?", reponse:"Paiement à la livraison, Mobile Money (MTN MoMo, Moov Money) et virements bancaires pour les grossistes.", categorie:"Paiement" },
+  { id:6, question:"Livrez-vous partout au Bénin ?", reponse:"Oui, nous livrons dans toutes les villes du Bénin — Cotonou, Porto-Novo, Parakou, Abomey-Calavi et bien d'autres — sous 24h à 48h.", categorie:"Livraison" },
+  { id:7, question:"Comment devenir distributeur ?", reponse:"Contactez-nous via le formulaire ou par WhatsApp. Prix préférentiels à partir de 10 unités, support commercial inclus.", categorie:"Général" },
+]
+const faqFallbackEN: FAQItem[] = [
+  { id:1, question:"What is Thé Pio Pio?", reponse:"Thé Pio Pio is a 100% natural infusion made from white lemon verbena, grown in Benin without fertilizers or herbicides. Formulated by a veterinarian specialized in cell biology.", categorie:"Product" },
+  { id:2, question:"Is the tea suitable for children?", reponse:"Yes, Thé Pio Pio is recommended from age 2. It is additive-free, colorant-free and 100% natural. Ideal for the whole family.", categorie:"Health" },
+  { id:3, question:"What are the main benefits?", reponse:"Blood circulation, deep sleep, joint relief, gentle digestion, anti-stress and body detox. Its virtues have been recognized for centuries.", categorie:"Health" },
+  { id:4, question:"How do I place an order?", reponse:"Visit our Shop page or contact us via WhatsApp at +229 01 95 96 77 62. We deliver across Benin within 24h to 48h.", categorie:"Order" },
+  { id:5, question:"What payment methods do you accept?", reponse:"Cash on delivery, Mobile Money (MTN MoMo, Moov Money) and bank transfers for wholesalers.", categorie:"Payment" },
+  { id:6, question:"Do you deliver across Benin?", reponse:"Yes, we deliver to all cities in Benin — Cotonou, Porto-Novo, Parakou, Abomey-Calavi and more — within 24h to 48h.", categorie:"Delivery" },
+  { id:7, question:"How do I become a distributor?", reponse:"Contact us via the form or WhatsApp. Preferential pricing from 10 units, commercial support included.", categorie:"General" },
+]
+
+function FAQAccordion() {
+  const { lang } = useLang()
+  const [faqs, setFaqs] = useState<FAQItem[]>([])
+  const [open, setOpen] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch(`${API_BASE}/faq/`)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(d => {
+        const liste = Array.isArray(d) ? d : d.results ?? []
+        setFaqs(liste.length > 0 ? liste : (lang === 'en' ? faqFallbackEN : faqFallback))
+      })
+      .catch(() => setFaqs(lang === 'en' ? faqFallbackEN : faqFallback))
+  }, [lang])
+
+  return (
+    <div style={{ marginBottom: 48 }}>
+      <h4 style={{ fontSize: 11, fontWeight: 700, color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', letterSpacing: '2.5px', textTransform: 'uppercase', marginBottom: 16 }}>
+        {lang === 'en' ? 'Frequently Asked Questions' : 'Questions fréquentes'}
+      </h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 720 }}>
+        {faqs.map(faq => (
+          <div key={faq.id} style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(45,106,79,0.35)',
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}>
+            <button
+              onClick={() => setOpen(open === faq.id ? null : faq.id)}
+              style={{
+                width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                padding: '13px 16px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 12,
+              }}
+            >
+              <span style={{ fontSize: 13.5, fontWeight: 600, color: '#F0EBE0', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.4 }}>
+                {faq.question}
+              </span>
+              <span style={{
+                flexShrink: 0, fontSize: 16, color: '#C9973A', transition: 'transform 0.25s',
+                transform: open === faq.id ? 'rotate(45deg)' : 'none',
+              }}>+</span>
+            </button>
+            {open === faq.id && (
+              <div style={{ padding: '0 16px 16px 16px' }}>
+                <p style={{ fontSize: 13, color: 'rgba(168,213,184,0.85)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
+                  {faq.reponse}
+                </p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const TIKTOK_SVG = <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.98a8.2 8.2 0 004.78 1.52V7.06a4.85 4.85 0 01-1.01-.37z"/></svg>
 const FACEBOOK_SVG = <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -70,7 +147,7 @@ function NewsletterForm() {
       </p>
       {status === 'ok' ? (
         <div style={{ background: 'rgba(45,106,79,0.2)', border: '1px solid rgba(45,106,79,0.4)', borderRadius: 10, padding: '12px 14px', fontSize: 13, color: '#95D5B2', fontFamily: 'var(--font-dm-sans), Arial, sans-serif' }}>
-          {lang === 'en' ? '✅ Thank you! Check your inbox.' : '✅ Merci ! Vérifiez votre boîte email.'}
+          {lang === 'en' ? 'Thank you! Check your inbox.' : 'Merci ! Vérifiez votre boîte email.'}
         </div>
       ) : (
         <>
@@ -111,12 +188,12 @@ function NewsletterForm() {
                 minWidth: 90,
               }}
             >
-              {status === 'loading' ? '...' : "S'inscrire →"}
+              {status === 'loading' ? '...' : "S'inscrire"}
             </button>
           </div>
           {status === 'err' && errMsg && (
             <p style={{ fontSize: 12, color: 'rgba(239,68,68,0.8)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', marginTop: 6 }}>
-              ⚠ {errMsg}
+              {errMsg}
             </p>
           )}
         </>
@@ -184,13 +261,15 @@ export default function Footer() {
           flexShrink: 0,
           whiteSpace: 'nowrap',
         }}>
-          🛒 {cfg?.cta_bouton || t('footer.ctaBouton')}
+          {cfg?.cta_bouton || t('footer.ctaBouton')}
         </Link>
       </div>
 
       {/* Main footer */}
       <div style={{ background: '#0A1E12', padding: '56px 24px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+
+          <FAQAccordion />
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 40, marginBottom: 48, alignItems: 'start' }}>
 
@@ -272,13 +351,12 @@ export default function Footer() {
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {[
-                  { icon: '📍', text: site.adresse },
-                  { icon: '📞', text: site.telephone, href: `tel:${site.telephone_raw}` },
-                  { icon: '📧', text: site.email, href: `mailto:${site.email}` },
-                  { icon: '🕐', text: cfg?.heures_ouverture || 'Lun – Sam : 8h00 – 18h00' },
+                  { icon: '', text: site.adresse },
+                  { icon: '', text: site.telephone, href: `tel:${site.telephone_raw}` },
+                  { icon: '', text: site.email, href: `mailto:${site.email}` },
+                  { icon: '', text: cfg?.heures_ouverture || 'Lun – Sam : 8h00 – 18h00' },
                 ].map(({ icon, text, href }) => (
                   <div key={text} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: 15, flexShrink: 0, marginTop: 1 }}>{icon}</span>
                     {href ? (
                       <a href={href} style={{ fontSize: 13.5, color: 'rgba(107,158,122,0.85)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', lineHeight: 1.6, transition: 'color 0.2s' }}
                         onMouseEnter={e => (e.currentTarget.style.color = '#C9973A')}
@@ -294,7 +372,7 @@ export default function Footer() {
               {/* Mobile Money */}
               <div style={{ marginTop: 18, background: 'rgba(26,60,46,0.6)', border: '1px solid rgba(45,106,79,0.4)', borderRadius: 10, padding: '12px 14px' }}>
                 <p style={{ fontSize: 11, fontWeight: 700, color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 6 }}>
-                  💳 Paiement accepté
+                  Paiement accepté
                 </p>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {(site.paiements_liste).map(m => (
@@ -328,7 +406,7 @@ export default function Footer() {
           {/* Bottom bar */}
           <div style={{ paddingBottom: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
             <p style={{ fontSize: 13, color: 'rgba(45,106,79,0.7)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif' }}>
-              {lang === 'en' ? '© 2026 tropicanapiopio.com — All rights reserved 🇧🇯' : '© 2026 tropicanapiopio.com — Tous droits réservés 🇧🇯'}
+              {lang === 'en' ? '© 2026 tropicanapiopio.com — All rights reserved' : '© 2026 tropicanapiopio.com — Tous droits réservés'}
             </p>
             <div style={{ display: 'flex', gap: 20 }}>
               {legalLinks.map(({ href, label }) => (

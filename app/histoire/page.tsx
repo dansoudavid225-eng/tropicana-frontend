@@ -15,10 +15,10 @@ const chapsFB = [
   { id:4, numero:'04', titre:'Notre ambition', texte:"Notre thé 100% bio, sans additifs, est produit à Porto-Novo. Notre ambition : rayonner à l'échelle nationale, sous-régionale et internationale.", image:null },
 ]
 const missionsFB = [
-  { id:1, icone:'🌱', texte:'Produire un thé 100% bio, sans additifs, accessible à toute la famille' },
-  { id:2, icone:'🌍', texte:'Préserver les plantes médicinales africaines menacées de disparition' },
-  { id:3, icone:'🏆', texte:'Faire du Thé Pio Pio un ambassadeur du bien-être africain dans le monde' },
-  { id:4, icone:'🚀', texte:"Rayonner à l'échelle nationale, sous-régionale et internationale" },
+  { id:1, icone:'', texte:'Produire un thé 100% bio, sans additifs, accessible à toute la famille' },
+  { id:2, icone:'', texte:'Préserver les plantes médicinales africaines menacées de disparition' },
+  { id:3, icone:'', texte:'Faire du Thé Pio Pio un ambassadeur du bien-être africain dans le monde' },
+  { id:4, icone:'', texte:"Rayonner à l'échelle nationale, sous-régionale et internationale" },
 ]
 const fondateurFB = {
   citation: "Le plus grand laboratoire, c'est notre propre corps. Notre mission est de lui donner ce dont il a besoin pour fonctionner parfaitement.",

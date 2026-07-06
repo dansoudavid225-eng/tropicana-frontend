@@ -26,7 +26,7 @@ export default function ArticleFamille() {
           </p>
 
           <div style={{ background: 'var(--green-pale)', borderRadius: 10, padding: '20px 22px', marginBottom: 36, borderLeft: '4px solid #2D6A4F' }}>
-            <p style={{ fontSize: 13, fontWeight: 700, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', marginBottom: 6 }}>✅ Pourquoi dès 2 ans ?</p>
+            <p style={{ fontSize: 13, fontWeight: 700, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', marginBottom: 6 }}>Pourquoi dès 2 ans ?</p>
             <p style={{ fontSize: 13, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.8 }}>
               La verveine blanche citronnée est une plante douce, sans caféine, sans tanins agressifs. Elle ne contient aucun additif, aucun conservateur. Son profil est assez doux pour être adapté aux jeunes enfants, contrairement au thé noir ou vert classique.
             </p>
@@ -37,28 +37,28 @@ export default function ArticleFamille() {
           {[
             {
               age: 'Enfants de 2 à 6 ans',
-              icon: '👶',
+              icon: '',
               prep: '1 sachet dans 1 litre d\'eau bouillie et refroidie',
               quand: 'À boire à volonté dans la journée, en petites quantités',
               note: 'Peut être légèrement sucré avec du miel (dès 1 an)',
             },
             {
               age: 'Enfants de 7 à 12 ans',
-              icon: '🧒',
+              icon: '',
               prep: '1 sachet dans 75 cl d\'eau bouillie',
               quand: 'Matin et/ou soir, 1 tasse',
               note: 'Idéal pour favoriser la concentration et un bon sommeil avant l\'école',
             },
             {
               age: 'Adolescents et adultes',
-              icon: '👩',
+              icon: '',
               prep: '1 sachet par tasse (250 ml) d\'eau bouillie, infuser 5 min',
               quand: 'De préférence le soir avant de dormir',
               note: 'Effet relaxant et purificateur optimal',
             },
             {
               age: 'Personnes âgées',
-              icon: '👴',
+              icon: '',
               prep: '1 à 2 sachets par jour, matin et soir',
               quand: 'Avant les repas pour une meilleure digestion',
               note: 'Particulièrement bénéfique pour la circulation et les articulations',
@@ -70,7 +70,7 @@ export default function ArticleFamille() {
                 <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 10 }}>{item.age}</h3>
                 <p style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Préparation :</strong> {item.prep}</p>
                 <p style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 6 }}><strong>Quand :</strong> {item.quand}</p>
-                <p style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, fontStyle: 'italic' }}>💡 {item.note}</p>
+                <p style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, fontStyle: 'italic' }}>{item.note}</p>
               </div>
             </div>
           ))}
@@ -96,7 +96,7 @@ export default function ArticleFamille() {
           </div>
 
           <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--border-color)' }}>
-            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>← Retour au Blog</Link>
+            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>Retour au Blog</Link>
           </div>
         </div>
       </section>

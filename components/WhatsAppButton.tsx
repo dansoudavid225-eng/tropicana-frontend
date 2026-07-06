@@ -97,7 +97,7 @@ export default function WhatsAppButton() {
           border: '1px solid #2D6A4F',
           animation: 'fadeIn 0.3s ease',
         }}>
-          📲 Commander par WhatsApp
+          Commander par WhatsApp
           <div style={{ position: 'absolute', right: -8, top: '50%', transform: 'translateY(-50%)', width: 0, height: 0, borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderLeft: '8px solid #2D6A4F' }} />
         </div>
       )}
@@ -123,14 +123,14 @@ export default function WhatsAppButton() {
           className="btn-gold"
           style={{ flex: 1, textAlign: 'center', padding: '13px 10px', fontSize: 15 }}
         >
-          🛒 {ctaBouton || t('footer.ctaBouton')}
+          {ctaBouton || t('footer.ctaBouton')}
         </Link>
         <Link
           href="/contact"
           className="btn-ghost"
           style={{ flex: 1, textAlign: 'center', padding: '13px 10px', fontSize: 15 }}
         >
-          ✉️ {t('nav.contact')}
+          {t('nav.contact')}
         </Link>
       </div>
 

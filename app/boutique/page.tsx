@@ -12,13 +12,13 @@ const PRODUITS_FALLBACK = [
   {
     id: 'f1', nom: 'Sachet unitaire Thé Pio Pio', slug: 'the-pio-pio-sachet-unitaire',
     description: 'Découvrez le Thé Pio Pio — votre allié bien-être au quotidien. Ingrédient phare : la verveine blanche citronnée, reconnue pour ses vertus relaxantes, nettoyante naturelle des artères, riche en vitamine K essentielle pour votre équilibre interne. Commande minimale : 6 sachets.',
-    prix: 100, unite: 'sachet', badge: '🌿 Nouveau produit',
+    prix: 100, unite: 'sachet', badge: 'Nouveau produit',
     image: '', disponible: true, en_stock: true, stock: 0, quantite_min: 6,
   },
   {
     id: 'f2', nom: 'Thé Pio Pio — Sachet verveine citronnelle', slug: 'the-pio-pio-sachet-verveine',
     description: 'Le Thé Pio Pio fait à base de verveine à la citronnelle, 100% Bio. Cultivé naturellement à Porto-Novo, Bénin. Reconnu pour ses vertus relaxantes, nettoyantes des artères et riche en vitamine K. Votre allié bien-être au quotidien.',
-    prix: 1000, unite: 'sachet', badge: '🌿 100% Bio',
+    prix: 1000, unite: 'sachet', badge: '100% Bio',
     image: '', disponible: true, en_stock: true, stock: 0, quantite_min: 1,
   },
 ]
@@ -87,7 +87,7 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
                 onClick={() => onSupprimer(l.produit.id)}
                 style={{ fontSize: 11, color: '#e53935', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Arial, sans-serif', padding: 0 }}
               >
-                ✕ Supprimer
+                Supprimer
               </button>
             </div>
           </div>
@@ -104,7 +104,7 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
           className="btn-gold"
           style={{ width: '100%', textAlign: 'center', opacity: panier.length === 0 ? 0.5 : 1 }}
         >
-          Passer la commande →
+          Passer la commande
         </button>
       </div>
     </div>
@@ -214,7 +214,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
         return
       }
 
-      // ── FedaPay sélectionné mais pas d'URL → erreur, ne pas confirmer ──
+      // ── FedaPay sélectionné mais pas d'URL erreur, ne pas confirmer ──
       if (form.mode_paiement === 'fedapay') {
         setError(t('boutique.fedapayIndispo'))
         return
@@ -266,13 +266,13 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           ))}
           {fraisLivraison > 0 && (
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>
-              <span>🚚 Livraison ({zones.find(z=>z.ville.toLowerCase()===form.ville_livraison.toLowerCase())?.delai || ''})</span>
+              <span>Livraison ({zones.find(z=>z.ville.toLowerCase()===form.ville_livraison.toLowerCase())?.delai || ''})</span>
               <span>+{fraisLivraison.toLocaleString()} FCFA</span>
             </div>
           )}
           {promoApplique && (
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--green-mid)', marginTop: 4 }}>
-              <span>🎟️ Code promo ({codePromo.toUpperCase()})</span>
+              <span>Code promo ({codePromo.toUpperCase()})</span>
               <span>-{promoApplique.reduction.toLocaleString()} FCFA</span>
             </div>
           )}
@@ -327,7 +327,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           {/* ── Code promo ── */}
           <div>
             <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>
-              🎟️ Code promo (optionnel)
+              Code promo (optionnel)
             </label>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
@@ -350,7 +350,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
                 Code valide — réduction de {promoApplique.reduction.toLocaleString()} FCFA
               </p>
             )}
-            {promoErreur && <p style={{ color: '#dc3545', fontSize: 12, marginTop: 4 }}>⚠️ {promoErreur}</p>}
+            {promoErreur && <p style={{ color: '#dc3545', fontSize: 12, marginTop: 4 }}>{promoErreur}</p>}
           </div>
 
           {error && <p style={{ color: '#dc3545', fontSize: 13, background: '#fff0f0', padding: '8px 12px', borderRadius: 6 }}>{error}</p>}
@@ -495,13 +495,13 @@ export default function Boutique() {
   if (confirmation) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 40 }}>
-        <div style={{ fontSize: 64 }}>✅</div>
+        <div style={{ fontSize: 64 }}></div>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>{`${t('boutique.cmdNum')}${confirmation} ${t('boutique.cmdConfirmee')}`}</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: 16, textAlign: 'center', maxWidth: 440 }}>
           {t('boutique.merciCmd')}
         </p>
-        <p style={{ color: 'var(--text-primary)', fontWeight: 600 }}>📞 {site.telephone}</p>
-        <Link href="/" className="btn-gold">← Retour à l&apos;accueil</Link>
+        <p style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{site.telephone}</p>
+        <Link href="/" className="btn-gold">Retour à l&apos;accueil</Link>
       </div>
     )
   }
@@ -512,14 +512,14 @@ export default function Boutique() {
       {showAuthModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <div style={{ background: 'var(--bg-card)', borderRadius: 20, padding: '40px 32px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
-            <div style={{ fontSize: 52, marginBottom: 16 }}>🔒</div>
+            <div style={{ fontSize: 52, marginBottom: 16 }}></div>
             <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{t('boutique.cnxRequise')}</h2>
             <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 28 }}>
               Pour passer une commande, vous devez être connecté à votre compte. C&apos;est rapide et gratuit !
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <Link href="/connexion" className="btn-gold" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15 }}>
-                → Se connecter
+                Se connecter
               </Link>
               <Link href="/inscription" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15, background: 'var(--green-pale)', color: 'var(--text-primary)', borderRadius: 50, fontWeight: 700, fontFamily: 'Arial, sans-serif', textDecoration: 'none' }}>
                 Créer un compte gratuit
@@ -544,7 +544,7 @@ export default function Boutique() {
             boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
           }}
         >
-          {`🛒 ${totalPanier} ${lang === 'en' ? `item${totalPanier > 1 ? 's' : ''}` : `article${totalPanier > 1 ? 's' : ''}`} ${t('boutique.voirPanier')}`}
+          {`${totalPanier} ${lang === 'en' ? `item${totalPanier > 1 ? 's' : ''}` : `article${totalPanier > 1 ? 's' : ''}`} ${t('boutique.voirPanier')}`}
         </button>
       )}
 
@@ -588,10 +588,10 @@ export default function Boutique() {
       <div style={{ background: '#1A3C2E', borderBottom: '1px solid rgba(201,151,58,0.2)', padding: '14px 24px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
           {[
-            { icon: '🚚', text: t('boutique.liv2472') },
-            { icon: '✅', text: t('boutique.naturelBio') },
-            { icon: '💳', text: t('boutique.mobileMoney') },
-            { icon: '🔄', text: t('boutique.satisfait') },
+            { icon: '', text: t('boutique.liv2472') },
+            { icon: '', text: t('boutique.naturelBio') },
+            { icon: '', text: t('boutique.mobileMoney') },
+            { icon: '', text: t('boutique.satisfait') },
           ].map(item => (
             <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16 }}>{item.icon}</span>
@@ -634,7 +634,7 @@ export default function Boutique() {
                         style={{ objectFit: 'cover' }}
                       />
                     ) : (
-                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60 }}>🌿</div>
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 60 }}></div>
                     )}
                     {produit.badge && (
                       <span style={{ position: 'absolute', top: 12, right: 12, background: '#C9973A', color: 'var(--text-primary)', fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
@@ -652,7 +652,7 @@ export default function Boutique() {
                     {/* Badge stock faible */}
                     {produit.en_stock && produit.stock > 0 && produit.stock <= 5 && (
                       <span style={{ position: 'absolute', bottom: 10, left: 10, background: '#F97316', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
-                        ⚡ Plus que {produit.stock} en stock !
+                        Plus que {produit.stock} en stock !
                       </span>
                     )}
                   </div>
@@ -695,13 +695,13 @@ export default function Boutique() {
                           </p>
                         )}
                         <button onClick={() => ajouterAuPanier(produit)} className="btn-gold" style={{ width: '100%', textAlign: 'center', opacity: produit.en_stock ? 1 : 0.5, cursor: produit.en_stock ? 'pointer' : 'not-allowed' }} disabled={!produit.en_stock}>
-                          {produit.en_stock ? `🛒 ${t('boutique.ajouter')}` : `❌ ${t('boutique.enRupture')}`}
+                          {produit.en_stock ? `${t('boutique.ajouter')}` : `${t('boutique.enRupture')}`}
                         </button>
                       </>
                     ) : (
                       <div style={{ background: 'var(--bg-page)', borderRadius: 12, padding: '14px 16px', textAlign: 'center', border: '1px dashed #C9973A' }}>
                         <p style={{ fontSize: 13, color: 'var(--text-secondary)', margin: '0 0 10px', fontFamily: 'Arial, sans-serif' }}>
-                          🔒 Connectez-vous pour commander
+                          Connectez-vous pour commander
                         </p>
                         <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
                           <Link href="/connexion" style={{ background: '#1A3C2E', color: '#F0EBE0', fontSize: 13, fontWeight: 700, padding: '8px 16px', borderRadius: 8, textDecoration: 'none', fontFamily: 'Arial, sans-serif' }}>
@@ -730,10 +730,10 @@ export default function Boutique() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
             {[
-              { num: '1', icon: '🔐', titre: t('boutique.comment1'), desc: t('boutique.comment1d') },
-              { num: '2', icon: '🛒', titre: t('boutique.comment2'), desc: t('boutique.comment2d') },
-              { num: '3', icon: '💳', titre: t('boutique.comment3'), desc: t('boutique.comment3d') },
-              { num: '4', icon: '📦', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
+              { num: '1', icon: '', titre: t('boutique.comment1'), desc: t('boutique.comment1d') },
+              { num: '2', icon: '', titre: t('boutique.comment2'), desc: t('boutique.comment2d') },
+              { num: '3', icon: '', titre: t('boutique.comment3'), desc: t('boutique.comment3d') },
+              { num: '4', icon: '', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
             ].map(e => (
               <div key={e.num} style={{ background: '#0D2318', border: '1px solid #2D6A4F', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
                 <div style={{ position: 'absolute', top: -14, left: 20, background: '#C9973A', color: 'var(--text-primary)', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>

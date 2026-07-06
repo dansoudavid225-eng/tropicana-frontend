@@ -46,7 +46,7 @@ export default function MotDePasseOublie() {
 
           {status === 'sent' ? (
             <div style={{ textAlign:'center', padding:'20px 0' }}>
-              <div style={{ fontSize:52, marginBottom:16 }}>📧</div>
+              <div style={{ fontSize:52, marginBottom:16 }}></div>
               <h3 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>
                 {lang === 'en' ? 'Check your inbox!' : 'Vérifiez votre boîte mail !'}
               </h3>

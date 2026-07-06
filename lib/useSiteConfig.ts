@@ -30,16 +30,16 @@ const defaults: SiteConfig = {
   prix_affiche: 'dès 2 500 FCFA',
   prix_mini: '1 000 FCFA',
   arguments: [
-    { icone: '🌱', titre: '100 % Bio',            sous: 'Sans engrais ni herbicides' },
-    { icone: '🔬', titre: 'Fondé sur la science', sous: 'Formulé par un vétérinaire' },
-    { icone: '👨‍👩‍👧', titre: 'Toute la famille',    sous: 'Recommandé dès 2 ans' },
-    { icone: '🇧🇯', titre: 'Made in Bénin',        sous: 'Livraison nationale' },
+    { icone: '', titre: '100 % Bio',            sous: 'Sans engrais ni herbicides' },
+    { icone: '', titre: 'Fondé sur la science', sous: 'Formulé par un vétérinaire' },
+    { icone: '', titre: 'Toute la famille',    sous: 'Recommandé dès 2 ans' },
+    { icone: '', titre: 'Made in Bénin',        sous: 'Livraison nationale' },
   ],
   stats: [
-    { icone: '👨‍👩‍👧‍👦', num: '500+',      label: 'Familles béninoises satisfaites', desc: 'Partout au Bénin' },
-    { icone: '🌱',    num: '100%',      label: 'Bio, zéro additif',              desc: 'Sans engrais ni herbicide' },
-    { icone: '👶',    num: 'Dès 2 ans', label: 'Pour toute la famille',          desc: 'Enfants, adultes, seniors' },
-    { icone: '📦',    num: '24h',       label: 'Délai de livraison',             desc: 'Partout au Bénin' },
+    { icone: '', num: '500+',      label: 'Familles béninoises satisfaites', desc: 'Partout au Bénin' },
+    { icone: '',    num: '100%',      label: 'Bio, zéro additif',              desc: 'Sans engrais ni herbicide' },
+    { icone: '',    num: 'Dès 2 ans', label: 'Pour toute la famille',          desc: 'Enfants, adultes, seniors' },
+    { icone: '',    num: '24h',       label: 'Délai de livraison',             desc: 'Partout au Bénin' },
   ],
 }
 

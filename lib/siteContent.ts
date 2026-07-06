@@ -107,7 +107,7 @@ export type SiteContent = {
 // ─── Contenu par défaut (= contenu actuel du site) ───────────────────────────
 export const defaultContent: SiteContent = {
   // Hero
-  hero_badge:       '🌿 100% Bio · Porto-Novo, Bénin',
+  hero_badge:       '100% Bio · Porto-Novo, Bénin',
   hero_titre:       'La nature africaine',
   hero_titre_em:    'dans votre tasse',
   hero_sous_titre:  'Apaise ton stress, naturellement ',
@@ -117,10 +117,10 @@ export const defaultContent: SiteContent = {
 
   // 4 arguments
   arguments: [
-    { icon: '🌱', title: '100 % Bio',           sub: 'Sans engrais ni herbicides' },
-    { icon: '🔬', title: 'Fondé sur la science', sub: 'Formulé par un vétérinaire' },
-    { icon: '👨‍👩‍👧', title: 'Toute la famille',    sub: 'Recommandé dès 2 ans' },
-    { icon: '🇧🇯', title: 'Made in Bénin',       sub: 'Livraison nationale' },
+    { icon: '', title: '100 % Bio',           sub: 'Sans engrais ni herbicides' },
+    { icon: '', title: 'Fondé sur la science', sub: 'Formulé par un vétérinaire' },
+    { icon: '', title: 'Toute la famille',    sub: 'Recommandé dès 2 ans' },
+    { icon: '', title: 'Made in Bénin',       sub: 'Livraison nationale' },
   ],
 
   // Plante
@@ -139,12 +139,12 @@ export const defaultContent: SiteContent = {
   bienfaits_label: 'Bienfaits prouvés',
   bienfaits_titre: 'Ce que notre thé fait pour vous',
   bienfaits: [
-    { id: '1', icon: '❤️', title: 'Circulation sanguine', desc: 'Nourrit les cellules, libère les artères naturellement' },
-    { id: '2', icon: '😴', title: 'Sommeil profond',      desc: 'Endormissement rapide et repos vraiment réparateur' },
-    { id: '3', icon: '🦴', title: 'Articulations',        desc: 'Réduit les inflammations et soulage les douleurs' },
-    { id: '4', icon: '🌿', title: 'Digestion douce',      desc: 'Stimule le transit, apaise les ballonnements' },
-    { id: '5', icon: '🧘', title: 'Anti-stress',          desc: 'Effet relaxant naturel dès la première tasse' },
-    { id: '6', icon: '✨', title: 'Purification',         desc: 'Nettoie et détoxifie l\'organisme en profondeur' },
+    { id: '1', icon: '', title: 'Circulation sanguine', desc: 'Nourrit les cellules, libère les artères naturellement' },
+    { id: '2', icon: '', title: 'Sommeil profond',      desc: 'Endormissement rapide et repos vraiment réparateur' },
+    { id: '3', icon: '', title: 'Articulations',        desc: 'Réduit les inflammations et soulage les douleurs' },
+    { id: '4', icon: '', title: 'Digestion douce',      desc: 'Stimule le transit, apaise les ballonnements' },
+    { id: '5', icon: '', title: 'Anti-stress',          desc: 'Effet relaxant naturel dès la première tasse' },
+    { id: '6', icon: '', title: 'Purification',         desc: 'Nettoie et détoxifie l\'organisme en profondeur' },
   ],
 
   // Tasse
@@ -162,12 +162,12 @@ export const defaultContent: SiteContent = {
   fondateur_btn:      'Lire notre histoire',
 
   // Stats
-  stats_bandeau: '🌿 Cultivé à Porto-Novo · Formulé par un vétérinaire · Livraison nationale au Bénin',
+  stats_bandeau: 'Cultivé à Porto-Novo · Formulé par un vétérinaire · Livraison nationale au Bénin',
   stats: [
-    { num: '500+',    label: 'Familles béninoises satisfaites', icon: '👨‍👩‍👧‍👦', desc: 'Partout au Bénin' },
-    { num: '100%',    label: 'Bio, zéro additif',               icon: '🌱',      desc: 'Sans engrais ni herbicide' },
-    { num: 'Dès 2 ans', label: 'Pour toute la famille',         icon: '👶',      desc: 'Enfants, adultes, seniors' },
-    { num: '24h',     label: 'Délai de livraison',              icon: '📦',      desc: 'Partout au Bénin' },
+    { num: '500+',    label: 'Familles béninoises satisfaites', icon: '', desc: 'Partout au Bénin' },
+    { num: '100%',    label: 'Bio, zéro additif',               icon: '',      desc: 'Sans engrais ni herbicide' },
+    { num: 'Dès 2 ans', label: 'Pour toute la famille',         icon: '',      desc: 'Enfants, adultes, seniors' },
+    { num: '24h',     label: 'Délai de livraison',              icon: '',      desc: 'Partout au Bénin' },
   ],
   temoignages_rapides: [
     { texte: 'Depuis que je bois le Thé Pio Pio le soir, je dors beaucoup mieux. Mes douleurs articulaires ont diminué.', nom: 'Mariam K.',  ville: 'Cotonou' },
@@ -194,10 +194,10 @@ export const defaultContent: SiteContent = {
   histoire_fondateur_nom: 'Felicien Prosper DURAND',
   histoire_fondateur_sous: 'Fondateur · Vétérinaire diplômé\nSpécialiste en biologie cellulaire, Cuba',
   histoire_missions: [
-    { icon: '🌱', text: 'Produire un thé 100% bio, sans additifs, accessible à toute la famille' },
-    { icon: '🌍', text: 'Préserver les plantes médicinales africaines menacées de disparition' },
-    { icon: '🏆', text: 'Faire du Thé Pio Pio un ambassadeur du bien-être africain dans le monde' },
-    { icon: '🚀', text: 'Rayonner à l\'échelle nationale, sous-régionale et internationale' },
+    { icon: '', text: 'Produire un thé 100% bio, sans additifs, accessible à toute la famille' },
+    { icon: '', text: 'Préserver les plantes médicinales africaines menacées de disparition' },
+    { icon: '', text: 'Faire du Thé Pio Pio un ambassadeur du bien-être africain dans le monde' },
+    { icon: '', text: 'Rayonner à l\'échelle nationale, sous-régionale et internationale' },
   ],
 
   // Blog
@@ -215,19 +215,19 @@ export const defaultContent: SiteContent = {
 
   // Annonces
   annonces: [
-    '🚚 Livraison gratuite à partir de 5 000 FCFA — partout au Bénin',
-    '⚡ Commandez avant 18h, livré dès demain',
-    '📞 Commande rapide par WhatsApp : +229 01 95 96 77 62',
+    'Livraison gratuite à partir de 5 000 FCFA — partout au Bénin',
+    'Commandez avant 18h, livré dès demain',
+    'Commande rapide par WhatsApp : +229 01 95 96 77 62',
   ],
 
   // Footer
   footer_slogan:    '"Un sang qui circule, une vie qui rayonne."',
   footer_cta_pre:   'Prêt à prendre soin de vous ?',
   footer_cta_titre: 'Commandez votre Thé Pio Pio dès aujourd\'hui.',
-  footer_cta_btn:   '🛒 Commander dès 2 500 FCFA',
+  footer_cta_btn:   'Commander dès 2 500 FCFA',
   footer_adresse:   'Oganla Gare Nord, Porto-Novo, Bénin',
   footer_horaires:  'Lun – Sam : 8h00 – 18h00',
-  footer_copyright: '© 2026 tropicanapiopio.com — Tous droits réservés 🇧🇯',
+  footer_copyright: '© 2026 tropicanapiopio.com — Tous droits réservés',
 
   // Contact
   contact_intro: 'Notre équipe est disponible du lundi au samedi, de 8h à 18h. Nous répondons sous 24h.',

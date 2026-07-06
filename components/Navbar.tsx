@@ -24,7 +24,6 @@ export default function Navbar() {
     { href: '/histoire',     label: t('nav.histoire') },
     { href: '/blog',         label: t('nav.blog') },
     { href: '/temoignages',  label: t('nav.temoignages') },
-    { href: '/faq',          label: t('nav.faq') },
     { href: '/contact',      label: t('nav.contact') },
     { href: '/suivi-commande', label: 'Suivi commande' },
   ]
@@ -166,9 +165,9 @@ export default function Navbar() {
               onMouseEnter={e => iconBtnHover(e, true)}
               onMouseLeave={e => iconBtnHover(e, false)}
             >
-              <span style={{ fontSize: 14 }}>{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
+              <span style={{ fontSize: 14 }}>{lang === 'fr' ? '' : ''}</span>
               <span>{lang === 'fr' ? 'FR' : 'EN'}</span>
-              <span style={{ color: 'rgba(201,151,58,0.5)', fontSize: 10 }}>⇄</span>
+              <span style={{ color: 'rgba(201,151,58,0.5)', fontSize: 10 }}></span>
             </button>
 
             {/* ── Bouton dark / light mode ── */}
@@ -237,9 +236,9 @@ export default function Navbar() {
                       <p style={{ fontSize: 11, color: '#8FC9A8', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', marginTop: 2 }}>{user.email}</p>
                     </div>
                     {[
-                      { href: '/espace-client', label: `👤 ${t('nav.monEspace')}` },
-                      { href: '/boutique',      label: `🛒 ${t('nav.commander')}` },
-                      ...(user.is_staff ? [{ href: '/admin-panel', label: `🔐 ${t('nav.admin')}` }] : []),
+                      { href: '/espace-client', label: `${t('nav.monEspace')}` },
+                      { href: '/boutique',      label: `${t('nav.commander')}` },
+                      ...(user.is_staff ? [{ href: '/admin-panel', label: `${t('nav.admin')}` }] : []),
                     ].map(item => (
                       <Link key={item.href} href={item.href} onClick={() => setMenuUser(false)} style={{ display: 'block', padding: '11px 16px', fontSize: 14, color: item.href === '/admin-panel' ? '#C9973A' : 'var(--text-primary)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', borderBottom: '1px solid var(--border-light)', transition: 'background 0.2s' }}
                         onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-overlay)')}
@@ -317,11 +316,11 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link href="/espace-client" onClick={() => setOpen(false)} style={{ color: '#C9973A', fontSize: 15, fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', padding: '13px 12px', borderBottom: '1px solid rgba(45,106,79,0.2)', fontWeight: 700 }}>
-                  👤 {t('nav.monEspace')} — {user.prenom}
+                  {t('nav.monEspace')} — {user.prenom}
                 </Link>
                 {user.is_staff && (
                   <Link href="/admin-panel" onClick={() => setOpen(false)} style={{ color: '#C9973A', fontSize: 15, fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', padding: '13px 12px', borderBottom: '1px solid rgba(45,106,79,0.2)', fontWeight: 700, opacity: 0.8 }}>
-                    🔐 {t('nav.admin')}
+                    {t('nav.admin')}
                   </Link>
                 )}
                 <button onClick={handleDeconnexion} style={{ color: '#EF4444', fontSize: 15, fontFamily: 'var(--font-dm-sans), Arial, sans-serif', background: 'none', border: 'none', padding: '13px 12px', textAlign: 'left', cursor: 'pointer', borderBottom: '1px solid rgba(45,106,79,0.2)' }}>
@@ -341,14 +340,14 @@ export default function Navbar() {
               onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(201,151,58,0.08)', border: '1px solid rgba(201,151,58,0.25)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', color: '#E8B84B', fontSize: 13, fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700 }}
             >
-              <span>{lang === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
-              <span>{lang === 'fr' ? 'FR → EN' : 'EN → FR'}</span>
+              <span>{lang === 'fr' ? '' : ''}</span>
+              <span>{lang === 'fr' ? 'FR EN' : 'EN FR'}</span>
             </button>
             <button
               onClick={toggle}
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(201,151,58,0.2)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', color: '#8FC9A8', fontSize: 13, fontFamily: 'var(--font-dm-sans), Arial, sans-serif' }}
             >
-              {theme === 'dark' ? '☀️ Jour' : '🌙 Nuit'}
+              {theme === 'dark' ? 'Jour' : 'Nuit'}
             </button>
           </div>
 

@@ -37,7 +37,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {article.image ? (
           <Image src={article.image} alt={article.titre} fill style={{ objectFit: 'cover' }} unoptimized />
         ) : (
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80 }}>🌿</div>
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80 }}></div>
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.72)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
           <div style={{ maxWidth: 800, margin: '0 auto', width: '100%' }}>
@@ -50,19 +50,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <section style={{ background: '#FAFAF7', padding: '60px 24px' }}>
+      <section style={{ background: 'var(--bg-page)', padding: '60px 24px' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <p style={{ fontSize: 18, color: '#3A2D1E', fontFamily: 'Georgia, serif', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 36, borderLeft: '3px solid #C9973A', paddingLeft: 20 }}>
+          <p style={{ fontSize: 18, color: 'var(--text-primary)', fontFamily: 'Georgia, serif', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 36, borderLeft: '3px solid #C9973A', paddingLeft: 20 }}>
             {article.extrait}
           </p>
-          <div style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'Arial, sans-serif', lineHeight: 1.9 }}>
+          <div style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.9 }}>
             {article.contenu.split('\n\n').map((para: string, i: number) => (
               <p key={i} style={{ marginBottom: 20 }}>{para.replace(/\*\*/g, '')}</p>
             ))}
           </div>
-          <div style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid #E2DAC8', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-            <Link href="/blog" style={{ fontSize: 14, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', fontWeight: 700, textDecoration: 'none' }}>← Retour au blog</Link>
-            <Link href="/boutique" className="btn-gold" style={{ fontSize: 14, padding: '10px 22px' }}>Commander le Thé Pio Pio →</Link>
+          <div style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <Link href="/blog" style={{ fontSize: 14, color: 'var(--green-mid)', fontFamily: 'Arial, sans-serif', fontWeight: 700, textDecoration: 'none' }}>Retour au blog</Link>
+            <Link href="/boutique" className="btn-gold" style={{ fontSize: 14, padding: '10px 22px' }}>Commander le Thé Pio Pio</Link>
           </div>
         </div>
       </section>

@@ -18,10 +18,10 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
     { id:4, numero:'04', titre:'Our ambition', texte:"Our 100% organic tea, additive-free, is produced in Porto-Novo. Our ambition: to shine at the national, sub-regional, and international level." },
   ]
   const missionsEN = [
-    { id:1, icone:'🌱', texte:'Produce a 100% organic tea, additive-free, accessible to the whole family' },
-    { id:2, icone:'🌍', texte:'Preserve endangered African medicinal plants' },
-    { id:3, icone:'🏆', texte:'Make Thé Pio Pio an ambassador of African well-being worldwide' },
-    { id:4, icone:'🚀', texte:'Expand at the national, sub-regional and international level' },
+    { id:1, icone:'', texte:'Produce a 100% organic tea, additive-free, accessible to the whole family' },
+    { id:2, icone:'', texte:'Preserve endangered African medicinal plants' },
+    { id:3, icone:'', texte:'Make Thé Pio Pio an ambassador of African well-being worldwide' },
+    { id:4, icone:'', texte:'Expand at the national, sub-regional and international level' },
   ]
 
   const displayChapitres = lang === 'en' ? chapitresEN : chapitres

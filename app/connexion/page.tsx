@@ -113,7 +113,7 @@ export default function Connexion() {
               <input type={showMdp?'text':'password'} value={mdp} onChange={e=>setMdp(e.target.value)} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} onKeyDown={e=>e.key==='Enter'&&handleSubmit()} />
               <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
                 style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
-                {showMdp ? '🙈' : '👁️'}
+                {showMdp ? '' : ''}
               </button>
             </div>
           </div>

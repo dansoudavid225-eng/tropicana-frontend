@@ -10,16 +10,16 @@ export default function SuiviCommandePage() {
 
   const STATUTS: Record<string, { label: string; icon: string; couleur: string; etape: number }> = {
     en_attente:   { label: t('suivi.statutEnAttente'),   icon: '⏳', couleur: '#F4A261', etape: 1 },
-    confirmee:    { label: t('suivi.statutConfirmee'),   icon: '✅', couleur: '#457B9D', etape: 2 },
-    en_livraison: { label: t('suivi.statutEnLivraison'), icon: '🚚', couleur: '#2D6A4F', etape: 3 },
+    confirmee:    { label: t('suivi.statutConfirmee'),   icon: '', couleur: '#457B9D', etape: 2 },
+    en_livraison: { label: t('suivi.statutEnLivraison'), icon: '', couleur: '#2D6A4F', etape: 3 },
     livree:       { label: t('suivi.statutLivree'),      icon: '', couleur: '#40916C', etape: 4 },
-    annulee:      { label: t('suivi.statutAnnulee'),     icon: '❌', couleur: '#E63946', etape: 0 },
+    annulee:      { label: t('suivi.statutAnnulee'),     icon: '', couleur: '#E63946', etape: 0 },
   };
 
   const ETAPES = [
-    { etape: 1, label: t('suivi.etapeRecue'),     icon: '📋' },
-    { etape: 2, label: t('suivi.etapeConfirmee'), icon: '✅' },
-    { etape: 3, label: t('suivi.etapeLivraison'), icon: '🚚' },
+    { etape: 1, label: t('suivi.etapeRecue'),     icon: '' },
+    { etape: 2, label: t('suivi.etapeConfirmee'), icon: '' },
+    { etape: 3, label: t('suivi.etapeLivraison'), icon: '' },
     { etape: 4, label: t('suivi.etapeLivree'),    icon: '' },
   ];
 
@@ -60,20 +60,20 @@ export default function SuiviCommandePage() {
   const statut = commande ? STATUTS[commande.statut] : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F0F4F1', padding: '40px 16px', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-section)', padding: '40px 16px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ maxWidth: 640, margin: '0 auto' }}>
 
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ fontSize: '2.5rem', marginBottom: 8 }}></div>
-          <h1 style={{ color: '#2D6A4F', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>{t('suivi.titre')}</h1>
-          <p style={{ color: '#666', marginTop: 8 }}>{t('suivi.sousTitre')}</p>
+          <h1 style={{ color: 'var(--green-mid)', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>{t('suivi.titre')}</h1>
+          <p style={{ color: 'var(--text-muted)', marginTop: 8 }}>{t('suivi.sousTitre')}</p>
         </div>
 
         {/* Formulaire */}
-        <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 2px 16px rgba(0,0,0,.08)', marginBottom: 24 }}>
+        <div style={{ background: 'var(--bg-card)', borderRadius: 16, padding: 28, boxShadow: 'var(--shadow-card)', marginBottom: 24 }}>
           <div style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
+            <label style={{ display: 'block', fontWeight: 700, color: 'var(--green-mid)', marginBottom: 6, fontSize: '.9rem' }}>
               {t('suivi.numCommande')}
             </label>
             <input
@@ -81,11 +81,11 @@ export default function SuiviCommandePage() {
               value={commandeId}
               onChange={e => setCommandeId(e.target.value)}
               placeholder={t('suivi.numCommandePh')}
-              style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '12px 16px', border: '2px solid var(--border-light)', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
             />
           </div>
           <div style={{ marginBottom: 20 }}>
-            <label style={{ display: 'block', fontWeight: 700, color: '#2D6A4F', marginBottom: 6, fontSize: '.9rem' }}>
+            <label style={{ display: 'block', fontWeight: 700, color: 'var(--green-mid)', marginBottom: 6, fontSize: '.9rem' }}>
               {t('suivi.emailUtilise')}
             </label>
             <input
@@ -93,18 +93,18 @@ export default function SuiviCommandePage() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder={t('suivi.emailPh')}
-              style={{ width: '100%', padding: '12px 16px', border: '2px solid #E0EDE6', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
+              style={{ width: '100%', padding: '12px 16px', border: '2px solid var(--border-light)', borderRadius: 10, fontSize: '1rem', boxSizing: 'border-box' }}
             />
           </div>
           {erreur && (
-            <div style={{ background: '#FFF0F0', border: '1px solid #F8D7DA', borderRadius: 8, padding: '10px 14px', color: '#E63946', fontSize: '.875rem', marginBottom: 16 }}>
-              ⚠️ {erreur}
+            <div style={{ background: 'var(--bg-error)', border: '1px solid var(--border-error)', borderRadius: 8, padding: '10px 14px', color: 'var(--text-error)', fontSize: '.875rem', marginBottom: 16 }}>
+              {erreur}
             </div>
           )}
           <button
             onClick={chercher}
             disabled={loading}
-            style={{ width: '100%', padding: '14px', background: loading ? '#aaa' : '#2D6A4F', color: '#fff', border: 'none', borderRadius: 10, fontSize: '1rem', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer' }}
+            style={{ width: '100%', padding: '14px', background: loading ? 'var(--text-muted)' : 'var(--green-mid)', color: 'var(--text-inverse)', border: 'none', borderRadius: 10, fontSize: '1rem', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer' }}
           >
             {loading ? t('suivi.recherche') : t('suivi.suivreBtn')}
           </button>
@@ -112,13 +112,13 @@ export default function SuiviCommandePage() {
 
         {/* Résultat */}
         {commande && statut && (
-          <div style={{ background: '#fff', borderRadius: 16, padding: 28, boxShadow: '0 2px 16px rgba(0,0,0,.08)' }}>
+          <div style={{ background: 'var(--bg-card)', borderRadius: 16, padding: 28, boxShadow: 'var(--shadow-card)' }}>
 
             {/* Statut principal */}
             <div style={{ textAlign: 'center', marginBottom: 28 }}>
               <div style={{ fontSize: '3rem', marginBottom: 8 }}>{statut.icon}</div>
               <div style={{ fontSize: '1.3rem', fontWeight: 800, color: statut.couleur }}>{statut.label}</div>
-              <div style={{ color: '#666', fontSize: '.875rem', marginTop: 4 }}>{t('suivi.commandeNum')}{commande.id}</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '.875rem', marginTop: 4 }}>{t('suivi.commandeNum')}{commande.id}</div>
             </div>
 
             {/* Barre de progression */}
@@ -126,10 +126,10 @@ export default function SuiviCommandePage() {
               <div style={{ marginBottom: 28 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
                   {/* Ligne de fond */}
-                  <div style={{ position: 'absolute', top: 20, left: '12%', right: '12%', height: 4, background: '#E0EDE6', borderRadius: 2 }} />
+                  <div style={{ position: 'absolute', top: 20, left: '12%', right: '12%', height: 4, background: 'var(--border-light)', borderRadius: 2 }} />
                   {/* Ligne de progression */}
                   <div style={{
-                    position: 'absolute', top: 20, left: '12%', height: 4, background: '#2D6A4F', borderRadius: 2,
+                    position: 'absolute', top: 20, left: '12%', height: 4, background: 'var(--green-mid)', borderRadius: 2,
                     width: `${Math.max(0, (statut.etape - 1) / 3 * 76)}%`,
                     transition: 'width .5s ease'
                   }} />
@@ -138,13 +138,13 @@ export default function SuiviCommandePage() {
                       <div style={{
                         width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: '1.1rem', fontWeight: 700,
-                        background: statut.etape >= e.etape ? '#2D6A4F' : '#E0EDE6',
-                        color: statut.etape >= e.etape ? '#fff' : '#999',
+                        background: statut.etape >= e.etape ? 'var(--green-mid)' : 'var(--border-light)',
+                        color: statut.etape >= e.etape ? 'var(--text-inverse)' : 'var(--text-muted)',
                         transition: 'all .3s',
                       }}>
                         {e.icon}
                       </div>
-                      <div style={{ fontSize: '.7rem', color: statut.etape >= e.etape ? '#2D6A4F' : '#999', marginTop: 6, fontWeight: statut.etape >= e.etape ? 700 : 400, textAlign: 'center' }}>
+                      <div style={{ fontSize: '.7rem', color: statut.etape >= e.etape ? 'var(--green-mid)' : 'var(--text-muted)', marginTop: 6, fontWeight: statut.etape >= e.etape ? 700 : 400, textAlign: 'center' }}>
                         {e.label}
                       </div>
                     </div>
@@ -154,25 +154,25 @@ export default function SuiviCommandePage() {
             )}
 
             {/* Détails commande */}
-            <div style={{ borderTop: '1px solid #F0F4F1', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.client')}</div>
+                <div style={{ fontSize: '.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.client')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.nom_client}</div>
-                <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.telephone_client}</div>
+                <div style={{ fontSize: '.875rem', color: 'var(--text-muted)' }}>{commande.telephone_client}</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.livraison')}</div>
+                <div style={{ fontSize: '.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.livraison')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.ville_livraison}</div>
-                <div style={{ fontSize: '.875rem', color: '#666' }}>{commande.adresse_livraison || '—'}</div>
+                <div style={{ fontSize: '.875rem', color: 'var(--text-muted)' }}>{commande.adresse_livraison || '—'}</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.total')}</div>
-                <div style={{ fontWeight: 800, color: '#2D6A4F', fontSize: '1.1rem' }}>{Number(commande.total).toLocaleString(locale)} FCFA</div>
+                <div style={{ fontSize: '.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.total')}</div>
+                <div style={{ fontWeight: 800, color: 'var(--green-mid)', fontSize: '1.1rem' }}>{Number(commande.total).toLocaleString(locale)} FCFA</div>
               </div>
               <div>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.paiement')}</div>
+                <div style={{ fontSize: '.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>{t('suivi.paiement')}</div>
                 <div style={{ fontWeight: 700 }}>{commande.mode_paiement}</div>
-                <div style={{ fontSize: '.875rem', color: commande.payee ? '#2D6A4F' : '#E63946' }}>
+                <div style={{ fontSize: '.875rem', color: commande.payee ? 'var(--green-mid)' : 'var(--text-error)' }}>
                   {commande.payee ? t('suivi.payee') : t('suivi.enAttentePaiement')}
                 </div>
               </div>
@@ -180,11 +180,11 @@ export default function SuiviCommandePage() {
 
             {/* Produits */}
             {commande.lignes && commande.lignes.length > 0 && (
-              <div style={{ marginTop: 20, borderTop: '1px solid #F0F4F1', paddingTop: 16 }}>
-                <div style={{ fontSize: '.75rem', color: '#999', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>{t('suivi.produitsCommandes')}</div>
+              <div style={{ marginTop: 20, borderTop: '1px solid var(--border-light)', paddingTop: 16 }}>
+                <div style={{ fontSize: '.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 12 }}>{t('suivi.produitsCommandes')}</div>
                 {commande.lignes.map((l: any, i: number) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #F8FAF8', fontSize: '.9rem' }}>
-                    <span>{l.produit_nom} <span style={{ color: '#999' }}>×{l.quantite}</span></span>
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border-light)', fontSize: '.9rem' }}>
+                    <span>{l.produit_nom} <span style={{ color: 'var(--text-muted)' }}>×{l.quantite}</span></span>
                     <span style={{ fontWeight: 700 }}>{Number(l.sous_total).toLocaleString(locale)} FCFA</span>
                   </div>
                 ))}
@@ -192,11 +192,11 @@ export default function SuiviCommandePage() {
             )}
 
             {/* Contact */}
-            <div style={{ marginTop: 20, background: '#F0F4F1', borderRadius: 10, padding: 14, textAlign: 'center', fontSize: '.85rem', color: '#555' }}>
+            <div style={{ marginTop: 20, background: 'var(--bg-section)', borderRadius: 10, padding: 14, textAlign: 'center', fontSize: '.85rem', color: 'var(--text-secondary)' }}>
               {t('suivi.question')}{' '}
-              <a href="tel:+2290195967762" style={{ color: '#2D6A4F', fontWeight: 700 }}>+229 01 95 96 77 62</a>
+              <a href="tel:+2290195967762" style={{ color: 'var(--green-mid)', fontWeight: 700 }}>+229 01 95 96 77 62</a>
               {' '}{t('suivi.ou')}{' '}
-              <a href="https://wa.me/2290195967762" target="_blank" style={{ color: '#2D6A4F', fontWeight: 700 }}>WhatsApp</a>
+              <a href="https://wa.me/2290195967762" target="_blank" style={{ color: 'var(--green-mid)', fontWeight: 700 }}>WhatsApp</a>
             </div>
           </div>
         )}

@@ -310,7 +310,7 @@ export default function Temoignages() {
 
               {submitted && (
                 <div style={{ background: '#0D2318', border: '1px solid #2D6A4F', borderRadius: 8, padding: '14px 16px', marginBottom: 20, display: 'flex', gap: 10, alignItems: 'center' }}>
-                  <span style={{ fontSize: 20 }}>✅</span>
+                  <span style={{ fontSize: 20 }}></span>
                   <p style={{ fontSize: 14, color: '#95D5B2', fontFamily: 'Arial, sans-serif' }}>
                     {lang === 'en' ? t('temo.merciDetail') : 'Votre témoignage a bien été envoyé. Il sera publié après validation.'}
                   </p>
@@ -369,8 +369,8 @@ export default function Temoignages() {
                 {/* Onglets type vidéo */}
                 <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
                   <button style={tabStyle(typeVideo === 'aucune')} onClick={() => setTypeVideo('aucune')}>{lang === 'en' ? 'No video' : 'Pas de vidéo'}</button>
-                  <button style={tabStyle(typeVideo === 'upload')} onClick={() => setTypeVideo('upload')}>{lang === 'en' ? '📁 Upload a file' : '📁 Importer un fichier'}</button>
-                  <button style={tabStyle(typeVideo === 'lien')} onClick={() => setTypeVideo('lien')}>{lang === 'en' ? '🔗 YouTube/TikTok link' : '🔗 Lien YouTube/TikTok'}</button>
+                  <button style={tabStyle(typeVideo === 'upload')} onClick={() => setTypeVideo('upload')}>{lang === 'en' ? 'Upload a file' : 'Importer un fichier'}</button>
+                  <button style={tabStyle(typeVideo === 'lien')} onClick={() => setTypeVideo('lien')}>{lang === 'en' ? 'YouTube/TikTok link' : 'Lien YouTube/TikTok'}</button>
                 </div>
 
                 {/* Upload fichier */}
@@ -390,7 +390,7 @@ export default function Temoignages() {
                         </div>
                       ) : (
                         <div>
-                          <div style={{ fontSize: 32, marginBottom: 8 }}>🎬</div>
+                          <div style={{ fontSize: 32, marginBottom: 8 }}></div>
                           <p style={{ fontSize: 14, color: '#95D5B2', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>Cliquer pour sélectionner une vidéo</p>
                           <p style={{ fontSize: 12, color: '#6B9E7A', fontFamily: 'Arial, sans-serif' }}>MP4, MOV, WEBM — max 100 Mo</p>
                         </div>
@@ -445,7 +445,7 @@ export default function Temoignages() {
               </button>
 
               <p style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'Arial, sans-serif', textAlign: 'center', marginTop: 12 }}>
-                🔒 Votre témoignage est soumis à validation avant publication.
+                Votre témoignage est soumis à validation avant publication.
               </p>
             </div>
 
@@ -478,7 +478,7 @@ export default function Temoignages() {
                   {/* Badge vidéo */}
                   {(t.a_video || t.type_video !== 'aucune') && (
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'var(--green-pale)', color: '#1A5C3E', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '3px 10px', borderRadius: 20, marginBottom: 10 }}>
-                      🎬 Témoignage vidéo
+                      Témoignage vidéo
                     </div>
                   )}
 
@@ -508,7 +508,7 @@ export default function Temoignages() {
                     </div>
                     {t.isNew && (
                       <span style={{ marginLeft: 'auto', background: 'var(--green-pale)', color: 'var(--green-mid)', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '4px 10px', borderRadius: 20 }}>
-                        ✓ Nouveau
+                        Nouveau
                       </span>
                     )}
                   </div>

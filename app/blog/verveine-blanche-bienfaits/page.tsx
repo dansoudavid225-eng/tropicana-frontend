@@ -78,7 +78,7 @@ export default function ArticleVerveine() {
           </div>
 
           <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--border-color)' }}>
-            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>← Retour au Blog</Link>
+            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>Retour au Blog</Link>
           </div>
         </div>
       </section>

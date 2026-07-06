@@ -65,7 +65,7 @@ export default function RetourPaiementClient() {
 
   if (statut === 'success') return (
     <div style={container}><div style={card}>
-      <div style={{ fontSize: 56, marginBottom: 16 }}>✅</div>
+      <div style={{ fontSize: 56, marginBottom: 16 }}></div>
       <h1 style={{ fontSize: 24, color: 'var(--green-deep)', marginBottom: 8, fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
         Paiement confirmé !
       </h1>
@@ -83,7 +83,7 @@ export default function RetourPaiementClient() {
 
   if (statut === 'failed') return (
     <div style={container}><div style={card}>
-      <div style={{ fontSize: 56, marginBottom: 16 }}>❌</div>
+      <div style={{ fontSize: 56, marginBottom: 16 }}></div>
       <h1 style={{ fontSize: 22, color: '#dc3545', marginBottom: 8 }}>{lang === 'en' ? 'Payment failed' : 'Paiement échoué'}</h1>
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 32 }}>
         Le paiement n&apos;a pas pu être effectué. Votre commande reste en attente — vous pouvez réessayer ou choisir un autre mode de paiement.
@@ -96,7 +96,7 @@ export default function RetourPaiementClient() {
 
   return (
     <div style={container}><div style={card}>
-      <div style={{ fontSize: 56, marginBottom: 16 }}>🕐</div>
+      <div style={{ fontSize: 56, marginBottom: 16 }}></div>
       <h1 style={{ fontSize: 22, color: 'var(--text-primary)', marginBottom: 8 }}>Paiement en attente</h1>
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 32 }}>
         Votre commande <strong>#{commandeId}</strong> est enregistrée. Notre équipe vous contactera pour confirmer.

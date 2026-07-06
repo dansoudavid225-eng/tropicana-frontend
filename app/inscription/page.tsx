@@ -136,7 +136,7 @@ export default function Inscription() {
               <input name="mdp" type={showMdp?'text':'password'} value={form.mdp} onChange={change} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} />
               <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
                 style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
-                {showMdp ? '🙈' : '👁️'}
+                {showMdp ? '' : ''}
               </button>
             </div>
           </div>

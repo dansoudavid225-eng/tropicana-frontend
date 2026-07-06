@@ -24,8 +24,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
     : null
 
   const args = lang === 'en'
-    ? [ { icone:'🌱', titre:'100% Organic', sous:'No fertilizer or herbicide' }, { icone:'🔬', titre:'Science-backed', sous:'Formulated by a veterinarian' }, { icone:'👨‍👩‍👧', titre:'Whole family', sous:'Recommended from age 2' }, { icone:'🇧🇯', titre:'Made in Benin', sous:'Nationwide delivery' } ]
-    : [ { icone:'🌱', titre:'100 % Bio', sous:'Sans engrais ni herbicides' }, { icone:'🔬', titre:'Fondé sur la science', sous:'Formulé par un vétérinaire' }, { icone:'👨‍👩‍👧', titre:'Toute la famille', sous:'Recommandé dès 2 ans' }, { icone:'🇧🇯', titre:'Made in Bénin', sous:'Livraison nationale' } ]
+    ? [ { icone:'', titre:'100% Organic', sous:'No fertilizer or herbicide' }, { icone:'', titre:'Science-backed', sous:'Formulated by a veterinarian' }, { icone:'', titre:'Whole family', sous:'Recommended from age 2' }, { icone:'', titre:'Made in Benin', sous:'Nationwide delivery' } ]
+    : [ { icone:'', titre:'100 % Bio', sous:'Sans engrais ni herbicides' }, { icone:'', titre:'Fondé sur la science', sous:'Formulé par un vétérinaire' }, { icone:'', titre:'Toute la famille', sous:'Recommandé dès 2 ans' }, { icone:'', titre:'Made in Bénin', sous:'Livraison nationale' } ]
 
   const planteBullets = lang === 'en'
     ? ['Known for its deep relaxing properties', 'Natural artery cleanser', 'Rich in vitamin K, essential for internal balance', 'Promotes deep, restful sleep']
@@ -37,21 +37,21 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
   const locItems = lang === 'en'
     ? [
-        { icon:'📍', label:'Address',             value:'Porto-Novo, Republic of Benin', gold:false },
-        { icon:'📦', label:'Nationwide delivery', value:'All cities in Benin — 24h to 48h', gold:false },
-        { icon:'📞', label:'Phone',               value:'+229 01 95 96 77 62', gold:true },
-        { icon:'💬', label:'WhatsApp',            value:'Available 7 days/7', gold:false },
+        { icon:'', label:'Address',             value:'Porto-Novo, Republic of Benin', gold:false },
+        { icon:'', label:'Nationwide delivery', value:'All cities in Benin — 24h to 48h', gold:false },
+        { icon:'', label:'Phone',               value:'+229 01 95 96 77 62', gold:true },
+        { icon:'', label:'WhatsApp',            value:'Available 7 days/7', gold:false },
       ]
     : [
-        { icon:'📍', label:'Adresse',             value:'Porto-Novo, République du Bénin', gold:false },
-        { icon:'📦', label:'Livraison nationale', value:'Toutes villes du Bénin — 24h à 48h', gold:false },
-        { icon:'📞', label:'Téléphone',           value:'+229 01 95 96 77 62', gold:true },
-        { icon:'💬', label:'WhatsApp',            value:'Disponible 7j/7', gold:false },
+        { icon:'', label:'Adresse',             value:'Porto-Novo, République du Bénin', gold:false },
+        { icon:'', label:'Livraison nationale', value:'Toutes villes du Bénin — 24h à 48h', gold:false },
+        { icon:'', label:'Téléphone',           value:'+229 01 95 96 77 62', gold:true },
+        { icon:'', label:'WhatsApp',            value:'Disponible 7j/7', gold:false },
       ]
 
   const stats = lang === 'en'
-    ? [ { num:'500+', label:'Satisfied Beninese families', icone:'👨‍👩‍👧‍👦', desc:'Across Benin' }, { num:'100%', label:'Organic, zero additive', icone:'🌱', desc:'No fertilizer or herbicide' }, { num:'From 2', label:'For the whole family', icone:'👶', desc:'Children, adults, seniors' }, { num:'24h', label:'Delivery time', icone:'📦', desc:'Across Benin' } ]
-    : [ { num:'500+', label:'Familles béninoises satisfaites', icone:'👨‍👩‍👧‍👦', desc:'Partout au Bénin' }, { num:'100%', label:'Bio, zéro additif', icone:'🌱', desc:'Sans engrais ni herbicide' }, { num:'Dès 2 ans', label:'Pour toute la famille', icone:'👶', desc:'Enfants, adultes, seniors' }, { num:'24h', label:'Délai de livraison', icone:'📦', desc:'Partout au Bénin' } ]
+    ? [ { num:'500+', label:'Satisfied Beninese families', icone:'', desc:'Across Benin' }, { num:'100%', label:'Organic, zero additive', icone:'', desc:'No fertilizer or herbicide' }, { num:'From 2', label:'For the whole family', icone:'', desc:'Children, adults, seniors' }, { num:'24h', label:'Delivery time', icone:'', desc:'Across Benin' } ]
+    : [ { num:'500+', label:'Familles béninoises satisfaites', icone:'', desc:'Partout au Bénin' }, { num:'100%', label:'Bio, zéro additif', icone:'', desc:'Sans engrais ni herbicide' }, { num:'Dès 2 ans', label:'Pour toute la famille', icone:'', desc:'Enfants, adultes, seniors' }, { num:'24h', label:'Délai de livraison', icone:'', desc:'Partout au Bénin' } ]
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             <div style={{ position:'relative', width:'100%', height:'100%', borderRadius:20, overflow:'hidden', background:'#1A3C2E', boxShadow:'0 20px 60px rgba(0,0,0,0.25)' }}>
               <Image src="/images/plante-verveine.jpg" alt="Verveine blanche citronnée" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
               <div style={{ position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, rgba(26,60,46,0.6), transparent)', pointerEvents:'none' }} />
-              <div style={{ position:'absolute', top:16, right:16, background:'rgba(13,35,24,0.85)', backdropFilter:'blur(8px)', border:'1px solid rgba(201,151,58,0.4)', borderRadius:20, padding:'6px 14px', fontSize:12, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px' }}>🌿 100% BIO</div>
+              <div style={{ position:'absolute', top:16, right:16, background:'rgba(13,35,24,0.85)', backdropFilter:'blur(8px)', border:'1px solid rgba(201,151,58,0.4)', borderRadius:20, padding:'6px 14px', fontSize:12, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px' }}>100% BIO</div>
             </div>
           </div>
           <div style={{ flex:1, minWidth:260 }}>
@@ -234,13 +234,12 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               />
               <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
                 style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(26,60,46,0.95)', padding:'10px 16px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
-                <span>📍</span><span>{t('home.ouvrirMaps')}</span>
+                <span></span><span>{t('home.ouvrirMaps')}</span>
               </a>
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {locItems.map(item => (
                 <div key={item.label} style={{ display:'flex', gap:14, alignItems:'center', background:item.gold?'linear-gradient(135deg, rgba(201,151,58,0.15), rgba(201,151,58,0.08))':'rgba(255,255,255,0.05)', border:item.gold?'1px solid rgba(201,151,58,0.4)':'1px solid rgba(255,255,255,0.08)', borderRadius:14, padding:'16px 18px' }}>
-                  <div style={{ width:44, height:44, borderRadius:12, flexShrink:0, background:item.gold?'rgba(201,151,58,0.2)':'rgba(45,106,79,0.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20 }}>{item.icon}</div>
                   <div>
                     <div style={{ fontSize:10, fontWeight:700, color:item.gold?'#C9973A':'rgba(149,213,178,0.7)', fontFamily:'Arial, sans-serif', letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>{item.label}</div>
                     <div style={{ fontSize:15, fontWeight:item.gold?700:500, color:item.gold?'#F0EBE0':'rgba(240,235,224,0.85)', fontFamily:'Arial, sans-serif' }}>{item.value}</div>

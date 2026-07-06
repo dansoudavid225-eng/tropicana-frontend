@@ -32,11 +32,11 @@ export default function ArticleDistributeur() {
 
           <h2 style={{ fontSize: 22, fontWeight: 400, color: 'var(--text-primary)', marginBottom: 20, marginTop: 36 }}>Les avantages concrets pour un distributeur</h2>
           {[
-            { icon: '💰', titre: 'Prix préférentiels dès 10 unités', texte: 'À partir de 10 boîtes commandées, vous bénéficiez de tarifs grossiste attractifs, vous permettant une marge commerciale intéressante à la revente.' },
-            { icon: '📦', titre: 'Livraison nationale assurée', texte: 'Que vous soyez à Cotonou, Parakou, Natitingou ou ailleurs, notre logistique couvre tout le territoire béninois. Vous recevez votre stock rapidement.' },
-            { icon: '🎯', titre: 'Un produit qui se vend tout seul', texte: '1 000 FCFA pour 12 sachets : le prix est accessible, le produit est efficace, et les clients reviennent. Le bouche-à-oreille est votre meilleur allié.' },
-            { icon: '📋', titre: 'Support commercial inclus', texte: 'Nous vous fournissons les arguments de vente, les informations produit détaillées et un support de notre équipe pour vous aider à démarrer.' },
-            { icon: '🌱', titre: 'Produit différenciant', texte: '100% bio, sans additifs, formulé par un vétérinaire spécialiste : un positionnement premium qui justifie le prix et fidélise la clientèle.' },
+            { icon: '', titre: 'Prix préférentiels dès 10 unités', texte: 'À partir de 10 boîtes commandées, vous bénéficiez de tarifs grossiste attractifs, vous permettant une marge commerciale intéressante à la revente.' },
+            { icon: '', titre: 'Livraison nationale assurée', texte: 'Que vous soyez à Cotonou, Parakou, Natitingou ou ailleurs, notre logistique couvre tout le territoire béninois. Vous recevez votre stock rapidement.' },
+            { icon: '', titre: 'Un produit qui se vend tout seul', texte: '1 000 FCFA pour 12 sachets : le prix est accessible, le produit est efficace, et les clients reviennent. Le bouche-à-oreille est votre meilleur allié.' },
+            { icon: '', titre: 'Support commercial inclus', texte: 'Nous vous fournissons les arguments de vente, les informations produit détaillées et un support de notre équipe pour vous aider à démarrer.' },
+            { icon: '', titre: 'Produit différenciant', texte: '100% bio, sans additifs, formulé par un vétérinaire spécialiste : un positionnement premium qui justifie le prix et fidélise la clientèle.' },
           ].map(item => (
             <div key={item.titre} style={{ display: 'flex', gap: 16, marginBottom: 20, alignItems: 'flex-start' }}>
               <span style={{ fontSize: 26, flexShrink: 0 }}>{item.icon}</span>
@@ -70,7 +70,7 @@ export default function ArticleDistributeur() {
           </div>
 
           <div style={{ marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--border-color)' }}>
-            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>← Retour au Blog</Link>
+            <Link href="/blog" style={{ fontSize: 12, color: '#2D6A4F', fontFamily: 'Arial, sans-serif', textDecoration: 'none', fontWeight: 700 }}>Retour au Blog</Link>
           </div>
         </div>
       </section>
