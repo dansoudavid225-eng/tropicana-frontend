@@ -309,9 +309,9 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       {siteContent?.temoignages_rapides && siteContent.temoignages_rapides.length > 0 && (
         <section className="section-mobile-pad" style={{ background:'var(--bg-page)', padding:'56px 24px' }}>
           <div style={{ maxWidth:1200, margin:'0 auto' }}>
-            <div style={{ maxHeight:330, overflowY:'auto', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:20, paddingRight:6, scrollbarWidth:'thin', scrollbarColor:'#C9973A transparent' }}>
+            <div style={{ maxHeight:360, overflowY:'auto', display:'flex', flexDirection:'column', gap:16, paddingRight:8, scrollbarWidth:'thin', scrollbarColor:'#C9973A transparent' }}>
               {siteContent.temoignages_rapides.map((avis, i) => (
-                <div key={i} style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, padding:'20px 22px' }}>
+                <div key={i} style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, padding:'20px 22px', flexShrink:0 }}>
                   <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Georgia, serif', fontStyle:'italic', lineHeight:1.6, marginBottom:14 }}>
                     « {avis.texte} »
                   </p>

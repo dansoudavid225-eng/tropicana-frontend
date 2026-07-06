@@ -31,9 +31,7 @@ const temoignagesInitiaux: Temoignage[] = [
   { nom: 'Agnès M.', ville: 'Cotonou', note: 5, texte: 'Depuis que je bois le Thé Pio Pio chaque soir, je dors beaucoup mieux. Je le recommande à toute ma famille.', date: 'Mars 2026', type_video: 'aucune' },
   { nom: 'Kofi D.', ville: 'Porto-Novo', note: 5, texte: 'Mes douleurs aux articulations ont vraiment diminué après 3 semaines. Produit naturel et vraiment efficace.', date: 'Février 2026', type_video: 'aucune' },
   { nom: 'Rachel B.', ville: 'Parakou', note: 5, texte: "Je l'ai commandé pour ma mère âgée. Elle dit que son énergie est revenue. Merci Tropicana Pio Pio !", date: 'Janvier 2026', type_video: 'aucune' },
-  { nom: 'Mariam K.', ville: 'Cotonou', note: 5, texte: "Un thé exceptionnel ! Mon transit intestinal s'est amélioré dès la première semaine.", date: 'Mars 2026', type_video: 'aucune' },
-  { nom: 'Faustin D.', ville: 'Porto-Novo', note: 5, texte: 'Je le donne à mes enfants depuis 3 mois. Moins de maladies fréquentes, ils sont en pleine forme !', date: 'Avril 2026', type_video: 'aucune' },
-  { nom: 'Rachelle A.', ville: 'Parakou', note: 5, texte: 'Je revends le Thé Pio Pio dans ma boutique. Mes clients adorent et reviennent toujours commander.', date: 'Avril 2026', type_video: 'aucune' },
+
 ]
 
 // ─── Composant carte témoignage ───────────────────────────────────────────────

@@ -170,9 +170,7 @@ export const defaultContent: SiteContent = {
     { num: '24h',     label: 'Délai de livraison',              icon: '',      desc: 'Partout au Bénin' },
   ],
   temoignages_rapides: [
-    { texte: 'Depuis que je bois le Thé Pio Pio le soir, je dors beaucoup mieux. Mes douleurs articulaires ont diminué.', nom: 'Mariam K.',  ville: 'Cotonou' },
-    { texte: "Je le donne à mes enfants depuis 3 mois. Moins de maladies fréquentes, ils sont en pleine forme !",          nom: 'Faustin D.', ville: 'Porto-Novo' },
-    { texte: "Je revends le Thé Pio Pio dans ma boutique. Mes clients adorent et reviennent toujours commander.",           nom: 'Rachelle A.', ville: 'Parakou' },
+
   ],
 
   // Localisation
