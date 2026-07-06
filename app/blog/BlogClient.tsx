@@ -5,7 +5,13 @@ import { useLang } from '@/context/LanguageContext'
 
 type Article = { id?: number; slug?: string; categorie?: string; date_publication?: string; titre?: string; extrait?: string; image?: string | null; temps_lecture?: string }
 
-const emojiCat: Record<string,string> = { 'Plantes médicinales':'', 'Famille & Santé':'', 'Distribution':'', 'Santé naturelle':'', default:'' }
+const emojiCat: Record<string,string> = {
+  'Plantes médicinales':'<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  'Famille & Santé':'<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  'Distribution':'<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>',
+  'Santé naturelle':'<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  default:'<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+}
 
 function fmtDate(d: string, lang: string) {
   try { return new Date(d).toLocaleDateString(lang === 'en' ? 'en-GB' : 'fr-FR', { day:'2-digit', month:'long', year:'numeric' }) }
@@ -52,7 +58,7 @@ export default function BlogClient({ articles }: { articles: Article[] }) {
                     {featured.image
                       ? <Image src={featured.image} alt={featured.titre ?? ''} fill style={{ objectFit:'cover' }} unoptimized />
                       : <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', gap:12 }}>
-                          <span style={{ fontSize:64 }}>{emojiCat[featured.categorie ?? ''] ?? ''}</span>
+                          <span dangerouslySetInnerHTML={{ __html: emojiCat[featured.categorie ?? ''] ?? emojiCat.default }} />
                         </div>
                     }
                     <div style={{ position:'absolute', top:16, left:16, background:'rgba(201,151,58,0.92)', color:'#1A3C2E', fontSize:11, fontWeight:700, padding:'5px 12px', borderRadius:10 }}>{featured.categorie}</div>

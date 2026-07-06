@@ -128,7 +128,7 @@ export default function Contact() {
           <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
             {status === 'sent' ? (
               <div style={{ textAlign:'center', padding:'40px 0' }}>
-                <div style={{ fontSize:52, marginBottom:16 }}></div>
+                <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 <h3 style={{ fontSize:24, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>{t('contact.envoye')}</h3>
                 <p style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', lineHeight:1.7, marginBottom:24 }}>{t('contact.merci')}</p>
                 <Link href="/boutique" className="btn-gold">{t('contact.voirBoutique')}</Link>

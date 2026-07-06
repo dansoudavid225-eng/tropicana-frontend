@@ -36,7 +36,7 @@ function ResetForm() {
 
   if (status === 'done') return (
     <div style={{ textAlign:'center', padding:'20px 0' }}>
-      <div style={{ fontSize:52, marginBottom:16 }}></div>
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       <h3 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>{t('auth.mdpModifie')}</h3>
       <Link href="/connexion" className="btn-gold" style={{ display:'inline-block', marginTop:12 }}>{t('auth.seConnecter')}</Link>
     </div>

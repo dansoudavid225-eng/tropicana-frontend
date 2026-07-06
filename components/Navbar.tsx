@@ -165,9 +165,9 @@ export default function Navbar() {
               onMouseEnter={e => iconBtnHover(e, true)}
               onMouseLeave={e => iconBtnHover(e, false)}
             >
-              <span style={{ fontSize: 14 }}>{lang === 'fr' ? '' : ''}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               <span>{lang === 'fr' ? 'FR' : 'EN'}</span>
-              <span style={{ color: 'rgba(201,151,58,0.5)', fontSize: 10 }}></span>
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style={{ color: 'rgba(201,151,58,0.5)' }}><polyline points="6 9 12 15 18 9"/></svg>
             </button>
 
             {/* ── Bouton dark / light mode ── */}
@@ -340,7 +340,7 @@ export default function Navbar() {
               onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
               style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(201,151,58,0.08)', border: '1px solid rgba(201,151,58,0.25)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', color: '#E8B84B', fontSize: 13, fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700 }}
             >
-              <span>{lang === 'fr' ? '' : ''}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               <span>{lang === 'fr' ? 'FR EN' : 'EN FR'}</span>
             </button>
             <button

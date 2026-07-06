@@ -23,9 +23,10 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
     ? siteContent.stats.map(s => ({ num: s.num, label: s.label, icone: s.icon, desc: s.desc }))
     : null
 
+  const argIcon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
   const args = lang === 'en'
-    ? [ { icone:'', titre:'100% Organic', sous:'No fertilizer or herbicide' }, { icone:'', titre:'Science-backed', sous:'Formulated by a veterinarian' }, { icone:'', titre:'Whole family', sous:'Recommended from age 2' }, { icone:'', titre:'Made in Benin', sous:'Nationwide delivery' } ]
-    : [ { icone:'', titre:'100 % Bio', sous:'Sans engrais ni herbicides' }, { icone:'', titre:'Fondé sur la science', sous:'Formulé par un vétérinaire' }, { icone:'', titre:'Toute la famille', sous:'Recommandé dès 2 ans' }, { icone:'', titre:'Made in Bénin', sous:'Livraison nationale' } ]
+    ? [ { icone:argIcon, titre:'100% Organic', sous:'No fertilizer or herbicide' }, { icone:argIcon, titre:'Science-backed', sous:'Formulated by a veterinarian' }, { icone:argIcon, titre:'Whole family', sous:'Recommended from age 2' }, { icone:argIcon, titre:'Made in Benin', sous:'Nationwide delivery' } ]
+    : [ { icone:argIcon, titre:'100 % Bio', sous:'Sans engrais ni herbicides' }, { icone:argIcon, titre:'Fondé sur la science', sous:'Formulé par un vétérinaire' }, { icone:argIcon, titre:'Toute la famille', sous:'Recommandé dès 2 ans' }, { icone:argIcon, titre:'Made in Bénin', sous:'Livraison nationale' } ]
 
   const planteBullets = lang === 'en'
     ? ['Known for its deep relaxing properties', 'Natural artery cleanser', 'Rich in vitamin K, essential for internal balance', 'Promotes deep, restful sleep']
@@ -37,21 +38,23 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
 
   const locItems = lang === 'en'
     ? [
-        { icon:'', label:'Address',             value:'Porto-Novo, Republic of Benin', gold:false },
-        { icon:'', label:'Nationwide delivery', value:'All cities in Benin — 24h to 48h', gold:false },
-        { icon:'', label:'Phone',               value:'+229 01 95 96 77 62', gold:true },
-        { icon:'', label:'WhatsApp',            value:'Available 7 days/7', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>', label:'Address',             value:'Porto-Novo, Republic of Benin', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', label:'Nationwide delivery', value:'All cities in Benin — 24h to 48h', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', label:'Phone',               value:'+229 01 95 96 77 62', gold:true },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', label:'WhatsApp',            value:'Available 7 days/7', gold:false },
       ]
     : [
-        { icon:'', label:'Adresse',             value:'Porto-Novo, République du Bénin', gold:false },
-        { icon:'', label:'Livraison nationale', value:'Toutes villes du Bénin — 24h à 48h', gold:false },
-        { icon:'', label:'Téléphone',           value:'+229 01 95 96 77 62', gold:true },
-        { icon:'', label:'WhatsApp',            value:'Disponible 7j/7', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>', label:'Adresse',             value:'Porto-Novo, République du Bénin', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', label:'Livraison nationale', value:'Toutes villes du Bénin — 24h à 48h', gold:false },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>', label:'Téléphone',           value:'+229 01 95 96 77 62', gold:true },
+        { icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>', label:'WhatsApp',            value:'Disponible 7j/7', gold:false },
       ]
 
+  const statIco1 = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+  const statIco2 = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
   const stats = lang === 'en'
-    ? [ { num:'500+', label:'Satisfied Beninese families', icone:'', desc:'Across Benin' }, { num:'100%', label:'Organic, zero additive', icone:'', desc:'No fertilizer or herbicide' }, { num:'From 2', label:'For the whole family', icone:'', desc:'Children, adults, seniors' }, { num:'24h', label:'Delivery time', icone:'', desc:'Across Benin' } ]
-    : [ { num:'500+', label:'Familles béninoises satisfaites', icone:'', desc:'Partout au Bénin' }, { num:'100%', label:'Bio, zéro additif', icone:'', desc:'Sans engrais ni herbicide' }, { num:'Dès 2 ans', label:'Pour toute la famille', icone:'', desc:'Enfants, adultes, seniors' }, { num:'24h', label:'Délai de livraison', icone:'', desc:'Partout au Bénin' } ]
+    ? [ { num:'500+', label:'Satisfied Beninese families', icone:statIco1, desc:'Across Benin' }, { num:'100%', label:'Organic, zero additive', icone:statIco2, desc:'No fertilizer or herbicide' }, { num:'From 2', label:'For the whole family', icone:statIco1, desc:'Children, adults, seniors' }, { num:'24h', label:'Delivery time', icone:statIco2, desc:'Across Benin' } ]
+    : [ { num:'500+', label:'Familles béninoises satisfaites', icone:statIco1, desc:'Partout au Bénin' }, { num:'100%', label:'Bio, zéro additif', icone:statIco2, desc:'Sans engrais ni herbicide' }, { num:'Dès 2 ans', label:'Pour toute la famille', icone:statIco1, desc:'Enfants, adultes, seniors' }, { num:'24h', label:'Délai de livraison', icone:statIco2, desc:'Partout au Bénin' } ]
 
   return (
     <>
@@ -67,7 +70,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {(argumentsAdmin ?? configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
             <div key={item.titre ?? i} className="args-strip-item" style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
-              <div className="args-strip-icon" style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }}>{item.icone}</div>
+               <div className="args-strip-icon" style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }} dangerouslySetInnerHTML={{ __html: item.icone || '' }} />
               <div>
                 <div className="args-strip-titre" style={{ fontSize:14, fontWeight:700, color:'var(--text-primary)', fontFamily:'Arial, sans-serif', marginBottom:2 }}>{item.titre}</div>
                 <div className="args-strip-sous" style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{item.sous}</div>
@@ -121,7 +124,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             {bienfaits.map((b:any, i:number) => (
               <ScrollReveal key={b.id ?? b.titre} animation="scaleUp" delay={i*80}>
                 <div className="bienfait-card">
-                  {b.icone ? <span className="bienfait-icone">{b.icone}</span> : <div style={{ width:8, height:8, background:'#2D6A4F', borderRadius:'50%', marginTop:6, flexShrink:0 }} />}
+                  {b.icone ? <span className="bienfait-icone" dangerouslySetInnerHTML={{ __html: b.icone }} /> : <div style={{ width:8, height:8, background:'#2D6A4F', borderRadius:'50%', marginTop:6, flexShrink:0 }} />}
                   <div>
                     <div className="bienfait-titre">{b.titre ?? b.title}</div>
                     <div className="bienfait-desc">{b.description ?? b.desc}</div>
@@ -215,7 +218,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       {/* LOCALISATION */}
       <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', padding:'90px 24px', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
         <div style={{ position:'absolute', inset:0, opacity:0.15, backgroundImage:'linear-gradient(rgba(201,151,58,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,151,58,0.1) 1px, transparent 1px)', backgroundSize:'60px 60px', pointerEvents:'none' }} />
-        <div style={{ maxWidth:1100, margin:'0 auto', position:'relative', zIndex:1 }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', position:'relative', zIndex:1 }}>
           <div style={{ marginBottom:52 }}>
             <span style={{ fontSize:11, letterSpacing:'3px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('home.ouTrouver')}</span>
             <h2 style={{ fontSize:'clamp(28px, 4vw, 46px)', fontWeight:300, color:'#F0EBE0', margin:'8px 0 0', lineHeight:1.15, fontFamily:'Georgia, serif' }}>
@@ -234,12 +237,13 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               />
               <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
                 style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(26,60,46,0.95)', padding:'10px 16px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
-                <span></span><span>{t('home.ouvrirMaps')}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#95D5B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>{t('home.ouvrirMaps')}</span>
               </a>
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {locItems.map(item => (
                 <div key={item.label} style={{ display:'flex', gap:14, alignItems:'center', background:item.gold?'linear-gradient(135deg, rgba(201,151,58,0.15), rgba(201,151,58,0.08))':'rgba(255,255,255,0.05)', border:item.gold?'1px solid rgba(201,151,58,0.4)':'1px solid rgba(255,255,255,0.08)', borderRadius:14, padding:'16px 18px' }}>
+                  <span style={{ color: item.gold ? '#C9973A' : '#6B9E7A', flexShrink: 0, display: 'flex' }} dangerouslySetInnerHTML={{ __html: item.icon }} />
                   <div>
                     <div style={{ fontSize:10, fontWeight:700, color:item.gold?'#C9973A':'rgba(149,213,178,0.7)', fontFamily:'Arial, sans-serif', letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>{item.label}</div>
                     <div style={{ fontSize:15, fontWeight:item.gold?700:500, color:item.gold?'#F0EBE0':'rgba(240,235,224,0.85)', fontFamily:'Arial, sans-serif' }}>{item.value}</div>
@@ -292,7 +296,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <div className="stats-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', maxWidth:1200, margin:'0 auto', padding:'48px 24px', gap:32 }}>
           {(statsAdmin ?? configSite?.stats ?? stats).map((s:any) => (
             <div key={s.num} style={{ textAlign:'center', padding:'8px' }}>
-              <div style={{ fontSize:36, marginBottom:10 }}>{s.icone}</div>
+              <div style={{ fontSize:36, marginBottom:10 }} dangerouslySetInnerHTML={{ __html: s.icone || '' }} />
               <span style={{ display:'block', fontSize:38, fontWeight:400, color:'#C9973A', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:8 }}>{s.num}</span>
               <span style={{ display:'block', fontSize:15, color:'#F0EBE0', fontFamily:'Arial, sans-serif', fontWeight:700, marginBottom:4 }}>{s.label}</span>
               <span style={{ display:'block', fontSize:13, color:'#6B9E7A', fontFamily:'Arial, sans-serif' }}>{s.desc}</span>
