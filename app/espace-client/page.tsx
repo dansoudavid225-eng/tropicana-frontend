@@ -244,7 +244,7 @@ export default function EspaceClient() {
     <>
       {/* Header espace client */}
       <section style={{ background: '#1A3C2E', padding: '32px 24px', borderBottom: '1px solid #0D2318' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ width: 56, height: 56, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: '#C9973A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif' }}>
               {user.photo_affichee
@@ -268,7 +268,7 @@ export default function EspaceClient() {
       </section>
 
       <section style={{ background: 'var(--bg-page)', padding: '40px 24px', minHeight: '60vh' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
           {/* Grille principale */}
           <div className="dashboard-grid" style={{ display: 'grid', gap: 24, alignItems: 'start' }}>

@@ -32,7 +32,7 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
       <section style={{ position:'relative', height:320, overflow:'hidden' }}>
         <Image src="/images/plante-verveine.jpg" alt="La verveine blanche" fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'40px' }}>
-          <div style={{ maxWidth:800, margin:'0 auto', width:'100%' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'0 24px' }}>
             <span style={{ fontSize:15, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('histoire.label')}</span>
             <h1 style={{ fontSize:34, fontWeight:400, color:'#F0EBE0', marginTop:8, lineHeight:1.3 }}>
               {t('histoire.titre')} —<br /><em style={{ color:'#C9973A' }}>{t('histoire.sous')}</em>
@@ -42,7 +42,7 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
       </section>
 
       <section style={{ background:'var(--bg-page)', padding:'60px 24px' }}>
-        <div style={{ maxWidth:800, margin:'0 auto' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto' }}>
           {displayChapitres.map((item:any, i:number) => (
             <div key={item.id ?? item.numero}>
               <div style={{ display:'flex', gap:28, marginBottom:40, alignItems:'flex-start' }}>

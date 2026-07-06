@@ -41,7 +41,8 @@ export default function ConfidentialitePage() {
   return (
     <main style={{ background: '#FAFAF7', minHeight: '100vh' }}>
       <div style={{ background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', padding: '60px 24px 48px' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <Link href="/" style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
             Retour à l'accueil
           </Link>
@@ -54,18 +55,21 @@ export default function ConfidentialitePage() {
           </p>
         </div>
       </div>
-      <div style={{ maxWidth: 760, margin: '0 auto', padding: '48px 24px' }}>
-        {sections.map(s => (
-          <div key={s.title} style={{ marginBottom: 36 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1A3C2E', fontFamily: 'var(--font-cormorant), Georgia, serif', marginBottom: 10 }}>{s.title}</h2>
-            <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.85 }}>{s.content}</p>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+          {sections.map(s => (
+            <div key={s.title} style={{ marginBottom: 36 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1A3C2E', fontFamily: 'var(--font-cormorant), Georgia, serif', marginBottom: 10 }}>{s.title}</h2>
+              <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.85 }}>{s.content}</p>
+            </div>
+          ))}
+          <div style={{ marginTop: 40, padding: '20px 24px', background: '#EAF4EE', border: '1px solid #B7D9C4', borderRadius: 12 }}>
+            <p style={{ fontSize: 14, color: '#1A3C2E', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
+              Questions sur vos données ? Écrivez-nous à <strong>tropicanapiopio.officiel@gmail.com</strong>.
+            </p>
           </div>
-        ))}
-        <div style={{ marginTop: 40, padding: '20px 24px', background: '#EAF4EE', border: '1px solid #B7D9C4', borderRadius: 12 }}>
-          <p style={{ fontSize: 14, color: '#1A3C2E', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
-            Questions sur vos données ? Écrivez-nous à <strong>tropicanapiopio.officiel@gmail.com</strong>.
-          </p>
         </div>
+      </div>
       </div>
     </main>
   )

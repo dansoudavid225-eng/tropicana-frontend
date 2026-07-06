@@ -46,7 +46,8 @@ export default function CGVPage() {
     <main style={{ background: '#FAFAF7', minHeight: '100vh' }}>
       {/* Hero */}
       <div style={{ background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', padding: '60px 24px 48px' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+          <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <Link href="/" style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
             Retour à l'accueil
           </Link>
@@ -59,9 +60,11 @@ export default function CGVPage() {
           </p>
         </div>
       </div>
+      </div>
 
       {/* Contenu */}
-      <div style={{ maxWidth: 760, margin: '0 auto', padding: '48px 24px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
         {sections.map(s => (
           <div key={s.title} style={{ marginBottom: 36 }}>
             <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1A3C2E', fontFamily: 'var(--font-cormorant), Georgia, serif', marginBottom: 10 }}>{s.title}</h2>
@@ -73,6 +76,7 @@ export default function CGVPage() {
             Pour toute question relative à ces CGV, contactez-nous au <strong>+229 01 95 96 77 62</strong> ou à <strong>tropicanapiopio.officiel@gmail.com</strong>.
           </p>
         </div>
+      </div>
       </div>
     </main>
   )

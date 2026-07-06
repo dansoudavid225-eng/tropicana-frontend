@@ -35,7 +35,7 @@ export default function Partenaires() {
 
   return (
     <section style={{ padding: '80px 24px', background: '#FAFAF7' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 52 }}>

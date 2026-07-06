@@ -60,8 +60,9 @@ export default function SuiviCommandePage() {
   const statut = commande ? STATUTS[commande.statut] : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-section)', padding: '40px 16px', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-section)', padding: '40px 24px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ maxWidth: 640, margin: '0 auto' }}>
 
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
