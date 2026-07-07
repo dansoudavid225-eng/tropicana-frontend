@@ -232,7 +232,7 @@ export default function Temoignages() {
               {temoignages.length} {t('temo.nbTemo')}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {temoignages.map((t, i) => (
+              {temoignages.map((item, i) => (
                 <div
                   key={i}
                   style={{
@@ -245,26 +245,26 @@ export default function Temoignages() {
                 >
                   {/* Étoiles */}
                   <div style={{ color: 'var(--gold)', fontSize: 14, letterSpacing: 2, marginBottom: 10 }}>
-                    {'★'.repeat(t.note)}{'☆'.repeat(5 - t.note)}
+                    {'★'.repeat(item.note)}{'☆'.repeat(5 - item.note)}
                   </div>
 
                   {/* Texte */}
-                  {t.texte && (
+                  {item.texte && (
                     <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Georgia, serif', fontStyle: 'italic', lineHeight: 1.8, marginBottom: 12 }}>
-                      "{t.texte}"
+                      "{item.texte}"
                     </p>
                   )}
 
                   {/* Auteur */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14 }}>
                     <div style={{ width: 36, height: 36, background: 'var(--green-deep)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, color: 'var(--gold)', fontFamily: 'Arial, sans-serif', flexShrink: 0 }}>
-                      {t.nom.charAt(0).toUpperCase()}
+                      {item.nom.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 2 }}>{t.nom}</p>
-                      <p style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{t.ville} · {t.date}</p>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', marginBottom: 2 }}>{item.nom}</p>
+                      <p style={{ fontSize: 13, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif' }}>{item.ville} · {item.date}</p>
                     </div>
-                    {t.isNew && (
+                    {item.isNew && (
                       <span style={{ marginLeft: 'auto', background: 'var(--green-pale)', color: 'var(--green-mid)', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '4px 10px', borderRadius: 20 }}>
                         {t('temo.nouveau')}
                       </span>

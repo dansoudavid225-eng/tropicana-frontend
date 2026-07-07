@@ -1533,15 +1533,6 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
           <WeeklySalesChart data={weekly} />
         </div>
       </div>
-
-      <div style={CS}>
-        <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 12px', color: 'var(--admin-text)' }}>Modifier le contenu du site</h3>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {(['hero', 'arguments', 'bienfaits', 'plante', 'blog', 'histoire', 'partenaires', 'annonces', 'footer', 'contact', 'accueilConfig', 'couleurs'] as Section[]).map(s => (
-            <button key={s} onClick={() => setSection(s)} style={{ background: 'var(--admin-success-bg)', color: 'var(--green-mid)', border: '1px solid var(--admin-success-bg)', borderRadius: 8, padding: '8px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{TITLES[s]}</button>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }

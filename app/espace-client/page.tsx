@@ -462,7 +462,7 @@ export default function EspaceClient() {
 
                           {!['livree', 'annulee'].includes(cmd.statut) && (
                             <a
-                              href={`https://wa.me/2290195967762?text=${encodeURIComponent(t('espace.whatsappMessage', { id: cmd.id }))}`}
+                              href={`https://wa.me/2290195967762?text=${encodeURIComponent(`Bonjour, j'ai une question sur ma commande #${cmd.id}`)}`}
                               target="_blank" rel="noopener noreferrer"
                               style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13, color: '#25D366', fontFamily: 'Arial, sans-serif', fontWeight: 600, textDecoration: 'none', background: '#F0FFF4', padding: '8px 14px', borderRadius: 8, border: '1px solid #BBF7D0' }}
                             >
