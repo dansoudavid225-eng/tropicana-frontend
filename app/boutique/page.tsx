@@ -82,10 +82,10 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
               <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{`${t('boutique.qty')} ${l.quantite}`}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-              <p style={{ fontWeight: 700, color: '#C9973A' }}>{(l.produit.prix * l.quantite).toLocaleString()} FCFA</p>
+              <p style={{ fontWeight: 700, color: 'var(--gold)' }}>{(l.produit.prix * l.quantite).toLocaleString()} FCFA</p>
               <button
                 onClick={() => onSupprimer(l.produit.id)}
-                style={{ fontSize: 11, color: '#e53935', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Arial, sans-serif', padding: 0 }}
+                style={{ fontSize: 11, color: 'var(--text-error)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Arial, sans-serif', padding: 0 }}
               >
                 Supprimer
               </button>
@@ -93,9 +93,9 @@ function PanierMini({ panier, onClose, onCommander, onSupprimer }: {
           </div>
         ))}
 
-        <div style={{ borderTop: '2px solid #1A3C2E', paddingTop: 12, display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ borderTop: '2px solid var(--green-deep)', paddingTop: 12, display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontWeight: 700, fontSize: 16, color: 'var(--text-primary)' }}>Total</span>
-          <span style={{ fontWeight: 700, fontSize: 18, color: '#C9973A' }}>{total.toLocaleString()} FCFA</span>
+          <span style={{ fontWeight: 700, fontSize: 18, color: 'var(--gold)' }}>{total.toLocaleString()} FCFA</span>
         </div>
 
         <button
@@ -278,7 +278,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
           )}
           <div style={{ borderTop: '1px solid var(--border-color)', marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: 'var(--text-primary)' }}>
             <span>Total TTC</span>
-            <span style={{ color: '#C9973A' }}>
+            <span style={{ color: 'var(--gold)' }}>
               {Math.max(0, total + fraisLivraison - (promoApplique?.reduction || 0)).toLocaleString()} FCFA
             </span>
           </div>
@@ -340,7 +340,7 @@ function ModalCommande({ panier, onClose, onSuccess }: {
                 type="button"
                 onClick={validerCodePromo}
                 disabled={promoLoading || !codePromo.trim()}
-                style={{ padding: '10px 14px', background: '#2D6A4F', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', fontSize: 13 }}
+                style={{ padding: '10px 14px', background: 'var(--green-mid)', color: 'var(--text-inverse)', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap', fontSize: 13 }}
               >
                 {promoLoading ? '...' : 'Appliquer'}
               </button>
@@ -350,10 +350,10 @@ function ModalCommande({ panier, onClose, onSuccess }: {
                 Code valide — réduction de {promoApplique.reduction.toLocaleString()} FCFA
               </p>
             )}
-            {promoErreur && <p style={{ color: '#dc3545', fontSize: 12, marginTop: 4 }}>{promoErreur}</p>}
+            {promoErreur && <p style={{ color: 'var(--text-error)', fontSize: 12, marginTop: 4 }}>{promoErreur}</p>}
           </div>
 
-          {error && <p style={{ color: '#dc3545', fontSize: 13, background: '#fff0f0', padding: '8px 12px', borderRadius: 6 }}>{error}</p>}
+          {error && <p style={{ color: 'var(--text-error)', fontSize: 13, background: 'var(--bg-error)', padding: '8px 12px', borderRadius: 6 }}>{error}</p>}
 
           <button type="submit" disabled={loading} className="btn-gold" style={{ width: '100%', opacity: loading ? 0.7 : 1 }}>
             {loading ? t('boutique.envoi')
@@ -495,7 +495,7 @@ export default function Boutique() {
   if (confirmation) {
     return (
       <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 40 }}>
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--green-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>{`${t('boutique.cmdNum')}${confirmation} ${t('boutique.cmdConfirmee')}`}</h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: 16, textAlign: 'center', maxWidth: 440 }}>
           {t('boutique.merciCmd')}
@@ -512,7 +512,7 @@ export default function Boutique() {
       {showAuthModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <div style={{ background: 'var(--bg-card)', borderRadius: 20, padding: '40px 32px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{t('boutique.cnxRequise')}</h2>
             <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 28 }}>
               Pour passer une commande, vous devez être connecté à votre compte. C&apos;est rapide et gratuit !
@@ -538,7 +538,7 @@ export default function Boutique() {
           onClick={() => setPanierOpen(true)}
           style={{
             position: 'fixed', bottom: 110, right: 20, zIndex: 150,
-            background: '#1A3C2E', color: '#fff', border: 'none',
+            background: 'var(--green-deep)', color: 'var(--text-inverse)', border: 'none',
             borderRadius: 30, padding: '12px 20px', cursor: 'pointer',
             fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif',
             boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
@@ -573,9 +573,9 @@ export default function Boutique() {
         <Image src="/images/tasse-dessus.jpg" alt="Boutique Thé Pio Pio" fill style={{ objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.72)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '40px 24px' }}>
-            <span style={{ fontSize: 11, letterSpacing: '3.5px', color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.label')}</span>
-            <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: '#F0EBE0', marginTop: 12, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
-              Commandez votre <em style={{ color: '#C9973A' }}>Thé Pio Pio</em>
+            <span style={{ fontSize: 11, letterSpacing: '3.5px', color: 'var(--gold)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.label')}</span>
+            <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: 'var(--text-inverse)', marginTop: 12, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
+              Commandez votre <em style={{ color: 'var(--gold)' }}>Thé Pio Pio</em>
             </h1>
             <p style={{ color: 'var(--green-light)', fontSize: 15, fontFamily: 'Arial, sans-serif', marginTop: 10, maxWidth: 480, fontWeight: 300 }}>
               {t('boutique.labelSub')}
@@ -585,13 +585,13 @@ export default function Boutique() {
       </section>
 
       {/* Bande réassurance */}
-      <div style={{ background: '#1A3C2E', borderBottom: '1px solid rgba(201,151,58,0.2)' }}>
+      <div style={{ background: 'var(--green-deep)', borderBottom: '1px solid rgba(201,151,58,0.2)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
           {[
-            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', text: t('boutique.liv2472') },
-            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: t('boutique.naturelBio') },
-            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', text: t('boutique.mobileMoney') },
-            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>', text: t('boutique.satisfait') },
+            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', text: t('boutique.liv2472') },
+            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: t('boutique.naturelBio') },
+            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', text: t('boutique.mobileMoney') },
+            { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>', text: t('boutique.satisfait') },
           ].map(item => (
             <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16, display: 'flex' }} dangerouslySetInnerHTML={{ __html: item.icon }} />
@@ -605,7 +605,7 @@ export default function Boutique() {
       <section style={{ background: 'var(--bg-card-alt)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.nosProds')}</span>
+            <span style={{ fontSize: 13, letterSpacing: '2.5px', color: 'var(--gold)', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.nosProds')}</span>
             <h2 style={{ fontSize: 30, fontWeight: 400, color: 'var(--text-primary)', marginTop: 8 }}>{t('boutique.cmderEnLigne')}</h2>
           </div>
 
@@ -634,24 +634,24 @@ export default function Boutique() {
                         style={{ objectFit: 'cover' }}
                       />
                     ) : (
-                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green-mid)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
                     )}
                     {produit.badge && (
-                      <span style={{ position: 'absolute', top: 12, right: 12, background: '#C9973A', color: 'var(--text-primary)', fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
+                      <span style={{ position: 'absolute', top: 12, right: 12, background: 'var(--gold)', color: 'var(--text-primary)', fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
                         {produit.badge}
                       </span>
                     )}
                     {/* Badge épuisé */}
                     {!produit.en_stock && (
                       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ background: '#EF4444', color: '#fff', fontSize: 14, fontWeight: 700, padding: '8px 18px', borderRadius: 8, fontFamily: 'Arial, sans-serif', letterSpacing: 1 }}>
+                        <span style={{ background: 'var(--text-error)', color: 'var(--text-inverse)', fontSize: 14, fontWeight: 700, padding: '8px 18px', borderRadius: 8, fontFamily: 'Arial, sans-serif', letterSpacing: 1 }}>
                           ÉPUISÉ
                         </span>
                       </div>
                     )}
                     {/* Badge stock faible */}
                     {produit.en_stock && produit.stock > 0 && produit.stock <= 5 && (
-                      <span style={{ position: 'absolute', bottom: 10, left: 10, background: '#F97316', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
+                      <span style={{ position: 'absolute', bottom: 10, left: 10, background: '#F97316', color: 'var(--text-inverse)', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 4, fontFamily: 'Arial, sans-serif' }}>
                         Plus que {produit.stock} en stock !
                       </span>
                     )}
@@ -663,27 +663,27 @@ export default function Boutique() {
                     <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, flex: 1 }}>
                       {produit.description.slice(0, 120)}{produit.description.length > 120 ? '…' : ''}
                     </p>
-                    <p style={{ fontSize: 24, fontWeight: 700, color: '#C9973A', margin: '4px 0', fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
+                    <p style={{ fontSize: 24, fontWeight: 700, color: 'var(--gold)', margin: '4px 0', fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
                       {produit.prix.toLocaleString()} FCFA <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 400 }}>/ {produit.unite}</span>
                     </p>
 
                     {/* Zone commande — toujours visible */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-                      <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif' }}>{lang === 'en' ? 'Qty:' : 'Quantité :'}</span>
+                      <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif' }}>{t('boutique.qty')}</span>
                       <div style={{ display: 'flex', border: '1px solid var(--border-light)', borderRadius: 8, overflow: 'hidden' }}>
                         <button
                           onClick={() => setQty(q => ({ ...q, [produit.id]: Math.max(produit.quantite_min || 1, (q[produit.id] || produit.quantite_min || 1) - 1) }))}
-                          style={{ width: 34, height: 34, border: 'none', background: '#1A3C2E', cursor: 'pointer', fontSize: 18, color: '#F0EBE0', borderRadius: '8px 0 0 8px', fontWeight: 700 }}
+                          style={{ width: 34, height: 34, border: 'none', background: 'var(--green-deep)', cursor: 'pointer', fontSize: 18, color: 'var(--text-inverse)', borderRadius: '8px 0 0 8px', fontWeight: 700 }}
                         >−</button>
                         <span style={{ width: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 15, color: 'var(--text-primary)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', background: 'var(--bg-page)' }}>
                           {quantities[produit.id] || produit.quantite_min || 1}
                         </span>
                         <button
                           onClick={() => setQty(q => ({ ...q, [produit.id]: (q[produit.id] || produit.quantite_min || 1) + 1 }))}
-                          style={{ width: 34, height: 34, border: 'none', background: '#1A3C2E', cursor: 'pointer', fontSize: 18, color: '#F0EBE0', borderRadius: '0 8px 8px 0', fontWeight: 700 }}
+                          style={{ width: 34, height: 34, border: 'none', background: 'var(--green-deep)', cursor: 'pointer', fontSize: 18, color: 'var(--text-inverse)', borderRadius: '0 8px 8px 0', fontWeight: 700 }}
                         >+</button>
                       </div>
-                      <span style={{ fontSize: 13, color: '#C9973A', fontWeight: 600 }}>
+                      <span style={{ fontSize: 13, color: 'var(--gold)', fontWeight: 600 }}>
                         = {((quantities[produit.id] || produit.quantite_min || 1) * produit.prix).toLocaleString()} FCFA
                       </span>
                     </div>
@@ -704,23 +704,23 @@ export default function Boutique() {
       </section>
 
       {/* Comment commander */}
-      <section style={{ background: '#1A3C2E' }}>
+      <section style={{ background: 'var(--green-deep)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
-            <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{lang === 'en' ? 'Simple & Fast' : 'Simple & Rapide'}</span>
-            <h2 style={{ fontSize: 26, fontWeight: 400, color: '#F0EBE0', marginTop: 8 }}>{lang === 'en' ? 'How to place your order?' : 'Comment passer votre commande ?'}</h2>
+            <span style={{ fontSize: 13, letterSpacing: '2.5px', color: 'var(--gold)', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{lang === 'en' ? 'Simple & Fast' : 'Simple & Rapide'}</span>
+            <h2 style={{ fontSize: 26, fontWeight: 400, color: 'var(--text-inverse)', marginTop: 8 }}>{lang === 'en' ? 'How to place your order?' : 'Comment passer votre commande ?'}</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
             {[
-              { num: '1', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>', titre: t('boutique.comment1'), desc: t('boutique.comment1d') },
-              { num: '2', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>', titre: t('boutique.comment2'), desc: t('boutique.comment2d') },
-              { num: '3', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', titre: t('boutique.comment3'), desc: t('boutique.comment3d') },
-              { num: '4', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
+              { num: '1', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>', titre: t('boutique.comment1'), desc: t('boutique.comment1d') },
+              { num: '2', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>', titre: t('boutique.comment2'), desc: t('boutique.comment2d') },
+              { num: '3', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', titre: t('boutique.comment3'), desc: t('boutique.comment3d') },
+              { num: '4', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
             ].map(e => (
-              <div key={e.num} style={{ background: '#0D2318', border: '1px solid #2D6A4F', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: -14, left: 20, background: '#C9973A', color: 'var(--text-primary)', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>
+              <div key={e.num} style={{ background: 'var(--green-deep)', border: '1px solid var(--green-mid)', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
+                <div style={{ position: 'absolute', top: -14, left: 20, background: 'var(--gold)', color: 'var(--text-primary)', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>
                 <div style={{ fontSize: 28, marginBottom: 12, marginTop: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} dangerouslySetInnerHTML={{ __html: e.icon }} />
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: '#F0EBE0', fontFamily: 'Arial, sans-serif', marginBottom: 8 }}>{e.titre}</h3>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-inverse)', fontFamily: 'Arial, sans-serif', marginBottom: 8 }}>{e.titre}</h3>
                 <p style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', lineHeight: 1.6 }}>{e.desc}</p>
               </div>
             ))}

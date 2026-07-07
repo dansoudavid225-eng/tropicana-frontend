@@ -43,16 +43,16 @@ const sections = [
 
 export default function CGVPage() {
   return (
-    <main style={{ background: '#FAFAF7', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--bg-page)', minHeight: '100vh' }}>
       {/* Hero */}
-      <div style={{ background: 'linear-gradient(135deg, #1A3C2E, #0D2318)', padding: '60px 24px 48px' }}>
+      <div style={{ background: 'linear-gradient(135deg, var(--green-deep), #0D2318)', padding: '60px 24px 48px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div style={{ maxWidth: 760, margin: '0 auto' }}>
-          <Link href="/" style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
+          <Link href="/" style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
             Retour à l'accueil
           </Link>
-          <span style={{ fontSize: 11, letterSpacing: '3px', color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 10 }}>Légal</span>
-          <h1 style={{ fontSize: 'clamp(26px,4vw,40px)', fontWeight: 300, color: '#F0EBE0', fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
+          <span style={{ fontSize: 11, letterSpacing: '3px', color: 'var(--gold)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: 10 }}>Légal</span>
+          <h1 style={{ fontSize: 'clamp(26px,4vw,40px)', fontWeight: 300, color: 'var(--text-inverse)', fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
             Conditions Générales de Vente
           </h1>
           <p style={{ fontSize: 13, color: 'rgba(107,158,122,0.7)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', marginTop: 12 }}>
@@ -67,12 +67,12 @@ export default function CGVPage() {
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
         {sections.map(s => (
           <div key={s.title} style={{ marginBottom: 36 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1A3C2E', fontFamily: 'var(--font-cormorant), Georgia, serif', marginBottom: 10 }}>{s.title}</h2>
-            <p style={{ fontSize: 15, color: '#5A4A3A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.85 }}>{s.content}</p>
+            <h2 style={{ fontSize: 18, fontWeight: 600, color: 'var(--green-deep)', fontFamily: 'var(--font-cormorant), Georgia, serif', marginBottom: 10 }}>{s.title}</h2>
+            <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.85 }}>{s.content}</p>
           </div>
         ))}
-        <div style={{ marginTop: 40, padding: '20px 24px', background: '#EAF4EE', border: '1px solid #B7D9C4', borderRadius: 12 }}>
-          <p style={{ fontSize: 14, color: '#1A3C2E', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
+        <div style={{ marginTop: 40, padding: '20px 24px', background: 'var(--green-pale)', border: '1px solid var(--border-success)', borderRadius: 12 }}>
+          <p style={{ fontSize: 14, color: 'var(--green-deep)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
             Pour toute question relative à ces CGV, contactez-nous au <strong>+229 01 95 96 77 62</strong> ou à <strong>tropicanapiopio.officiel@gmail.com</strong>.
           </p>
         </div>

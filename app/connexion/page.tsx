@@ -76,8 +76,8 @@ export default function Connexion() {
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Incorrect email or password.' : 'Email ou mot de passe incorrect.')) }
   }
 
-  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid #D4C9B0', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'#2C1A0E', background:'#fff' }
-  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', marginBottom:6 }
+  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid var(--border-color)', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'var(--text-primary)', background:'var(--bg-input)' }
+  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', marginBottom:6 }
 
   return (
     <>
@@ -85,9 +85,9 @@ export default function Connexion() {
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.seConnecter')} fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'32px 24px' }}>
-            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('page.connexion')}</span>
-            <h1 style={{ fontSize:30, fontWeight:400, color:'#F0EBE0', marginTop:6 }}>
-              {lang === 'en' ? <>Access your <em style={{ color:'#C9973A' }}>account</em></> : <>Accédez à votre <em style={{ color:'#C9973A' }}>espace</em></>}
+            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('page.connexion')}</span>
+            <h1 style={{ fontSize:30, fontWeight:400, color:'var(--text-inverse)', marginTop:6 }}>
+              {lang === 'en' ? <>Access your <em style={{ color:'var(--gold)' }}>account</em></> : <>Accédez à votre <em style={{ color:'var(--gold)' }}>espace</em></>}
             </h1>
           </div>
         </div>
@@ -97,8 +97,8 @@ export default function Connexion() {
         <div className="card-fade-in" style={{ maxWidth:420, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
 
           {status === 'error' && (
-            <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
-              <p style={{ fontSize:14, color:'#B91C1C', fontFamily:'Arial, sans-serif' }}>{errMsg}</p>
+            <div style={{ background:'var(--bg-error)', border:'1px solid var(--border-error)', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
+              <p style={{ fontSize:14, color:'var(--text-error)', fontFamily:'Arial, sans-serif' }}>{errMsg}</p>
             </div>
           )}
 
@@ -112,7 +112,7 @@ export default function Connexion() {
             <div style={{ position:'relative' }}>
               <input type={showMdp?'text':'password'} value={mdp} onChange={e=>setMdp(e.target.value)} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} onKeyDown={e=>e.key==='Enter'&&handleSubmit()} />
               <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
-                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', padding:4, color:'#6B5E4E' }}>
+                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', padding:4, color:'var(--text-muted)' }}>
                 {showMdp ? (
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
                 ) : (
@@ -123,7 +123,7 @@ export default function Connexion() {
           </div>
 
           <div style={{ textAlign:'right', marginBottom:24 }}>
-            <Link href="/mot-de-passe-oublie" style={{ fontSize:13, color:'#2D6A4F', fontFamily:'Arial, sans-serif' }}>{t('auth.mdpOublie')}</Link>
+            <Link href="/mot-de-passe-oublie" style={{ fontSize:13, color:'var(--green-mid)', fontFamily:'Arial, sans-serif' }}>{t('auth.mdpOublie')}</Link>
           </div>
 
           <button onClick={handleSubmit} disabled={status==='loading'||loading} className="btn-gold"
@@ -147,7 +147,7 @@ export default function Connexion() {
 
           <p style={{ textAlign:'center', fontSize:14, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>
             {t('auth.pasCpt')}{' '}
-            <Link href="/inscription" style={{ color:'#2D6A4F', fontWeight:700 }}>{t('auth.sinscrire')}</Link>
+            <Link href="/inscription" style={{ color:'var(--green-mid)', fontWeight:700 }}>{t('auth.sinscrire')}</Link>
           </p>
         </div>
       </section>
@@ -163,7 +163,7 @@ export default function Connexion() {
         .card-fade-in > div:nth-child(7) { animation-delay:.48s; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
         .btn-gold:disabled { animation:pulse 1.5s ease infinite; }
-        input:focus { border-color:#C9973A !important; box-shadow:0 0 0 3px rgba(201,151,58,0.2) !important; transition:all .25s; }
+        input:focus { border-color:var(--gold) !important; box-shadow:0 0 0 3px rgba(201,151,58,0.2) !important; transition:all .25s; }
       `}</style>
     </>
   )

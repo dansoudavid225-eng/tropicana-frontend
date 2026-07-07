@@ -33,9 +33,9 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
         <Image src="/images/plante-verveine.jpg" alt="La verveine blanche" fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'40px 24px' }}>
-            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('histoire.label')}</span>
-            <h1 style={{ fontSize:34, fontWeight:400, color:'#F0EBE0', marginTop:8, lineHeight:1.3 }}>
-              {t('histoire.titre')} —<br /><em style={{ color:'#C9973A' }}>{t('histoire.sous')}</em>
+            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('histoire.label')}</span>
+            <h1 style={{ fontSize:34, fontWeight:400, color:'var(--text-inverse)', marginTop:8, lineHeight:1.3 }}>
+              {t('histoire.titre')} —<br /><em style={{ color:'var(--gold)' }}>{t('histoire.sous')}</em>
             </h1>
           </div>
         </div>
@@ -46,8 +46,8 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
           {displayChapitres.map((item:any, i:number) => (
             <div key={item.id ?? item.numero}>
               <div style={{ display:'flex', gap:28, marginBottom:40, alignItems:'flex-start' }}>
-                <div style={{ fontSize:40, fontWeight:400, color:'#D4C9B0', fontFamily:'Georgia, serif', lineHeight:1, flexShrink:0, marginTop:4 }}>{item.numero}</div>
-                <div style={{ borderLeft:'2px solid #EAF4EE', paddingLeft:24 }}>
+                <div style={{ fontSize:40, fontWeight:400, color:'var(--border-color)', fontFamily:'Georgia, serif', lineHeight:1, flexShrink:0, marginTop:4 }}>{item.numero}</div>
+                <div style={{ borderLeft:'2px solid var(--green-pale)', paddingLeft:24 }}>
                   <h2 style={{ fontSize:20, fontWeight:400, color:'var(--text-primary)', marginBottom:12 }}>{item.titre}</h2>
                   <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif', lineHeight:1.9, fontWeight:300 }}>{item.texte}</p>
                   {item.image && (
@@ -70,16 +70,16 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
             </div>
           ))}
 
-          <div style={{ background:'#0D2318', borderRadius:16, overflow:'hidden', marginBottom:48, display:'flex', flexWrap:'wrap' }}>
+          <div style={{ background:'var(--green-deep)', borderRadius:16, overflow:'hidden', marginBottom:48, display:'flex', flexWrap:'wrap' }}>
             <div style={{ position:'relative', width:240, minHeight:300, flexShrink:0 }}>
               <Image src={fondateur.photo || '/images/fondateur-durand.jpg'} alt={fondateur.nom ?? 'Fondateur'} fill style={{ objectFit:'cover', objectPosition:'center top' }} unoptimized={!!fondateur.photo} />
             </div>
             <div style={{ flex:1, minWidth:220, padding:'36px 28px', display:'flex', flexDirection:'column', justifyContent:'center' }}>
-              <div style={{ fontSize:36, color:'#C9973A', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:16, opacity:0.6 }}>&quot;</div>
-              <p style={{ fontSize:15, fontStyle:'italic', color:'#E8F5EE', lineHeight:1.9, marginBottom:20 }}>{t('histoire.citation')}</p>
-              <div style={{ borderTop:'1px solid #1A3C2E', paddingTop:16 }}>
-                <p style={{ fontSize:15, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', marginBottom:4 }}>{fondateur.nom}</p>
-                <p style={{ fontSize:13, color:'#6B9E7A', fontFamily:'Arial, sans-serif', lineHeight:1.6, whiteSpace:'pre-line' }}>{t('histoire.fondateur')}</p>
+              <div style={{ fontSize:36, color:'var(--gold)', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:16, opacity:0.6 }}>&quot;</div>
+              <p style={{ fontSize:15, fontStyle:'italic', color:'var(--text-inverse)', lineHeight:1.9, marginBottom:20 }}>{t('histoire.citation')}</p>
+              <div style={{ borderTop:'1px solid var(--green-deep)', paddingTop:16 }}>
+                <p style={{ fontSize:15, fontWeight:700, color:'var(--gold)', fontFamily:'Arial, sans-serif', marginBottom:4 }}>{fondateur.nom}</p>
+                <p style={{ fontSize:13, color:'var(--green-light)', fontFamily:'Arial, sans-serif', lineHeight:1.6, whiteSpace:'pre-line' }}>{t('histoire.fondateur')}</p>
               </div>
             </div>
           </div>
@@ -87,9 +87,9 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
           <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:20 }}>{t('histoire.mission')}</h2>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:14, marginBottom:40 }}>
             {displayMissions.map((m:any) => (
-              <div key={m.id ?? m.texte} style={{ background:'#EAF4EE', borderRadius:8, padding:'16px 14px', display:'flex', gap:12, alignItems:'flex-start' }}>
+              <div key={m.id ?? m.texte} style={{ background:'var(--green-pale)', borderRadius:8, padding:'16px 14px', display:'flex', gap:12, alignItems:'flex-start' }}>
                 <span style={{ fontSize:20, flexShrink:0 }}>{m.icone}</span>
-                <p style={{ fontSize:14, color:'#1A3C2E', fontFamily:'Arial, sans-serif', lineHeight:1.6 }}>{m.texte}</p>
+                <p style={{ fontSize:14, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', lineHeight:1.6 }}>{m.texte}</p>
               </div>
             ))}
           </div>
@@ -97,7 +97,7 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
           <div style={{ position:'relative', height:260, borderRadius:14, overflow:'hidden', marginBottom:40 }}>
             <Image src="/images/produit-tasse.jpg" alt="Thé Pio Pio" fill style={{ objectFit:'cover' }} />
             <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.6)', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', textAlign:'center', gap:14 }}>
-              <p style={{ fontSize:18, color:'#F0EBE0', fontStyle:'italic' }}>&quot;{t('histoire.cta')}&quot;</p>
+              <p style={{ fontSize:18, color:'var(--text-inverse)', fontStyle:'italic' }}>&quot;{t('histoire.cta')}&quot;</p>
               <Link href="/boutique" className="btn-gold">{t('histoire.ctaBtn')}</Link>
             </div>
           </div>

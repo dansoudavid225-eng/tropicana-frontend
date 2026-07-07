@@ -77,8 +77,8 @@ export default function Inscription() {
     else { setStatus('error'); setErrMsg(res.message || (lang === 'en' ? 'Registration error. Try again.' : "Erreur d'inscription. Réessayez.")) }
   }
 
-  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid #D4C9B0', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'#2C1A0E', background:'#fff' }
-  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', marginBottom:6 }
+  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid var(--border-color)', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'var(--text-primary)', background:'var(--bg-input)' }
+  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', marginBottom:6 }
 
   return (
     <>
@@ -86,9 +86,9 @@ export default function Inscription() {
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.creerCompte')} fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'32px 24px' }}>
-            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.creerCompte')}</span>
-            <h1 style={{ fontSize:30, fontWeight:400, color:'#F0EBE0', marginTop:6 }}>
-              {lang === 'en' ? <>Join the <em style={{ color:'#C9973A' }}>Pio Pio family</em></> : <>Rejoignez la <em style={{ color:'#C9973A' }}>famille Pio Pio</em></>}
+            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.creerCompte')}</span>
+            <h1 style={{ fontSize:30, fontWeight:400, color:'var(--text-inverse)', marginTop:6 }}>
+              {lang === 'en' ? <>Join the <em style={{ color:'var(--gold)' }}>Pio Pio family</em></> : <>Rejoignez la <em style={{ color:'var(--gold)' }}>famille Pio Pio</em></>}
             </h1>
           </div>
         </div>
@@ -98,8 +98,8 @@ export default function Inscription() {
         <div style={{ maxWidth:500, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
 
           {status === 'error' && (
-            <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
-              <p style={{ fontSize:14, color:'#B91C1C', fontFamily:'Arial, sans-serif' }}>{errMsg}</p>
+            <div style={{ background:'var(--bg-error)', border:'1px solid var(--border-error)', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
+              <p style={{ fontSize:14, color:'var(--text-error)', fontFamily:'Arial, sans-serif' }}>{errMsg}</p>
             </div>
           )}
 
@@ -135,7 +135,7 @@ export default function Inscription() {
             <div style={{ position:'relative' }}>
               <input name="mdp" type={showMdp?'text':'password'} value={form.mdp} onChange={change} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} />
               <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
-                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
+                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'var(--text-muted)' }}>
                 {showMdp ? '' : ''}
               </button>
             </div>
@@ -167,7 +167,7 @@ export default function Inscription() {
 
           <p style={{ textAlign:'center', fontSize:14, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>
             {t('auth.dejaCpt')}{' '}
-            <Link href="/connexion" style={{ color:'#2D6A4F', fontWeight:700 }}>{t('auth.seConnecter')}</Link>
+            <Link href="/connexion" style={{ color:'var(--green-mid)', fontWeight:700 }}>{t('auth.seConnecter')}</Link>
           </p>
         </div>
       </section>

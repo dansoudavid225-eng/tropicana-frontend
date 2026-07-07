@@ -85,8 +85,8 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       <section style={{ background:'var(--bg-section)', borderBottom:'1px solid var(--border-color)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 24px', display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {(argumentsAdmin ?? configSite?.arguments ?? args).map((item:any, i:number, arr:any[]) => (
-            <div key={item.titre ?? i} className="args-strip-item" style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid #D4C9B0':'none' }}>
-               <div className="args-strip-icon" style={{ width:38, height:38, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }} dangerouslySetInnerHTML={{ __html: item.icone || '' }} />
+            <div key={item.titre ?? i} className="args-strip-item" style={{ display:'flex', alignItems:'center', gap:12, padding:'18px 20px', borderRight:i<arr.length-1?'1px solid var(--border-color)':'none' }}>
+               <div className="args-strip-icon" style={{ width:38, height:38, background:'var(--green-mid)', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, flexShrink:0 }} dangerouslySetInnerHTML={{ __html: item.icone || '' }} />
               <div>
                 <div className="args-strip-titre" style={{ fontSize:14, fontWeight:700, color:'var(--text-primary)', fontFamily:'Arial, sans-serif', marginBottom:2 }}>{item.titre}</div>
                 <div className="args-strip-sous" style={{ fontSize:15, color:'var(--text-muted)', fontFamily:'Arial, sans-serif' }}>{item.sous}</div>
@@ -101,26 +101,26 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <div className="plante-grid" style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px', display:'flex', gap:48, alignItems:'center', flexWrap:'wrap' }}>
           <div className="plante-image-block" style={{ position:'relative', width:340, height:400, flexShrink:0 }}>
             <div style={{ position:'absolute', top:14, left:14, right:-14, bottom:-14, borderRadius:20, border:'2px solid rgba(201,151,58,0.35)', background:'rgba(201,151,58,0.06)' }} />
-            <div style={{ position:'relative', width:'100%', height:'100%', borderRadius:20, overflow:'hidden', background:'#1A3C2E', boxShadow:'0 20px 60px rgba(0,0,0,0.25)' }}>
+            <div style={{ position:'relative', width:'100%', height:'100%', borderRadius:20, overflow:'hidden', background:'var(--green-deep)', boxShadow:'0 20px 60px rgba(0,0,0,0.25)' }}>
               <Image src="/images/plante-verveine.jpg" alt="Verveine blanche citronnée" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
               <div style={{ position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, rgba(26,60,46,0.6), transparent)', pointerEvents:'none' }} />
-              <div style={{ position:'absolute', top:16, right:16, background:'rgba(13,35,24,0.85)', backdropFilter:'blur(8px)', border:'1px solid rgba(201,151,58,0.4)', borderRadius:20, padding:'6px 14px', fontSize:12, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px' }}>100% BIO</div>
+              <div style={{ position:'absolute', top:16, right:16, background:'rgba(13,35,24,0.85)', backdropFilter:'blur(8px)', border:'1px solid rgba(201,151,58,0.4)', borderRadius:20, padding:'6px 14px', fontSize:12, fontWeight:700, color:'var(--gold)', fontFamily:'Arial, sans-serif', letterSpacing:'1px' }}>100% BIO</div>
             </div>
           </div>
           <div style={{ flex:1, minWidth:260 }}>
             <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:20 }}>
               <div style={{ flex:1, height:1, background:'var(--border-color)' }} />
-              <div style={{ width:7, height:7, background:'#C9973A', transform:'rotate(45deg)' }} />
+              <div style={{ width:7, height:7, background:'var(--gold)', transform:'rotate(45deg)' }} />
               <div style={{ flex:1, height:1, background:'var(--border-color)' }} />
             </div>
-            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{siteContent?.plante_label || t('home.planteLabel')}</span>
+            <span style={{ fontSize:15, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{siteContent?.plante_label || t('home.planteLabel')}</span>
             <h2 style={{ fontSize:28, fontWeight:400, color:'var(--text-primary)', marginTop:8, marginBottom:16, lineHeight:1.3 }}>
-              {siteContent?.plante_titre || t('home.planteTitre1')}<br /><em style={{ color:'#C9973A' }}>{siteContent?.plante_titre_em || t('home.planteTitre2')}</em>
+              {siteContent?.plante_titre || t('home.planteTitre1')}<br /><em style={{ color:'var(--gold)' }}>{siteContent?.plante_titre_em || t('home.planteTitre2')}</em>
             </h2>
             <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif', lineHeight:1.9, marginBottom:20, fontWeight:300 }}>{siteContent?.plante_texte || t('home.planteDesc')}</p>
             {(siteContent?.plante_points?.length ? siteContent.plante_points : planteBullets).map((b, i) => (
               <div key={b || i} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
-                <div style={{ width:6, height:6, background:'#2D6A4F', borderRadius:'50%', flexShrink:0 }} />
+                <div style={{ width:6, height:6, background:'var(--green-mid)', borderRadius:'50%', flexShrink:0 }} />
                 <span style={{ fontSize:14, color:'var(--text-secondary)', fontFamily:'Arial, sans-serif' }}>{b}</span>
               </div>
             ))}
@@ -140,7 +140,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             {bienfaits.map((b:any, i:number) => (
               <ScrollReveal key={b.id ?? b.titre} animation="scaleUp" delay={i*80}>
                 <div className="bienfait-card">
-                  {b.icone ? <span className="bienfait-icone" dangerouslySetInnerHTML={{ __html: b.icone }} /> : <div style={{ width:8, height:8, background:'#2D6A4F', borderRadius:'50%', marginTop:6, flexShrink:0 }} />}
+                  {b.icone ? <span className="bienfait-icone" dangerouslySetInnerHTML={{ __html: b.icone }} /> : <div style={{ width:8, height:8, background:'var(--green-mid)', borderRadius:'50%', marginTop:6, flexShrink:0 }} />}
                   <div>
                     <div className="bienfait-titre">{b.titre ?? b.title}</div>
                     <div className="bienfait-desc">{b.description ?? b.desc}</div>
@@ -157,12 +157,12 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         <Image src={configAccueil?.tasse_image || '/images/tasse-dessus.jpg'} alt="Tasse de Thé Pio Pio" fill style={{ objectFit:'cover' }} unoptimized={!!configAccueil?.tasse_image} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.65)', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', textAlign:'center', padding:24 }}>
           <ScrollReveal animation="fadeIn" style={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
-            <span style={{ fontSize:15, letterSpacing:'3px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase', marginBottom:12 }}>
+            <span style={{ fontSize:15, letterSpacing:'3px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase', marginBottom:12 }}>
               {siteContent?.tasse_label || configAccueil?.tasse_label || (lang === 'en' ? 'A moment just for you' : 'Un moment rien que pour vous')}
             </span>
-            <h2 style={{ fontSize:30, fontWeight:400, color:'#F0EBE0', lineHeight:1.3, maxWidth:480, marginBottom:20 }}>
+            <h2 style={{ fontSize:30, fontWeight:400, color:'var(--text-inverse)', lineHeight:1.3, maxWidth:480, marginBottom:20 }}>
               &quot;{siteContent?.tasse_citation || configAccueil?.tasse_citation || t('home.cta')}&quot;
-              {siteContent?.tasse_citation_em && <em style={{ color:'#C9973A', fontStyle:'italic', display:'block', fontSize:'0.8em', marginTop:6 }}>{siteContent.tasse_citation_em}</em>}
+              {siteContent?.tasse_citation_em && <em style={{ color:'var(--gold)', fontStyle:'italic', display:'block', fontSize:'0.8em', marginTop:6 }}>{siteContent.tasse_citation_em}</em>}
             </h2>
             <Link href={configAccueil?.tasse_lien || '/boutique'} className="btn-gold">
               {siteContent?.tasse_btn || configAccueil?.tasse_bouton || (lang === 'en' ? 'Order now' : 'Commander maintenant')}
@@ -172,21 +172,21 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* FONDATEUR */}
-      <section className="section-mobile-pad" style={{ background:'#1A3C2E' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--green-deep)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <ScrollReveal animation="slideLeft">
             <span className="section-label">{siteContent?.fondateur_label || t('home.fondateurLabel')}</span>
             <h2 className="section-title light">{siteContent?.fondateur_titre || t('home.fondateurTitre')}</h2>
           </ScrollReveal>
           <ScrollReveal animation="fadeUp" delay={150}>
-            <div className="fondateur-card" style={{ background:'#0D2318', borderRadius:12, padding:'32px 28px', display:'flex', gap:24, alignItems:'center', flexWrap:'wrap', marginTop:8 }}>
-              <div style={{ position:'relative', width:90, height:90, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'3px solid #C9973A' }}>
+            <div className="fondateur-card" style={{ background:'var(--green-deep)', borderRadius:12, padding:'32px 28px', display:'flex', gap:24, alignItems:'center', flexWrap:'wrap', marginTop:8 }}>
+              <div style={{ position:'relative', width:90, height:90, borderRadius:'50%', overflow:'hidden', flexShrink:0, border:'3px solid var(--gold)' }}>
                 <Image src="/images/fondateur-durand.jpg" alt="Felicien Prosper Durand" fill style={{ objectFit:'cover', objectPosition:'center top' }} />
               </div>
               <div style={{ flex:1, minWidth:240 }}>
-                <p style={{ fontSize:15, fontStyle:'italic', color:'#E8F5EE', lineHeight:1.8, marginBottom:14 }}>&quot;{siteContent?.fondateur_citation || t('home.fondateurCit')}&quot;</p>
-                <p style={{ fontSize:14, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'0.5px' }}>{siteContent?.fondateur_nom || 'Felicien Prosper DURAND'}</p>
-                <p style={{ fontSize:15, color:'#6B9E7A', fontFamily:'Arial, sans-serif', marginTop:3 }}>{siteContent?.fondateur_sous || t('footer.fondateur')}</p>
+                <p style={{ fontSize:15, fontStyle:'italic', color:'var(--text-inverse)', lineHeight:1.8, marginBottom:14 }}>&quot;{siteContent?.fondateur_citation || t('home.fondateurCit')}&quot;</p>
+                <p style={{ fontSize:14, fontWeight:700, color:'var(--gold)', fontFamily:'Arial, sans-serif', letterSpacing:'0.5px' }}>{siteContent?.fondateur_nom || 'Felicien Prosper DURAND'}</p>
+                <p style={{ fontSize:15, color:'var(--green-light)', fontFamily:'Arial, sans-serif', marginTop:3 }}>{siteContent?.fondateur_sous || t('footer.fondateur')}</p>
               </div>
               <Link href="/histoire" className="btn-ghost" style={{ flexShrink:0 }}>{siteContent?.fondateur_btn || t('home.lireHistoire')}</Link>
             </div>
@@ -205,7 +205,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             <div className="produit-card" style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, overflow:'hidden', display:'flex', flexWrap:'wrap' }}>
               <div className="produit-image-block" style={{ position:'relative', flex:'0 0 260px', minHeight:220 }}>
                 <Image src="/images/produit-tasse.jpg" alt="Thé Pio Pio" fill style={{ objectFit:'cover' }} />
-                <div style={{ position:'absolute', top:12, left:12, background:'#C9973A', color:'var(--text-primary)', fontSize:14, fontWeight:700, padding:'4px 10px', borderRadius:3, fontFamily:'Arial, sans-serif' }}>
+                <div style={{ position:'absolute', top:12, left:12, background:'var(--gold)', color:'var(--text-primary)', fontSize:14, fontWeight:700, padding:'4px 10px', borderRadius:3, fontFamily:'Arial, sans-serif' }}>
                   {lang === 'en' ? 'Popular' : 'Populaire'}
                 </div>
               </div>
@@ -215,12 +215,12 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                   <p style={{ fontSize:14, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', lineHeight:1.7, marginBottom:14 }}>{t('home.produitDesc')}</p>
                   <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:16 }}>
                     {produitTags.map(tag => (
-                      <span key={tag} style={{ background:'var(--bg-section)', color:'#2D6A4F', fontSize:13, padding:'4px 10px', borderRadius:20, fontFamily:'Arial, sans-serif', fontWeight:700 }}>{tag}</span>
+                      <span key={tag} style={{ background:'var(--bg-section)', color:'var(--green-mid)', fontSize:13, padding:'4px 10px', borderRadius:20, fontFamily:'Arial, sans-serif', fontWeight:700 }}>{tag}</span>
                     ))}
                   </div>
                 </div>
                 <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:10 }}>
-                  <span style={{ fontSize:24, fontWeight:700, color:'#2D6A4F', fontFamily:'Arial, sans-serif' }}>{t('home.prix')}</span>
+                  <span style={{ fontSize:24, fontWeight:700, color:'var(--green-mid)', fontFamily:'Arial, sans-serif' }}>{t('home.prix')}</span>
                   <Link href="/boutique" className="btn-gold" style={{ fontSize:14, padding:'10px 20px' }}>{t('home.commander')}</Link>
                 </div>
               </div>
@@ -232,13 +232,13 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       <Partenaires />
 
       {/* LOCALISATION */}
-      <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, #1A3C2E 0%, #0D2318 100%)', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
+      <section className="section-mobile-pad" style={{ background:'linear-gradient(160deg, var(--green-deep) 0%, var(--green-deep) 100%)', position:'relative', overflow:'hidden', borderTop:'1px solid rgba(201,151,58,0.12)' }}>
         <div style={{ position:'absolute', inset:0, opacity:0.15, backgroundImage:'linear-gradient(rgba(201,151,58,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,151,58,0.1) 1px, transparent 1px)', backgroundSize:'60px 60px', pointerEvents:'none' }} />
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'90px 24px', position:'relative', zIndex:1 }}>
           <div style={{ marginBottom:52 }}>
-            <span style={{ fontSize:11, letterSpacing:'3px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('home.ouTrouver')}</span>
-            <h2 style={{ fontSize:'clamp(28px, 4vw, 46px)', fontWeight:300, color:'#F0EBE0', margin:'8px 0 0', lineHeight:1.15, fontFamily:'Georgia, serif' }}>
-              {t('home.cultive')}{' '}<em style={{ color:'#C9973A', fontStyle:'italic', fontWeight:400 }}>{t('home.location')}</em>
+            <span style={{ fontSize:11, letterSpacing:'3px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('home.ouTrouver')}</span>
+            <h2 style={{ fontSize:'clamp(28px, 4vw, 46px)', fontWeight:300, color:'var(--text-inverse)', margin:'8px 0 0', lineHeight:1.15, fontFamily:'Georgia, serif' }}>
+              {t('home.cultive')}{' '}<em style={{ color:'var(--gold)', fontStyle:'italic', fontWeight:400 }}>{t('home.location')}</em>
             </h2>
           </div>
           <div className="loc-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))', gap:28, alignItems:'start' }}>
@@ -252,17 +252,17 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                 title="Localisation Tropicana Pio Pio"
               />
               <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
-                style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(26,60,46,0.95)', padding:'10px 16px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#95D5B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>{t('home.ouvrirMaps')}</span>
+                style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(26,60,46,0.95)', padding:'10px 16px', fontSize:13, color:'var(--green-light)', fontFamily:'Arial, sans-serif', textDecoration:'none' }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{ stroke: 'var(--green-light)' }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>{t('home.ouvrirMaps')}</span>
               </a>
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {locItems.map(item => (
                 <div key={item.label} style={{ display:'flex', gap:14, alignItems:'center', background:item.gold?'linear-gradient(135deg, rgba(201,151,58,0.15), rgba(201,151,58,0.08))':'rgba(255,255,255,0.05)', border:item.gold?'1px solid rgba(201,151,58,0.4)':'1px solid rgba(255,255,255,0.08)', borderRadius:14, padding:'16px 18px' }}>
-                  <span style={{ color: item.gold ? '#C9973A' : '#6B9E7A', flexShrink: 0, display: 'flex' }} dangerouslySetInnerHTML={{ __html: item.icon }} />
+                  <span style={{ color: item.gold ? 'var(--gold)' : 'var(--green-light)', flexShrink: 0, display: 'flex' }} dangerouslySetInnerHTML={{ __html: item.icon }} />
                   <div>
-                    <div style={{ fontSize:10, fontWeight:700, color:item.gold?'#C9973A':'rgba(149,213,178,0.7)', fontFamily:'Arial, sans-serif', letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>{item.label}</div>
-                    <div style={{ fontSize:15, fontWeight:item.gold?700:500, color:item.gold?'#F0EBE0':'rgba(240,235,224,0.85)', fontFamily:'Arial, sans-serif' }}>{item.value}</div>
+                    <div style={{ fontSize:10, fontWeight:700, color:item.gold?'var(--gold)':'var(--green-light)', fontFamily:'Arial, sans-serif', letterSpacing:'2px', textTransform:'uppercase', marginBottom:4 }}>{item.label}</div>
+                    <div style={{ fontSize:15, fontWeight:item.gold?700:500, color:item.gold?'var(--text-inverse)':'var(--text-inverse)', fontFamily:'Arial, sans-serif' }}>{item.value}</div>
                   </div>
                 </div>
               ))}
@@ -272,7 +272,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* TÉMOIGNAGES — 3 visibles, carousel */}
-      <section className="section-mobile-pad" style={{ background:'#1A3C2E' }}>
+      <section className="section-mobile-pad" style={{ background:'var(--green-deep)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:8 }}>
             <div>
@@ -281,23 +281,23 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             </div>
             <Link href="/temoignages" className="btn-ghost" style={{ fontSize:14, padding:'10px 20px', marginBottom:8 }}>{t('temo.laisser')}</Link>
           </div>
-          <div style={{ display:'flex', gap:16, overflowX:'auto', scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch', paddingBottom:8, scrollbarWidth:'thin', scrollbarColor:'#2D6A4F transparent' }}>
+          <div style={{ display:'flex', gap:16, overflowX:'auto', scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch', paddingBottom:8, scrollbarWidth:'thin', scrollbarColor:'var(--green-mid) transparent' }}>
             {testimonials.slice(temoIdx * 3, temoIdx * 3 + 3).map((t2:any, i:number) => (
               <div key={t2.nom ?? t2.name ?? i} style={{
                 flex:'0 0 calc(33.333% - 11px)', minWidth:280, scrollSnapAlign:'start',
-                background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20,
+                background:'var(--green-deep)', border:'1px solid var(--green-mid)', borderRadius:10, padding:20,
                 animation:'temoFadeIn .5s ease forwards',
                 animationDelay:`${i * .1}s`, opacity:0,
               }}>
-                <div style={{ color:'#C9973A', fontSize:14, letterSpacing:3, marginBottom:12 }}>{'★'.repeat(Math.min(5, t2.note ?? 5))}</div>
-                <p style={{ fontSize:14, color:'#A8D5B8', fontFamily:'Arial, sans-serif', lineHeight:1.7, fontStyle:'italic', marginBottom:16 }}>&quot;{t2.texte ?? t2.text}&quot;</p>
+                <div style={{ color:'var(--gold)', fontSize:14, letterSpacing:3, marginBottom:12 }}>{'★'.repeat(Math.min(5, t2.note ?? 5))}</div>
+                <p style={{ fontSize:14, color:'var(--green-light)', fontFamily:'Arial, sans-serif', lineHeight:1.7, fontStyle:'italic', marginBottom:16 }}>&quot;{t2.texte ?? t2.text}&quot;</p>
                 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-                  <div style={{ width:30, height:30, background:'#2D6A4F', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:14, fontWeight:700, color:'#F0EBE0', fontFamily:'Arial, sans-serif' }}>
+                  <div style={{ width:30, height:30, background:'var(--green-mid)', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:14, fontWeight:700, color:'var(--text-inverse)', fontFamily:'Arial, sans-serif' }}>
                     {(t2.nom ?? t2.name ?? '?').split(' ').map((w:string)=>w[0]).join('')}
                   </div>
                   <div>
-                    <div style={{ fontSize:14, fontWeight:700, color:'#F0EBE0', fontFamily:'Arial, sans-serif' }}>{t2.nom ?? t2.name}</div>
-                    <div style={{ fontSize:15, color:'#6B9E7A', fontFamily:'Arial, sans-serif' }}>{t2.ville ?? t2.city}</div>
+                    <div style={{ fontSize:14, fontWeight:700, color:'var(--text-inverse)', fontFamily:'Arial, sans-serif' }}>{t2.nom ?? t2.name}</div>
+                    <div style={{ fontSize:15, color:'var(--green-light)', fontFamily:'Arial, sans-serif' }}>{t2.ville ?? t2.city}</div>
                   </div>
                 </div>
               </div>
@@ -309,7 +309,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                 <button key={i} onClick={() => setTemoIdx(i)}
                   style={{
                     width:10, height:10, borderRadius:'50%', border:'none', cursor:'pointer',
-                    background: i === temoIdx ? '#C9973A' : 'rgba(201,151,58,.25)',
+                    background: i === temoIdx ? 'var(--gold)' : 'rgba(201,151,58,.25)',
                     transition:'all .3s',
                   }}
                 />
@@ -323,17 +323,17 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
       </section>
 
       {/* STATS */}
-      <section style={{ background:'#0D2318', padding:'0' }}>
-        <div style={{ background:'#C9973A', padding:'10px 24px', textAlign:'center' }}>
-          <p style={{ fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', letterSpacing:'1.5px', textTransform:'uppercase' }}>{siteContent?.stats_bandeau || t('home.bannerTxt')}</p>
+      <section style={{ background:'var(--green-deep)', padding:'0' }}>
+        <div style={{ background:'var(--gold)', padding:'10px 24px', textAlign:'center' }}>
+          <p style={{ fontSize:14, fontWeight:700, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', letterSpacing:'1.5px', textTransform:'uppercase' }}>{siteContent?.stats_bandeau || t('home.bannerTxt')}</p>
         </div>
         <div className="stats-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', maxWidth:1200, margin:'0 auto', padding:'48px 24px', gap:32 }}>
           {(statsAdmin ?? configSite?.stats ?? stats).map((s:any) => (
             <div key={s.num} style={{ textAlign:'center', padding:'8px' }}>
               <div style={{ fontSize:36, marginBottom:10 }} dangerouslySetInnerHTML={{ __html: s.icone || '' }} />
-              <span style={{ display:'block', fontSize:38, fontWeight:400, color:'#C9973A', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:8 }}>{s.num}</span>
-              <span style={{ display:'block', fontSize:15, color:'#F0EBE0', fontFamily:'Arial, sans-serif', fontWeight:700, marginBottom:4 }}>{s.label}</span>
-              <span style={{ display:'block', fontSize:13, color:'#6B9E7A', fontFamily:'Arial, sans-serif' }}>{s.desc}</span>
+              <span style={{ display:'block', fontSize:38, fontWeight:400, color:'var(--gold)', fontFamily:'Georgia, serif', lineHeight:1, marginBottom:8 }}>{s.num}</span>
+              <span style={{ display:'block', fontSize:15, color:'var(--text-inverse)', fontFamily:'Arial, sans-serif', fontWeight:700, marginBottom:4 }}>{s.label}</span>
+              <span style={{ display:'block', fontSize:13, color:'var(--green-light)', fontFamily:'Arial, sans-serif' }}>{s.desc}</span>
             </div>
           ))}
         </div>
@@ -366,7 +366,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                   <button key={i} onClick={() => setAvisIdx(i)}
                     style={{
                       width:10, height:10, borderRadius:'50%', border:'none', cursor:'pointer',
-                      background: i === avisIdx ? '#C9973A' : 'rgba(201,151,58,.25)',
+                      background: i === avisIdx ? 'var(--gold)' : 'rgba(201,151,58,.25)',
                       transition:'all .3s',
                     }}
                   />

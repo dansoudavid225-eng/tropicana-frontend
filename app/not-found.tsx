@@ -1,11 +1,10 @@
+'use client'
 import Link from 'next/link'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Page introuvable — Tropicana Pio Pio',
-}
+import { useLang } from '@/context/LanguageContext'
 
 export default function NotFound() {
+  const { t } = useLang()
+
   return (
     <div style={{ minHeight: '80vh', background: 'var(--bg-page)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
       <div style={{ textAlign: 'center', maxWidth: 480 }}>
@@ -19,7 +18,7 @@ export default function NotFound() {
 
         {/* Titre */}
         <h1 style={{ fontSize: 26, fontWeight: 400, color: 'var(--text-primary)', fontFamily: 'Georgia, serif', marginBottom: 12 }}>
-          Cette page s'est évaporée…
+          {t('error.pageEvaporee')}
         </h1>
 
         {/* Sous-titre */}
@@ -31,10 +30,10 @@ export default function NotFound() {
         {/* Actions */}
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/" className="btn-gold" style={{ padding: '12px 28px' }}>
-            Retour à l'accueil
+            {t('error.retourAccueil')}
           </Link>
           <Link href="/boutique" className="btn-ghost" style={{ padding: '12px 28px' }}>
-            Voir la boutique
+            {t('error.voirBoutique')}
           </Link>
         </div>
       </div>

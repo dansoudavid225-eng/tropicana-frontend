@@ -31,12 +31,12 @@ function ResetForm() {
     } catch { setStatus('error') }
   }
 
-  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid #D4C9B0', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'#2C1A0E', background:'#fff' }
-  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', marginBottom:6 }
+  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid var(--border-color)', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', outline:'none', boxSizing:'border-box', color:'var(--text-primary)', background:'var(--bg-input)' }
+  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', marginBottom:6 }
 
   if (status === 'done') return (
     <div style={{ textAlign:'center', padding:'20px 0' }}>
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--green-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       <h3 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:10 }}>{t('auth.mdpModifie')}</h3>
       <Link href="/connexion" className="btn-gold" style={{ display:'inline-block', marginTop:12 }}>{t('auth.seConnecter')}</Link>
     </div>
@@ -45,8 +45,8 @@ function ResetForm() {
   return (
     <>
       {status === 'error' && (
-        <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
-          <p style={{ fontSize:14, color:'#B91C1C', fontFamily:'Arial, sans-serif' }}>
+        <div style={{ background:'var(--bg-error)', border:'1px solid var(--border-error)', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
+          <p style={{ fontSize:14, color:'var(--text-error)', fontFamily:'Arial, sans-serif' }}>
             {lang === 'en' ? 'Error. Make sure both passwords match.' : 'Erreur. Vérifiez que les mots de passe correspondent.'}
           </p>
         </div>
@@ -56,7 +56,7 @@ function ResetForm() {
         <div style={{ position:'relative' }}>
           <input type={showMdp?'text':'password'} value={mdp} onChange={e=>setMdp(e.target.value)} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} />
           <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
-            style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
+            style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'var(--text-muted)' }}>
             {showMdp ? '' : ''}
           </button>
         </div>
@@ -81,9 +81,9 @@ export default function ReinitialiserMotDePasse() {
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.reinitialiser')} fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', alignItems:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'28px 24px' }}>
-            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.reinitialiser')}</span>
-            <h1 style={{ fontSize:28, fontWeight:400, color:'#F0EBE0', marginTop:6 }}>
-              {lang === 'en' ? <>Create a new <em style={{ color:'#C9973A' }}>password</em></> : <>Créez votre nouveau <em style={{ color:'#C9973A' }}>mot de passe</em></>}
+            <span style={{ fontSize:13, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.reinitialiser')}</span>
+            <h1 style={{ fontSize:28, fontWeight:400, color:'var(--text-inverse)', marginTop:6 }}>
+              {lang === 'en' ? <>Create a new <em style={{ color:'var(--gold)' }}>password</em></> : <>Créez votre nouveau <em style={{ color:'var(--gold)' }}>mot de passe</em></>}
             </h1>
           </div>
         </div>

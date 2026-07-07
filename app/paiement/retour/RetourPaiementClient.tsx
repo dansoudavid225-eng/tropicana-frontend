@@ -7,7 +7,7 @@ import Link from 'next/link'
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 export default function RetourPaiementClient() {
-  const { lang } = useLang()
+  const { lang, t } = useLang()
   const params = useSearchParams()
   const router = useRouter()
   const commandeId = params.get('commande')
@@ -58,8 +58,8 @@ export default function RetourPaiementClient() {
   if (statut === 'loading') return (
     <div style={container}><div style={card}>
       <div style={{ fontSize: 48, marginBottom: 16 }}>⏳</div>
-      <h1 style={{ fontSize: 22, color: 'var(--text-primary)', marginBottom: 8 }}>Vérification en cours…</h1>
-      <p style={{ color: 'var(--text-secondary)', fontSize: 15 }}>Nous confirmons votre paiement.</p>
+      <h1 style={{ fontSize: 22, color: 'var(--text-primary)', marginBottom: 8 }}>{t('paiement.verification')}</h1>
+      <p style={{ color: 'var(--text-secondary)', fontSize: 15 }}>{t('paiement.confirmation')}</p>
     </div></div>
   )
 
@@ -67,16 +67,16 @@ export default function RetourPaiementClient() {
     <div style={container}><div style={card}>
       <div style={{ fontSize: 56, marginBottom: 16 }}></div>
       <h1 style={{ fontSize: 24, color: 'var(--green-deep)', marginBottom: 8, fontFamily: 'var(--font-cormorant), Georgia, serif' }}>
-        Paiement confirmé !
+        {t('paiement.confirme')}
       </h1>
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 8 }}>
-        Votre commande <strong>#{commandeId}</strong> a été payée avec succès.
+        {t('paiement.cmdPayee')}<strong>{commandeId}</strong>{t('paiement.cmdPayeeSuite')}
       </p>
       <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 32 }}>
-        Un email de confirmation vous a été envoyé. Notre équipe vous contactera sous 2h pour la livraison.
+        {t('paiement.emailEnvoye')}
       </p>
       <Link href="/espace-client" className="btn-gold" style={{ display: 'inline-block', padding: '14px 32px', borderRadius: 50 }}>
-        {lang === 'en' ? 'View my orders' : 'Voir mes commandes'}
+        {t('paiement.voirCommandes')}
       </Link>
     </div></div>
   )
@@ -84,12 +84,12 @@ export default function RetourPaiementClient() {
   if (statut === 'failed') return (
     <div style={container}><div style={card}>
       <div style={{ fontSize: 56, marginBottom: 16 }}></div>
-      <h1 style={{ fontSize: 22, color: '#dc3545', marginBottom: 8 }}>{lang === 'en' ? 'Payment failed' : 'Paiement échoué'}</h1>
+      <h1 style={{ fontSize: 22, color: 'var(--text-error)', marginBottom: 8 }}>{t('paiement.echoue')}</h1>
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 32 }}>
-        Le paiement n&apos;a pas pu être effectué. Votre commande reste en attente — vous pouvez réessayer ou choisir un autre mode de paiement.
+        {t('paiement.echoueDetail')}
       </p>
       <Link href="/boutique" className="btn-gold" style={{ display: 'inline-block', padding: '14px 32px', borderRadius: 50 }}>
-        Retour à la boutique
+        {t('paiement.retourBtq')}
       </Link>
     </div></div>
   )
@@ -97,12 +97,12 @@ export default function RetourPaiementClient() {
   return (
     <div style={container}><div style={card}>
       <div style={{ fontSize: 56, marginBottom: 16 }}></div>
-      <h1 style={{ fontSize: 22, color: 'var(--text-primary)', marginBottom: 8 }}>Paiement en attente</h1>
+      <h1 style={{ fontSize: 22, color: 'var(--text-primary)', marginBottom: 8 }}>{t('paiement.enAttente')}</h1>
       <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 32 }}>
-        Votre commande <strong>#{commandeId}</strong> est enregistrée. Notre équipe vous contactera pour confirmer.
+        {t('paiement.cmdEnregistree')}<strong>{commandeId}</strong>{t('paiement.cmdEnregistreeSuite')}
       </p>
       <Link href="/espace-client" className="btn-gold" style={{ display: 'inline-block', padding: '14px 32px', borderRadius: 50 }}>
-        Voir mes commandes
+        {t('paiement.voirCommandes')}
       </Link>
     </div></div>
   )

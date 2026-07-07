@@ -37,8 +37,8 @@ export default function Contact() {
     } catch { setStatus('error') }
   }
 
-  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid #D4C9B0', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', color:'#2C1A0E', background:'#fff', outline:'none', boxSizing:'border-box' }
-  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'#1A3C2E', fontFamily:'Arial, sans-serif', marginBottom:6, letterSpacing:'0.4px' }
+  const inp: React.CSSProperties = { width:'100%', padding:'13px 15px', border:'1.5px solid var(--border-color)', borderRadius:6, fontSize:15, fontFamily:'Arial, sans-serif', color:'#2C1A0E', background:'#fff', outline:'none', boxSizing:'border-box' }
+  const lbl: React.CSSProperties = { display:'block', fontSize:14, fontWeight:700, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', marginBottom:6, letterSpacing:'0.4px' }
 
   const coordItems = [
     { icon:'', label:t('contact.adresse'),   value:site.adresse },
@@ -55,25 +55,25 @@ export default function Contact() {
         <Image src="/images/produit-bois.jpg" alt="Contact Tropicana Pio Pio" fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'24px' }}>
-            <span style={{ fontSize:14, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
-            <h1 style={{ fontSize:34, fontWeight:400, color:'#F0EBE0', marginTop:8 }}>
-              {lang === 'en' ? <>We are here to <em style={{ color:'#C9973A' }}>help you</em></> : <>Nous sommes à <em style={{ color:'#C9973A' }}>votre écoute</em></>}
+            <span style={{ fontSize:14, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
+            <h1 style={{ fontSize:34, fontWeight:400, color:'var(--text-inverse)', marginTop:8 }}>
+              {lang === 'en' ? <>We are here to <em style={{ color:'var(--gold)' }}>help you</em></> : <>Nous sommes à <em style={{ color:'var(--gold)' }}>votre écoute</em></>}
             </h1>
           </div>
         </div>
       </section>
 
       {/* Raccourcis */}
-      <div style={{ background:'#1A3C2E' }}>
+      <div style={{ background:'var(--green-deep)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'16px 24px', display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center' }}>
           <a href="https://wa.me/2290195967762?text=Bonjour%2C%20je%20souhaite%20vous%20contacter." target="_blank" rel="noopener noreferrer"
             style={{ background:'#25D366', color:'#fff', fontFamily:'Arial, sans-serif', fontWeight:700, fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
             {t('contact.whatsappDirect')}
           </a>
-          <a href={`tel:${site.telephone_raw}`} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
+          <a href={`tel:${site.telephone_raw}`} style={{ background:'var(--green-deep)', border:'1px solid var(--green-mid)', color:'var(--green-light)', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
             {site.telephone}
           </a>
-          <a href={`mailto:${site.email}`} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
+          <a href={`mailto:${site.email}`} style={{ background:'var(--green-deep)', border:'1px solid var(--green-mid)', color:'var(--green-light)', fontFamily:'Arial, sans-serif', fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
             {t('contact.emailDirect')}
           </a>
         </div>
@@ -101,8 +101,8 @@ export default function Contact() {
                   style={{ position:'absolute', left:'-9999px', opacity:0, height:0, overflow:'hidden' }} />
 
                 {status === 'error' && (
-                  <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
-                    <p style={{ fontSize:14, color:'#B91C1C', fontFamily:'Arial, sans-serif' }}>{t('contact.erreur')}</p>
+                  <div style={{ background:'var(--bg-error)', border:'1px solid var(--border-error)', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
+                    <p style={{ fontSize:14, color:'var(--text-error)', fontFamily:'Arial, sans-serif' }}>{t('contact.erreur')}</p>
                     <a href="https://wa.me/2290195967762" target="_blank" rel="noopener noreferrer"
                       style={{ fontSize:14, color:'#25D366', fontFamily:'Arial, sans-serif', fontWeight:700, textDecoration:'none', display:'inline-block', marginTop:6 }}>
                       {t('contact.whatsapp')}
@@ -158,23 +158,23 @@ export default function Contact() {
             {coordItems.map(c => (
               <div key={c.label} style={{ display:'flex', gap:14, marginBottom:18, alignItems:'flex-start' }}>
                 <div>
-                  <p style={{ fontSize:13, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', letterSpacing:'1px', textTransform:'uppercase', marginBottom:2 }}>{c.label}</p>
+                  <p style={{ fontSize:13, fontWeight:700, color:'var(--gold)', fontFamily:'Arial, sans-serif', letterSpacing:'1px', textTransform:'uppercase', marginBottom:2 }}>{c.label}</p>
                   <p style={{ fontSize:15, color:'var(--text-primary)', fontFamily:'Arial, sans-serif' }}>{c.value}</p>
                 </div>
               </div>
             ))}
 
-            <div style={{ background:'#1A3C2E', borderRadius:10, padding:'20px 18px', marginBottom:16 }}>
-              <h3 style={{ fontSize:15, fontWeight:700, color:'#C9973A', fontFamily:'Arial, sans-serif', marginBottom:8 }}>{t('contact.mobileMoney')}</h3>
-              <p style={{ fontSize:14, color:'#95D5B2', fontFamily:'Arial, sans-serif', marginBottom:4 }}>MTN Money / Moov Money</p>
-              <p style={{ fontSize:16, color:'#F0EBE0', fontFamily:'Arial, sans-serif', fontWeight:700 }}>{site.telephone}</p>
+            <div style={{ background:'var(--green-deep)', borderRadius:10, padding:'20px 18px', marginBottom:16 }}>
+              <h3 style={{ fontSize:15, fontWeight:700, color:'var(--gold)', fontFamily:'Arial, sans-serif', marginBottom:8 }}>{t('contact.mobileMoney')}</h3>
+              <p style={{ fontSize:14, color:'var(--green-light)', fontFamily:'Arial, sans-serif', marginBottom:4 }}>MTN Money / Moov Money</p>
+              <p style={{ fontSize:16, color:'var(--text-inverse)', fontFamily:'Arial, sans-serif', fontWeight:700 }}>{site.telephone}</p>
             </div>
 
             <div style={{ display:'flex', gap:10 }}>
               <a href="https://www.tiktok.com/@thepio08" target="_blank" rel="noopener noreferrer"
-                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>TikTok @thepio08</a>
+                style={{ flex:1, background:'var(--green-deep)', color:'var(--green-light)', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid var(--green-mid)', textAlign:'center' }}>TikTok @thepio08</a>
               <a href="https://facebook.com/profile.php?id=61569744814995" target="_blank" rel="noopener noreferrer"
-                style={{ flex:1, background:'#0D2318', color:'#95D5B2', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid #2D6A4F', textAlign:'center' }}>Facebook</a>
+                style={{ flex:1, background:'var(--green-deep)', color:'var(--green-light)', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid var(--green-mid)', textAlign:'center' }}>Facebook</a>
             </div>
           </div>
 
@@ -191,24 +191,24 @@ export default function Contact() {
             title="Localisation Tropicana Pio Pio"
           />
           <a href="https://maps.app.goo.gl/HoiH17s7iBD6cRui7" target="_blank" rel="noopener noreferrer"
-            style={{ display:'flex', alignItems:'center', gap:8, background:'#1A3C2E', padding:'10px 14px', fontSize:13, color:'#95D5B2', fontFamily:'Arial, sans-serif', textDecoration:'none', justifyContent:'center' }}>
+            style={{ display:'flex', alignItems:'center', gap:8, background:'var(--green-deep)', padding:'10px 14px', fontSize:13, color:'var(--green-light)', fontFamily:'Arial, sans-serif', textDecoration:'none', justifyContent:'center' }}>
             <span>{t('contact.ouvrirMaps')}</span>
           </a>
         </div>
       </section>
 
       {/* Distributeurs */}
-      <section style={{ background:'#1A3C2E' }}>
+      <section style={{ background:'var(--green-deep)' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'48px 24px', display:'flex', gap:40, alignItems:'center', flexWrap:'wrap' }}>
           <div style={{ flex:1, minWidth:260 }}>
-            <h2 style={{ fontSize:24, fontWeight:400, color:'#F0EBE0', marginBottom:14 }}>{t('contact.distTitre')}</h2>
-            <p style={{ color:'#95D5B2', fontSize:15, fontFamily:'Arial, sans-serif', lineHeight:1.8, marginBottom:20, fontWeight:300 }}>{t('contact.distBody')}</p>
+            <h2 style={{ fontSize:24, fontWeight:400, color:'var(--text-inverse)', marginBottom:14 }}>{t('contact.distTitre')}</h2>
+            <p style={{ color:'var(--green-light)', fontSize:15, fontFamily:'Arial, sans-serif', lineHeight:1.8, marginBottom:20, fontWeight:300 }}>{t('contact.distBody')}</p>
             <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
               {(lang === 'en'
                 ? ['Preferential price from 10 units', 'Fast national delivery', 'Commercial support included', '100% organic product']
                 : ['Prix préférentiels dès 10 unités', 'Livraison nationale rapide', 'Support commercial inclus', 'Produit 100% bio']
               ).map(item => (
-                <span key={item} style={{ background:'#0D2318', border:'1px solid #2D6A4F', color:'#95D5B2', fontSize:14, padding:'7px 13px', borderRadius:4, fontFamily:'Arial, sans-serif' }}>{item}</span>
+                <span key={item} style={{ background:'var(--green-deep)', border:'1px solid var(--green-mid)', color:'var(--green-light)', fontSize:14, padding:'7px 13px', borderRadius:4, fontFamily:'Arial, sans-serif' }}>{item}</span>
               ))}
             </div>
           </div>

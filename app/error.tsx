@@ -1,6 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 import Link from 'next/link'
+import { useLang } from '@/context/LanguageContext'
 
 export default function Error({
   error,
@@ -9,6 +10,8 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const { t } = useLang()
+
   useEffect(() => {
     console.error('Erreur Tropicana Pio Pio:', error)
   }, [error])
@@ -23,7 +26,7 @@ export default function Error({
 
         {/* Titre */}
         <h1 style={{ fontSize: 26, fontWeight: 400, color: 'var(--text-primary)', fontFamily: 'Georgia, serif', marginBottom: 12 }}>
-          Quelque chose s'est mal passé
+          {t('error.quelquechose')}
         </h1>
 
         {/* Message */}
@@ -38,10 +41,10 @@ export default function Error({
             className="btn-gold"
             style={{ padding: '12px 28px', cursor: 'pointer' }}
           >
-            Réessayer
+            {t('error.reesayer')}
           </button>
           <Link href="/" className="btn-ghost" style={{ padding: '12px 28px' }}>
-            Retour à l'accueil
+            {t('error.retourAccueil')}
           </Link>
         </div>
       </div>
