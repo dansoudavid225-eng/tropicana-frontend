@@ -1676,7 +1676,7 @@ export default function AdminPanel() {
           </div>
         </div>
         <nav style={{ flex: 1, padding: '6px 0', overflowY: 'auto' }}>
-          {['General', 'Site', 'Gestion'].map(g => (
+          {['Général', 'Site', 'Gestion'].map(g => (
             <div key={g}>
               {open && <div style={{ fontSize: 9, fontWeight: 700, color: '#4D7A5E', letterSpacing: '1.5px', textTransform: 'uppercase' as const, padding: '10px 14px 3px' }}>{g === 'Site' ? 'MODIFIER LE SITE' : g === 'Gestion' ? 'OUTILS' : g.toUpperCase()}</div>}
               {NAV.filter(n => n.group === g).map(({ s, label }) => (
