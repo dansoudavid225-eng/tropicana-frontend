@@ -281,10 +281,11 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             </div>
             <Link href="/temoignages" className="btn-ghost" style={{ fontSize:14, padding:'10px 20px', marginBottom:8 }}>{t('temo.laisser')}</Link>
           </div>
-          <div style={{ minHeight:220 }}>
+          <div style={{ display:'flex', gap:16, overflowX:'auto', scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch', paddingBottom:8, scrollbarWidth:'thin', scrollbarColor:'#2D6A4F transparent' }}>
             {testimonials.slice(temoIdx * 3, temoIdx * 3 + 3).map((t2:any, i:number) => (
               <div key={t2.nom ?? t2.name ?? i} style={{
-                background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20, marginBottom:12,
+                flex:'0 0 calc(33.333% - 11px)', minWidth:280, scrollSnapAlign:'start',
+                background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20,
                 animation:'temoFadeIn .5s ease forwards',
                 animationDelay:`${i * .1}s`, opacity:0,
               }}>
