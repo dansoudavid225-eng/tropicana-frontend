@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'couleurs' | 'partenaires' | 'fondateur'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'newsletter' | 'fondateur' | 'stats' | 'contact' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport' | 'partenaires'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -50,15 +50,28 @@ const NAV: { s: Section; label: string; group: string }[] = [
   { s: 'commandes', label: 'Commandes', group: 'Général' },
   { s: 'produits', label: 'Produits', group: 'Général' },
   { s: 'temoignages', label: 'Avis clients', group: 'Général' },
-  { s: 'partenaires', label: 'Partenaires', group: 'Site' },
+  { s: 'messages', label: 'Messages', group: 'Général' },
+  { s: 'newsletter', label: 'Newsletter', group: 'Général' },
   { s: 'fondateur', label: 'Fondateur', group: 'Site' },
+  { s: 'stats', label: 'Chiffres & Avis', group: 'Site' },
+  { s: 'partenaires', label: 'Partenaires', group: 'Site' },
+  { s: 'contact', label: 'Contact & Prix', group: 'Site' },
   { s: 'couleurs', label: 'Couleurs', group: 'Site' },
+  { s: 'promo', label: 'Codes promo', group: 'Gestion' },
+  { s: 'zones', label: 'Livraison', group: 'Gestion' },
+  { s: 'blacklist', label: 'Blacklist', group: 'Gestion' },
+  { s: 'alertes', label: 'Alertes stock', group: 'Gestion' },
+  { s: 'rapport', label: 'Rapport PDF', group: 'Gestion' },
 ]
 
 const TITLES: Record<Section, string> = {
   dashboard: 'Dashboard', commandes: 'Commandes', produits: 'Produits',
-  temoignages: 'Avis clients',
-  partenaires: 'Partenaires', fondateur: 'Fondateur', couleurs: 'Couleurs',
+  temoignages: 'Avis clients', messages: 'Messages', newsletter: 'Newsletter',
+  fondateur: 'Bloc Fondateur', stats: 'Chiffres & Avis',
+  partenaires: 'Partenaires', contact: 'Contact & Prix',
+  couleurs: 'Palette couleurs',
+  promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
+  alertes: 'Alertes Stock', rapport: 'Rapport PDF',
 }
 
 const ah = (t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' })
@@ -221,185 +234,7 @@ function useConfig(token: string) {
   return { config, loading, saving, save, toast }
 }
 
-function SectionHero({ token }: { token: string }) {
-  const { config, loading, saving, save, toast } = useConfig(token)
-  const [f, setF] = useState<Partial<SiteContent>>({})
-  useEffect(() => { if (!loading) setF(config) }, [loading, config])
-  const upd = (k: keyof SiteContent, v: string) => setF(p => ({ ...p, [k]: v }))
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Textes principaux</h3>
-          <FL label="Badge"><Inp value={f.hero_badge || ''} onChange={v => upd('hero_badge', v)} placeholder="100% Bio - Porto-Novo, Benin" /></FL>
-          <FL label="Titre normal"><Inp value={f.hero_titre || ''} onChange={v => upd('hero_titre', v)} placeholder="La nature africaine" /></FL>
-          <FL label="Titre italique dore"><Inp value={f.hero_titre_em || ''} onChange={v => upd('hero_titre_em', v)} placeholder="dans votre tasse" /></FL>
-          <FL label="Sous-titre"><Txta value={f.hero_sous_titre || ''} onChange={v => upd('hero_sous_titre', v)} rows={2} /></FL>
-          <FL label="Sous-titre dore"><Inp value={f.hero_sous_titre_em || ''} onChange={v => upd('hero_sous_titre_em', v)} /></FL>
-        </div>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Boutons</h3>
-          <FL label="Bouton 1 commander"><Inp value={f.hero_btn1 || ''} onChange={v => upd('hero_btn1', v)} placeholder="Commander des 1 000 FCFA" /></FL>
-          <FL label="Bouton 2 histoire"><Inp value={f.hero_btn2 || ''} onChange={v => upd('hero_btn2', v)} placeholder="Notre histoire" /></FL>
-          <div style={{ marginTop: 20, padding: 14, background: 'var(--admin-success-bg)', borderRadius: 8, fontSize: 12, color: '#166534' }}>
-            Photo de fond : /public/images/hero-plantation.jpg
-          </div>
-        </div>
-      </div>
-      <SaveBar onSave={() => save(f)} saving={saving} label="le Hero" />
-    </div>
-  )
-}
 
-function SectionArguments({ token }: { token: string }) {
-  const { config, loading, saving, save, toast } = useConfig(token)
-  const [items, setItems] = useState<Argument[]>([])
-  useEffect(() => {
-    if (!loading) setItems(config.arguments || [
-      { icon: '', title: '100% Bio', sub: 'Sans engrais' },
-      { icon: '', title: 'Science', sub: 'Veterinaire' },
-      { icon: '', title: 'Famille', sub: 'Des 2 ans' },
-      { icon: '', title: 'Made in Benin', sub: 'Livraison nationale' },
-    ])
-  }, [loading, config])
-  const upd = (i: number, k: keyof Argument, v: string) => setItems(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={CS}>
-        <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--admin-text)' }}>Les 4 arguments</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-          {items.map((item, i) => (
-            <div key={i} style={{ border: '1px solid var(--admin-border)', borderRadius: 10, padding: 14, background: 'var(--admin-bg)' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--admin-text-muted)', marginBottom: 10 }}>ARGUMENT {i + 1}</div>
-              <FL label="Emoji ou icone"><Inp value={item.icon} onChange={v => upd(i, 'icon', v)} placeholder="emoji" /></FL>
-              <FL label="Titre"><Inp value={item.title} onChange={v => upd(i, 'title', v)} /></FL>
-              <FL label="Sous-titre"><Inp value={item.sub} onChange={v => upd(i, 'sub', v)} /></FL>
-            </div>
-          ))}
-        </div>
-      </div>
-      <SaveBar onSave={() => save({ arguments: items })} saving={saving} label="les arguments" />
-    </div>
-  )
-}
-
-function SectionPlante({ token }: { token: string }) {
-  const { config, loading, saving, save, toast } = useConfig(token)
-  const [f, setF] = useState<Partial<SiteContent>>({})
-  const [points, setPoints] = useState<string[]>([])
-  useEffect(() => {
-    if (!loading) {
-      setF(config)
-      setPoints(config.plante_points || [])
-    }
-  }, [loading, config])
-  const upd = (k: keyof SiteContent, v: string) => setF(p => ({ ...p, [k]: v }))
-  const updP = (i: number, v: string) => setPoints(p => p.map((x, j) => j === i ? v : x))
-  const addP = () => setPoints(p => [...p, ''])
-  const delP = (i: number) => setPoints(p => p.filter((_, j) => j !== i))
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Textes section plante</h3>
-          <FL label="Label"><Inp value={f.plante_label || ''} onChange={v => upd('plante_label', v)} /></FL>
-          <FL label="Titre"><Inp value={f.plante_titre || ''} onChange={v => upd('plante_titre', v)} /></FL>
-          <FL label="Titre italique"><Inp value={f.plante_titre_em || ''} onChange={v => upd('plante_titre_em', v)} /></FL>
-          <FL label="Texte descriptif"><Txta value={f.plante_texte || ''} onChange={v => upd('plante_texte', v)} rows={5} /></FL>
-        </div>
-        <div style={CS}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: 'var(--navbar-bg)' }}>Points forts</h3>
-            <button onClick={addP} style={BG}>+ Ajouter</button>
-          </div>
-          {points.map((p, i) => (
-            <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 8, alignItems: 'center' }}>
-              <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--green-mid)', color: 'var(--admin-card)', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</div>
-              <input style={{ ...IS, flex: 1 }} value={p} onChange={e => updP(i, e.target.value)} placeholder="Point fort..." />
-              <button onClick={() => delP(i)} style={{ ...BR, padding: '8px 10px' }}>X</button>
-            </div>
-          ))}
-        </div>
-      </div>
-      <SaveBar onSave={() => save({ ...f, plante_points: points })} saving={saving} label="La Plante" />
-    </div>
-  )
-}
-
-function SectionBienfaits({ token }: { token: string }) {
-  type BItem = { id: number; icone: string; titre: string; description: string; ordre: number; actif: boolean }
-  const [items, setItems] = useState<BItem[]>([])
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
-  const showToast = (msg: string, ok: boolean) => { setToast({ msg, ok }); setTimeout(() => setToast(null), 3000) }
-  const h = useCallback((t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' }), [])
-
-  useEffect(() => {
-    fetch(`${API}/admin/bienfaits/`, { headers: h(token) })
-      .then(r => r.json()).then(d => { setItems(Array.isArray(d) ? d : d.results ?? []); setLoading(false) })
-      .catch(() => setLoading(false))
-  }, [token, h])
-
-  const add = () => setItems(p => [...p, { id: 0, icone: '', titre: '', description: '', ordre: p.length, actif: true }])
-  const upd = (i: number, k: keyof BItem, v: any) => setItems(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
-
-  const saveAll = async () => {
-    setSaving(true)
-    try {
-      for (const item of items) {
-        const body = { icone: item.icone, titre: item.titre, description: item.description, ordre: item.ordre, actif: item.actif }
-        if (item.id === 0) {
-          const r = await fetch(`${API}/admin/bienfaits/`, { method: 'POST', headers: h(token), body: JSON.stringify(body) })
-          if (r.ok) { const d = await r.json(); setItems(p => p.map(x => x === item ? d : x)) }
-        } else {
-          await fetch(`${API}/admin/bienfaits/${item.id}/`, { method: 'PATCH', headers: h(token), body: JSON.stringify(body) })
-        }
-      }
-      showToast('Bienfaits sauvegardés', true)
-    } catch { showToast('Erreur de sauvegarde', false) }
-    setSaving(false)
-  }
-
-  const del = async (item: BItem, i: number) => {
-    if (item.id !== 0) await fetch(`${API}/admin/bienfaits/${item.id}/`, { method: 'DELETE', headers: h(token) })
-    setItems(p => p.filter((_, j) => j !== i))
-    showToast('Bienfait supprimé', true)
-  }
-
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={CS}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: 'var(--navbar-bg)' }}>Bienfaits ({items.length}) — sauvegardés en base de données</h3>
-          <button onClick={add} style={BG}>+ Ajouter</button>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {items.map((item, i) => (
-            <div key={item.id || i} style={{ display: 'grid', gridTemplateColumns: '40px 70px 1fr 2fr 60px auto', gap: 10, alignItems: 'center', padding: 12, background: 'var(--admin-bg)', borderRadius: 10, border: '1px solid var(--admin-border)' }}>
-              <div style={{ width: 36, height: 36, background: 'var(--green-mid)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--admin-card)', fontSize: 12, fontWeight: 700 }}>{i + 1}</div>
-              <input style={{ ...IS, fontSize: 20, textAlign: 'center', padding: '6px' }} value={item.icone} onChange={e => upd(i, 'icone', e.target.value)} title="Emoji" placeholder="" />
-              <input style={IS} placeholder="Titre" value={item.titre} onChange={e => upd(i, 'titre', e.target.value)} />
-              <input style={IS} placeholder="Description" value={item.description} onChange={e => upd(i, 'description', e.target.value)} />
-              <input style={{ ...IS, width: 50 }} type="number" value={item.ordre} onChange={e => upd(i, 'ordre', Number(e.target.value))} title="Ordre" />
-              <button onClick={() => del(item, i)} style={{ ...BR, padding: '8px 12px' }}></button>
-            </div>
-          ))}
-          {items.length === 0 && <Empty msg="Aucun bienfait — cliquez sur + pour ajouter" />}
-        </div>
-      </div>
-      <SaveBar onSave={saveAll} saving={saving} label="les bienfaits" />
-    </div>
-  )
-}
 
 function SectionTasse({ token }: { token: string }) {
   const { config, loading, saving, save, toast } = useConfig(token)
@@ -425,23 +260,72 @@ function SectionTasse({ token }: { token: string }) {
 function SectionFondateur({ token }: { token: string }) {
   const { config, loading, saving, save, toast } = useConfig(token)
   const [f, setF] = useState<Partial<SiteContent>>({})
-  useEffect(() => { if (!loading) setF(config) }, [loading, config])
+  const [photo, setPhoto] = useState<string | null>(null)
+  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const [photoSaving, setPhotoSaving] = useState(false)
+  const ah = useCallback((t: string) => ({ Authorization: `Bearer ${t}` }), [])
+
+  useEffect(() => {
+    if (!loading) setF(config)
+  }, [loading, config])
+
+  useEffect(() => {
+    fetch(`${API}/admin/fondateur/`, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d?.photo) setPhoto(d.photo) })
+      .catch(() => {})
+  }, [token])
+
   const upd = (k: keyof SiteContent, v: string) => setF(p => ({ ...p, [k]: v }))
+
+  const savePhoto = async () => {
+    if (!photoFile) return
+    setPhotoSaving(true)
+    try {
+      const fd = new FormData()
+      fd.append('photo', photoFile)
+      const r = await fetch(`${API}/admin/fondateur/`, { method: 'PATCH', headers: ah(token), body: fd })
+      if (r.ok) {
+        const d = await r.json()
+        if (d.photo) setPhoto(d.photo)
+        setPhotoFile(null)
+      }
+    } catch {}
+    setPhotoSaving(false)
+  }
+
   if (loading) return <Loader />
   return (
     <div>
       {toast && <Toast {...toast} />}
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Bloc Fondateur - section verte accueil</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <FL label="Label"><Inp value={f.fondateur_label || ''} onChange={v => upd('fondateur_label', v)} placeholder="Notre fondateur" /></FL>
-          <FL label="Titre"><Inp value={f.fondateur_titre || ''} onChange={v => upd('fondateur_titre', v)} /></FL>
-        </div>
-        <FL label="Citation"><Txta value={f.fondateur_citation || ''} onChange={v => upd('fondateur_citation', v)} rows={3} /></FL>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <FL label="Nom"><Inp value={f.fondateur_nom || ''} onChange={v => upd('fondateur_nom', v)} placeholder="Felicien Prosper DURAND" /></FL>
-          <FL label="Titre fonction"><Inp value={f.fondateur_sous || ''} onChange={v => upd('fondateur_sous', v)} /></FL>
-          <FL label="Bouton"><Inp value={f.fondateur_btn || ''} onChange={v => upd('fondateur_btn', v)} /></FL>
+        <div style={{ display: 'flex', gap: 20, marginBottom: 16, alignItems: 'flex-start' }}>
+          <div style={{ flexShrink: 0, textAlign: 'center' }}>
+            {photoFile ? (
+              <img src={URL.createObjectURL(photoFile)} alt="preview" style={{ width: 120, height: 160, objectFit: 'cover', borderRadius: 8 }} />
+            ) : photo ? (
+              <img src={photo} alt="Fondateur" style={{ width: 120, height: 160, objectFit: 'cover', borderRadius: 8 }} />
+            ) : (
+              <div style={{ width: 120, height: 160, borderRadius: 8, background: 'var(--admin-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--admin-text-muted)' }}>Aucune photo</div>
+            )}
+            <div style={{ marginTop: 8 }}>
+              <input type="file" accept="image/*" onChange={e => setPhotoFile(e.target.files?.[0] || null)} />
+              {photoFile && <button onClick={savePhoto} style={{ ...BG, fontSize: 12, marginTop: 6, padding: '4px 12px' }} disabled={photoSaving}>{photoSaving ? '...' : 'Uploader'}</button>}
+            </div>
+          </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <FL label="Label"><Inp value={f.fondateur_label || ''} onChange={v => upd('fondateur_label', v)} placeholder="Notre fondateur" /></FL>
+              <FL label="Titre"><Inp value={f.fondateur_titre || ''} onChange={v => upd('fondateur_titre', v)} /></FL>
+            </div>
+            <FL label="Citation"><Txta value={f.fondateur_citation || ''} onChange={v => upd('fondateur_citation', v)} rows={3} /></FL>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+              <FL label="Nom"><Inp value={f.fondateur_nom || ''} onChange={v => upd('fondateur_nom', v)} placeholder="Felicien Prosper DURAND" /></FL>
+              <FL label="Titre fonction"><Inp value={f.fondateur_sous || ''} onChange={v => upd('fondateur_sous', v)} /></FL>
+              <FL label="Bouton"><Inp value={f.fondateur_btn || ''} onChange={v => upd('fondateur_btn', v)} /></FL>
+            </div>
+          </div>
         </div>
       </div>
       <SaveBar onSave={() => save(f)} saving={saving} label="le Fondateur" />
@@ -504,74 +388,6 @@ function SectionStats({ token }: { token: string }) {
         ))}
       </div>
       <SaveBar onSave={() => save({ stats_bandeau: bandeau, stats, temoignages_rapides: temos })} saving={saving} label="les chiffres" />
-    </div>
-  )
-}
-
-function SectionHistoire({ token }: { token: string }) {
-  type Chap = { id: number; numero: string; titre: string; texte: string; ordre: number; actif: boolean }
-  const [items, setItems] = useState<Chap[]>([])
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
-  const showToast = (msg: string, ok: boolean) => { setToast({ msg, ok }); setTimeout(() => setToast(null), 3000) }
-  const h = useCallback((t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' }), [])
-
-  useEffect(() => {
-    fetch(`${API}/admin/histoire/`, { headers: h(token) })
-      .then(r => r.json()).then(d => { setItems(Array.isArray(d) ? d : d.results ?? []); setLoading(false) })
-      .catch(() => setLoading(false))
-  }, [token, h])
-
-  const add = () => setItems(p => [...p, { id: 0, numero: String(p.length + 1).padStart(2, '0'), titre: '', texte: '', ordre: p.length, actif: true }])
-  const upd = (i: number, k: keyof Chap, v: any) => setItems(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
-
-  const saveAll = async () => {
-    setSaving(true)
-    try {
-      for (const item of items) {
-        const body = { numero: item.numero, titre: item.titre, texte: item.texte, ordre: item.ordre, actif: item.actif }
-        if (item.id === 0) {
-          const r = await fetch(`${API}/admin/histoire/`, { method: 'POST', headers: h(token), body: JSON.stringify(body) })
-          if (r.ok) { const d = await r.json(); setItems(p => p.map(x => x === item ? d : x)) }
-        } else {
-          await fetch(`${API}/admin/histoire/${item.id}/`, { method: 'PATCH', headers: h(token), body: JSON.stringify(body) })
-        }
-      }
-      showToast('Chapitres sauvegardés', true)
-    } catch { showToast('Erreur de sauvegarde', false) }
-    setSaving(false)
-  }
-
-  const del = async (item: Chap, i: number) => {
-    if (item.id !== 0) await fetch(`${API}/admin/histoire/${item.id}/`, { method: 'DELETE', headers: h(token) })
-    setItems(p => p.filter((_, j) => j !== i))
-    showToast('Chapitre supprimé', true)
-  }
-
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={CS}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: 'var(--navbar-bg)' }}>Chapitres ({items.length}) — sauvegardés en base de données</h3>
-          <button onClick={add} style={BG}>+ Ajouter chapitre</button>
-        </div>
-        {items.map((item, i) => (
-          <div key={item.id || i} style={{ border: '1px solid var(--admin-border)', borderRadius: 12, padding: 16, marginBottom: 14, background: 'var(--admin-bg)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 60px auto', gap: 10, marginBottom: 10, alignItems: 'end' }}>
-              <FL label="Numéro"><Inp value={item.numero} onChange={v => upd(i, 'numero', v)} placeholder="01" /></FL>
-              <FL label="Titre"><Inp value={item.titre} onChange={v => upd(i, 'titre', v)} /></FL>
-              <FL label="Ordre"><input style={{ ...IS, width: 50 }} type="number" value={item.ordre} onChange={e => upd(i, 'ordre', Number(e.target.value))} /></FL>
-              <button onClick={() => del(item, i)} style={{ ...BR, padding: '9px 12px', alignSelf: 'flex-end' }}></button>
-            </div>
-            <FL label="Texte du chapitre"><Txta value={item.texte} onChange={v => upd(i, 'texte', v)} rows={6} /></FL>
-          </div>
-        ))}
-        {items.length === 0 && <Empty msg="Aucun chapitre — cliquez sur + pour ajouter" />}
-      </div>
-      <SaveBar onSave={saveAll} saving={saving} label="les chapitres" />
     </div>
   )
 }
@@ -667,42 +483,62 @@ function SectionBlog({ token }: { token: string }) {
 }
 
 function SectionPartenaires({ token }: { token: string }) {
-  type Part = { id: number; nom: string; lien: string; tag: string; ordre: number; actif: boolean }
+  type Part = { id: number; nom: string; logo: string | null; lien: string; tag: string; ordre: number; actif: boolean; file?: File | null }
   const [items, setItems] = useState<Part[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
   const showToast = (msg: string, ok: boolean) => { setToast({ msg, ok }); setTimeout(() => setToast(null), 3000) }
-  const h = useCallback((t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' }), [])
+  const ah = useCallback((t: string) => ({ Authorization: `Bearer ${t}` }), [])
 
   useEffect(() => {
-    fetch(`${API}/admin/partenaires/`, { headers: h(token) })
+    fetch(`${API}/admin/partenaires/`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json()).then(d => { setItems(Array.isArray(d) ? d : d.results ?? []); setLoading(false) })
       .catch(() => setLoading(false))
-  }, [token, h])
+  }, [token])
 
-  const add = () => setItems(p => [...p, { id: 0, nom: '', lien: '', tag: 'Partenaire', ordre: p.length, actif: true }])
+  const add = () => setItems(p => [...p, { id: 0, nom: '', logo: null, lien: '', tag: 'Partenaire', ordre: p.length, actif: true, file: null }])
   const upd = (i: number, k: keyof Part, v: any) => setItems(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
+
+  const handleFile = (i: number, file: File | null) => {
+    setItems(p => p.map((x, j) => j === i ? { ...x, file } : x))
+  }
 
   const saveAll = async () => {
     setSaving(true)
     try {
       for (const item of items) {
-        const body = { nom: item.nom, lien: item.lien, tag: item.tag, ordre: item.ordre, actif: item.actif }
-        if (item.id === 0) {
-          const r = await fetch(`${API}/admin/partenaires/`, { method: 'POST', headers: h(token), body: JSON.stringify(body) })
-          if (r.ok) { const d = await r.json(); setItems(p => p.map(x => x === item ? d : x)) }
+        const hasFile = !!item.file
+        if (hasFile) {
+          const fd = new FormData()
+          fd.append('nom', item.nom)
+          fd.append('lien', item.lien || '')
+          fd.append('tag', item.tag)
+          fd.append('ordre', String(item.ordre))
+          fd.append('actif', item.actif ? 'true' : 'false')
+          fd.append('logo', item.file!)
+          const url = item.id === 0 ? `${API}/admin/partenaires/` : `${API}/admin/partenaires/${item.id}/`
+          const method = item.id === 0 ? 'POST' : 'PATCH'
+          const r = await fetch(url, { method, headers: ah(token), body: fd })
+          if (r.ok && item.id === 0) { const d = await r.json(); setItems(p => p.map(x => x === item ? { ...d, file: null } : x)) }
         } else {
-          await fetch(`${API}/admin/partenaires/${item.id}/`, { method: 'PATCH', headers: h(token), body: JSON.stringify(body) })
+          const body = { nom: item.nom, lien: item.lien, tag: item.tag, ordre: item.ordre, actif: item.actif }
+          if (item.id === 0) {
+            const r = await fetch(`${API}/admin/partenaires/`, { method: 'POST', headers: { ...ah(token), 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+            if (r.ok) { const d = await r.json(); setItems(p => p.map(x => x === item ? d : x)) }
+          } else {
+            await fetch(`${API}/admin/partenaires/${item.id}/`, { method: 'PATCH', headers: { ...ah(token), 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+          }
         }
       }
-      showToast('Partenaires sauvegardés (logos via Django admin)', true)
+      setItems(p => p.map(x => ({ ...x, file: null })))
+      showToast('Partenaires sauvegardés', true)
     } catch { showToast('Erreur de sauvegarde', false) }
     setSaving(false)
   }
 
   const del = async (item: Part, i: number) => {
-    if (item.id !== 0) await fetch(`${API}/admin/partenaires/${item.id}/`, { method: 'DELETE', headers: h(token) })
+    if (item.id !== 0) await fetch(`${API}/admin/partenaires/${item.id}/`, { method: 'DELETE', headers: ah(token) })
     setItems(p => p.filter((_, j) => j !== i))
     showToast('Partenaire supprimé', true)
   }
@@ -711,19 +547,27 @@ function SectionPartenaires({ token }: { token: string }) {
   return (
     <div>
       {toast && <Toast {...toast} />}
-      <div style={{ background: '#FFF7ED', border: '1px solid #FED7AA', borderRadius: 10, padding: '12px 16px', marginBottom: 16, fontSize: 13, color: '#92400E' }}>
-        Les <strong>logos</strong> des partenaires s&apos;uploadent via l&apos;interface Django admin (<code>/django-admin/api/partenaire/</code>). Ici vous gérez les infos texte.
-      </div>
       <div style={CS}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: 'var(--navbar-bg)' }}>Partenaires ({items.length}) — base de données</h3>
           <button onClick={add} style={BG}>+ Ajouter</button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(320px,1fr))', gap: 14 }}>
           {items.map((item, i) => (
             <div key={item.id || i} style={{ border: '1px solid var(--admin-border)', borderRadius: 12, padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <FL label="Nom du partenaire"><Inp value={item.nom} onChange={v => upd(i, 'nom', v)} placeholder="WPSA Bénin" /></FL>
-              <FL label="Tag / Catégorie"><Inp value={item.tag} onChange={v => upd(i, 'tag', v)} placeholder="Partenaire scientifique" /></FL>
+              {item.logo && !item.file && (
+                <div style={{ textAlign: 'center', marginBottom: 8 }}>
+                  <img src={item.logo} alt={item.nom} style={{ maxHeight: 60, objectFit: 'contain' }} />
+                </div>
+              )}
+              {item.file && (
+                <div style={{ textAlign: 'center', marginBottom: 8 }}>
+                  <img src={URL.createObjectURL(item.file)} alt="preview" style={{ maxHeight: 60, objectFit: 'contain' }} />
+                </div>
+              )}
+              <FL label="Logo"><input type="file" accept="image/*" onChange={e => handleFile(i, e.target.files?.[0] || null)} /></FL>
+              <FL label="Nom"><Inp value={item.nom} onChange={v => upd(i, 'nom', v)} placeholder="WPSA Bénin" /></FL>
+              <FL label="Tag"><Inp value={item.tag} onChange={v => upd(i, 'tag', v)} placeholder="Partenaire scientifique" /></FL>
               <FL label="Lien (URL)"><Inp value={item.lien} onChange={v => upd(i, 'lien', v)} placeholder="https://..." /></FL>
               <FL label="Ordre"><input style={{ ...IS, width: 80 }} type="number" value={item.ordre} onChange={e => upd(i, 'ordre', Number(e.target.value))} /></FL>
               <button onClick={() => del(item, i)} style={{ ...BR, fontSize: 12 }}>Supprimer</button>
@@ -889,35 +733,6 @@ function SectionContactConfig({ token }: { token: string }) {
         </div>
       </div>
       <SaveBar onSave={save} saving={saving} label="les infos de contact" />
-    </div>
-  )
-}
-
-function SectionFooter({ token }: { token: string }) {
-  const { config, loading, saving, save, toast } = useConfig(token)
-  const [f, setF] = useState<Partial<SiteContent>>({})
-  useEffect(() => { if (!loading) setF(config) }, [loading, config])
-  const upd = (k: keyof SiteContent, v: string) => setF(p => ({ ...p, [k]: v }))
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Bande CTA doree</h3>
-          <FL label="Pre-titre"><Inp value={f.footer_cta_pre || ''} onChange={v => upd('footer_cta_pre', v)} /></FL>
-          <FL label="Titre"><Inp value={f.footer_cta_titre || ''} onChange={v => upd('footer_cta_titre', v)} /></FL>
-          <FL label="Bouton"><Inp value={f.footer_cta_btn || ''} onChange={v => upd('footer_cta_btn', v)} /></FL>
-        </div>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Infos footer</h3>
-          <FL label="Slogan"><Inp value={f.footer_slogan || ''} onChange={v => upd('footer_slogan', v)} /></FL>
-          <FL label="Adresse"><Inp value={f.footer_adresse || ''} onChange={v => upd('footer_adresse', v)} /></FL>
-          <FL label="Horaires"><Inp value={f.footer_horaires || ''} onChange={v => upd('footer_horaires', v)} /></FL>
-          <FL label="Copyright"><Inp value={f.footer_copyright || ''} onChange={v => upd('footer_copyright', v)} /></FL>
-        </div>
-      </div>
-      <SaveBar onSave={() => save(f)} saving={saving} label="le footer" />
     </div>
   )
 }
@@ -1500,10 +1315,10 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
   if (loading) return <Loader />
 
   const cards = [
-    { label: 'Utilisateurs', val: stats.users, icon: ICON_USERS, bg: 'var(--admin-success-bg)', color: 'var(--green-mid)', s: 'utilisateurs' as Section },
     { label: 'Produits', val: stats.produits, icon: ICON_BOX, bg: '#EFF6FF', color: '#1D4ED8', s: 'produits' as Section },
     { label: 'Commandes', val: stats.commandes, icon: ICON_BAG, bg: '#F3E8FF', color: '#7E22CE', s: 'commandes' as Section },
     { label: 'Revenus', val: fm(stats.ca), icon: ICON_COIN, bg: '#FFF7ED', color: '#C2410C', s: 'commandes' as Section },
+    { label: 'Messages', val: stats.messages, icon: ICON_USERS, bg: 'var(--admin-success-bg)', color: 'var(--green-mid)', s: 'messages' as Section },
   ]
 
   return (
@@ -1893,9 +1708,18 @@ export default function AdminPanel() {
           {section === 'commandes' && <Commandes token={token} />}
           {section === 'produits' && <Produits token={token} />}
           {section === 'temoignages' && <Temoignages token={token} />}
-          {section === 'partenaires' && <SectionPartenaires token={token} />}
+          {section === 'messages' && <Messages token={token} />}
+          {section === 'newsletter' && <Newsletter token={token} />}
           {section === 'fondateur' && <SectionFondateur token={token} />}
+          {section === 'stats' && <SectionStats token={token} />}
+          {section === 'partenaires' && <SectionPartenaires token={token} />}
+          {section === 'contact' && <SectionContactConfig token={token} />}
           {section === 'couleurs' && <SectionCouleurs token={token} />}
+          {section === 'promo' && <SectionPromo token={token} />}
+          {section === 'zones' && <SectionZones token={token} />}
+          {section === 'blacklist' && <SectionBlacklist token={token} />}
+          {section === 'alertes' && <SectionAlertes token={token} />}
+          {section === 'rapport' && <SectionRapport token={token} />}
         </main>
       </div>
     </div>
