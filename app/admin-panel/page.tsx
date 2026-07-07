@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'couleurs' | 'partenaires' | 'fondateur'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -50,11 +50,15 @@ const NAV: { s: Section; label: string; group: string }[] = [
   { s: 'commandes', label: 'Commandes', group: 'Général' },
   { s: 'produits', label: 'Produits', group: 'Général' },
   { s: 'temoignages', label: 'Avis clients', group: 'Général' },
+  { s: 'partenaires', label: 'Partenaires', group: 'Site' },
+  { s: 'fondateur', label: 'Fondateur', group: 'Site' },
+  { s: 'couleurs', label: 'Couleurs', group: 'Site' },
 ]
 
 const TITLES: Record<Section, string> = {
   dashboard: 'Dashboard', commandes: 'Commandes', produits: 'Produits',
   temoignages: 'Avis clients',
+  partenaires: 'Partenaires', fondateur: 'Fondateur', couleurs: 'Couleurs',
 }
 
 const ah = (t: string) => ({ Authorization: `Bearer ${t}`, 'Content-Type': 'application/json' })
@@ -1889,6 +1893,9 @@ export default function AdminPanel() {
           {section === 'commandes' && <Commandes token={token} />}
           {section === 'produits' && <Produits token={token} />}
           {section === 'temoignages' && <Temoignages token={token} />}
+          {section === 'partenaires' && <SectionPartenaires token={token} />}
+          {section === 'fondateur' && <SectionFondateur token={token} />}
+          {section === 'couleurs' && <SectionCouleurs token={token} />}
         </main>
       </div>
     </div>
