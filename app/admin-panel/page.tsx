@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'newsletter' | 'fondateur' | 'stats' | 'contact' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport' | 'partenaires'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'newsletter' | 'fondateur' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport' | 'partenaires'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -53,9 +53,7 @@ const NAV: { s: Section; label: string; group: string }[] = [
   { s: 'messages', label: 'Messages', group: 'Général' },
   { s: 'newsletter', label: 'Newsletter', group: 'Général' },
   { s: 'fondateur', label: 'Fondateur', group: 'Site' },
-  { s: 'stats', label: 'Chiffres & Avis', group: 'Site' },
   { s: 'partenaires', label: 'Partenaires', group: 'Site' },
-  { s: 'contact', label: 'Contact & Prix', group: 'Site' },
   { s: 'couleurs', label: 'Couleurs', group: 'Site' },
   { s: 'promo', label: 'Codes promo', group: 'Gestion' },
   { s: 'zones', label: 'Livraison', group: 'Gestion' },
@@ -67,8 +65,8 @@ const NAV: { s: Section; label: string; group: string }[] = [
 const TITLES: Record<Section, string> = {
   dashboard: 'Dashboard', commandes: 'Commandes', produits: 'Produits',
   temoignages: 'Avis clients', messages: 'Messages', newsletter: 'Newsletter',
-  fondateur: 'Bloc Fondateur', stats: 'Chiffres & Avis',
-  partenaires: 'Partenaires', contact: 'Contact & Prix',
+  fondateur: 'Bloc Fondateur',
+  partenaires: 'Partenaires',
   couleurs: 'Palette couleurs',
   promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
   alertes: 'Alertes Stock', rapport: 'Rapport PDF',
@@ -329,65 +327,6 @@ function SectionFondateur({ token }: { token: string }) {
         </div>
       </div>
       <SaveBar onSave={() => save(f)} saving={saving} label="le Fondateur" />
-    </div>
-  )
-}
-
-function SectionStats({ token }: { token: string }) {
-  const { config, loading, saving, save, toast } = useConfig(token)
-  const [bandeau, setBandeau] = useState('')
-  const [stats, setStats] = useState<StatItem[]>([])
-  const [temos, setTemos] = useState<TemoignageRapide[]>([])
-  useEffect(() => {
-    if (!loading) {
-      setBandeau(config.stats_bandeau || '')
-      setStats(config.stats || [])
-      setTemos(config.temoignages_rapides || [])
-    }
-  }, [loading, config])
-  const updS = (i: number, k: keyof StatItem, v: string) => setStats(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
-  const updT = (i: number, k: keyof TemoignageRapide, v: string) => setTemos(p => p.map((x, j) => j === i ? { ...x, [k]: v } : x))
-  const addT = () => setTemos(p => [...p, { texte: '', nom: '', ville: '' }])
-  const delT = (i: number) => setTemos(p => p.filter((_, j) => j !== i))
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={CS}>
-        <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Bandeau dore</h3>
-        <FL label="Texte du bandeau"><Inp value={bandeau} onChange={setBandeau} /></FL>
-      </div>
-      <div style={CS}>
-        <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Les 4 chiffres cles</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-          {stats.map((s, i) => (
-            <div key={i} style={{ border: '1px solid var(--admin-border)', borderRadius: 10, padding: 14, background: 'var(--admin-bg)' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--admin-text-muted)', marginBottom: 10 }}>CHIFFRE {i + 1}</div>
-              <FL label="Emoji"><Inp value={s.icon} onChange={v => updS(i, 'icon', v)} /></FL>
-              <FL label="Grand nombre"><Inp value={s.num} onChange={v => updS(i, 'num', v)} placeholder="500+" /></FL>
-              <FL label="Label"><Inp value={s.label} onChange={v => updS(i, 'label', v)} /></FL>
-              <FL label="Description"><Inp value={s.desc} onChange={v => updS(i, 'desc', v)} /></FL>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={CS}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: 0, color: 'var(--navbar-bg)' }}>Avis rapides</h3>
-          <button onClick={addT} style={BG}>+ Ajouter</button>
-        </div>
-        {temos.map((t, i) => (
-          <div key={i} style={{ border: '1px solid var(--admin-border)', borderRadius: 10, padding: 14, background: 'var(--admin-bg)', marginBottom: 10 }}>
-            <FL label="Texte de l avis"><Txta value={t.texte} onChange={v => updT(i, 'texte', v)} rows={2} /></FL>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 10, alignItems: 'end' }}>
-              <FL label="Nom"><Inp value={t.nom} onChange={v => updT(i, 'nom', v)} /></FL>
-              <FL label="Ville"><Inp value={t.ville} onChange={v => updT(i, 'ville', v)} /></FL>
-              <button onClick={() => delT(i)} style={{ ...BR, padding: '9px 12px' }}>X</button>
-            </div>
-          </div>
-        ))}
-      </div>
-      <SaveBar onSave={() => save({ stats_bandeau: bandeau, stats, temoignages_rapides: temos })} saving={saving} label="les chiffres" />
     </div>
   )
 }
@@ -671,68 +610,6 @@ function SectionAccueilConfig({ token }: { token: string }) {
         </div>
       </div>
       <SaveBar onSave={save} saving={saving} label="l'accueil" />
-    </div>
-  )
-}
-
-function SectionContactConfig({ token }: { token: string }) {
-  type CfgSite = {
-    telephone: string; telephone_raw: string; email: string; adresse: string
-    tiktok_url: string; facebook_url: string; paiements: string
-    prix_affiche: string; prix_mini: string
-  }
-  const empty: CfgSite = { telephone: '', telephone_raw: '', email: '', adresse: '', tiktok_url: '', facebook_url: '', paiements: '', prix_affiche: '', prix_mini: '' }
-  const [c, setC] = useState<CfgSite>(empty)
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null)
-
-  useEffect(() => {
-    fetch(`${API}/admin/config-site/`, { headers: ah(token) })
-      .then(r => r.ok ? r.json() : Promise.resolve({} as Partial<CfgSite>))
-      .then((d: Partial<CfgSite>) => { setC({ ...empty, ...d }); setLoading(false) })
-      .catch(() => setLoading(false))
-  }, [token])
-
-  const upd = (k: keyof CfgSite, v: string) => setC(p => ({ ...p, [k]: v }))
-
-  const save = async () => {
-    setSaving(true)
-    const res = await fetch(`${API}/admin/config-site/`, { method: 'PATCH', headers: ah(token), body: JSON.stringify(c) })
-    setSaving(false)
-    setToast(res.ok ? { msg: 'Sauvegarde reussie !', ok: true } : { msg: 'Erreur de sauvegarde', ok: false })
-    setTimeout(() => setToast(null), 3000)
-  }
-
-  if (loading) return <Loader />
-  return (
-    <div>
-      {toast && <Toast {...toast} />}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Coordonnees</h3>
-          <FL label="Telephone affiche"><Inp value={c.telephone} onChange={v => upd('telephone', v)} placeholder="+229 01 95 96 77 62" /></FL>
-          <FL label="Telephone brut (liens tel: / WhatsApp, sans espaces ni +)"><Inp value={c.telephone_raw} onChange={v => upd('telephone_raw', v)} placeholder="2290195967762" /></FL>
-          <FL label="Email"><Inp value={c.email} onChange={v => upd('email', v)} placeholder="tropicanapiopio@gmail.com" /></FL>
-          <FL label="Adresse"><Inp value={c.adresse} onChange={v => upd('adresse', v)} placeholder="Oganla Gare Nord, Porto-Novo, Benin" /></FL>
-        </div>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--navbar-bg)' }}>Reseaux sociaux</h3>
-          <FL label="TikTok (URL)"><Inp value={c.tiktok_url} onChange={v => upd('tiktok_url', v)} placeholder="https://www.tiktok.com/@..." /></FL>
-          <FL label="Facebook (URL)"><Inp value={c.facebook_url} onChange={v => upd('facebook_url', v)} placeholder="https://facebook.com/..." /></FL>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '20px 0 16px', color: 'var(--navbar-bg)' }}>Paiements</h3>
-          <FL label="Modes acceptes (separes par des virgules)"><Inp value={c.paiements} onChange={v => upd('paiements', v)} placeholder="MTN Money,Moov Money,Wave,Orange" /></FL>
-        </div>
-        <div style={CS}>
-          <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 6px', color: 'var(--navbar-bg)' }}>Prix affiches sur le site</h3>
-          <p style={{ fontSize: 12, color: 'var(--admin-text-muted)', margin: '0 0 16px' }}>
-            Apparaissent sur les boutons "Commander" (accueil, boutique, footer, WhatsApp).
-          </p>
-          <FL label="Prix affiche (bouton boutique / footer)"><Inp value={c.prix_affiche} onChange={v => upd('prix_affiche', v)} placeholder="des 2 500 FCFA" /></FL>
-          <FL label="Prix minimum (bouton accueil)"><Inp value={c.prix_mini} onChange={v => upd('prix_mini', v)} placeholder="1 000 FCFA" /></FL>
-        </div>
-      </div>
-      <SaveBar onSave={save} saving={saving} label="les infos de contact" />
     </div>
   )
 }
@@ -1711,9 +1588,7 @@ export default function AdminPanel() {
           {section === 'messages' && <Messages token={token} />}
           {section === 'newsletter' && <Newsletter token={token} />}
           {section === 'fondateur' && <SectionFondateur token={token} />}
-          {section === 'stats' && <SectionStats token={token} />}
           {section === 'partenaires' && <SectionPartenaires token={token} />}
-          {section === 'contact' && <SectionContactConfig token={token} />}
           {section === 'couleurs' && <SectionCouleurs token={token} />}
           {section === 'promo' && <SectionPromo token={token} />}
           {section === 'zones' && <SectionZones token={token} />}
