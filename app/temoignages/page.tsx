@@ -277,8 +277,8 @@ export default function Temoignages() {
       {/* Hero */}
       <section style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
         <Image src="/images/produit-tasse.jpg" alt="Témoignages clients Thé Pio Pio" fill style={{ objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.78)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '40px' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.78)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '40px 24px' }}>
             <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{lang === 'en' ? 'Customer Reviews' : 'Avis clients'}</span>
             <h1 style={{ fontSize: 34, fontWeight: 400, color: '#F0EBE0', marginTop: 8, lineHeight: 1.3 }}>
               {lang === 'en' ? 'What our customers say' : 'Ce que disent nos clients'}<br /><em style={{ color: '#C9973A' }}>{lang === 'en' ? 'Share your experience' : 'Partagez votre expérience'}</em>
@@ -288,14 +288,16 @@ export default function Temoignages() {
       </section>
 
       {/* Stat rapide */}
-      <div style={{ background: '#C9973A', padding: '14px 24px', textAlign: 'center' }}>
-        <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', letterSpacing: '1px' }}>
-          ⭐⭐⭐⭐⭐ &nbsp;·&nbsp; {temoignages.length} {lang === 'en' ? 'customer reviews' : 'avis clients'} &nbsp;·&nbsp; {lang === 'en' ? '100% recommend Thé Pio Pio' : '100% recommandent le Thé Pio Pio'}
-        </p>
+      <div style={{ background: '#C9973A', padding: '14px 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Arial, sans-serif', letterSpacing: '1px' }}>
+            ⭐⭐⭐⭐⭐ &nbsp;·&nbsp; {temoignages.length} {lang === 'en' ? 'customer reviews' : 'avis clients'} &nbsp;·&nbsp; {lang === 'en' ? '100% recommend Thé Pio Pio' : '100% recommandent le Thé Pio Pio'}
+          </p>
+        </div>
       </div>
 
-      <section style={{ background: 'var(--bg-page)', padding: '60px 24px' }}>
-        <div className="temoignages-layout" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gap: 48, alignItems: 'start' }}>
+      <section style={{ background: 'var(--bg-page)' }}>
+        <div className="temoignages-layout" style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px', display: 'grid', gap: 48, alignItems: 'start' }}>
 
           {/* ===== FORMULAIRE ===== */}
           <div>

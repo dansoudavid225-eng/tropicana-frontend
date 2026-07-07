@@ -571,8 +571,8 @@ export default function Boutique() {
       {/* Hero boutique */}
       <section style={{ position: 'relative', height: 340, overflow: 'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt="Boutique Thé Pio Pio" fill style={{ objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.72)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.72)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '40px 24px' }}>
             <span style={{ fontSize: 11, letterSpacing: '3.5px', color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.label')}</span>
             <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: '#F0EBE0', marginTop: 12, fontFamily: 'var(--font-cormorant), Georgia, serif', letterSpacing: '-0.5px' }}>
               Commandez votre <em style={{ color: '#C9973A' }}>Thé Pio Pio</em>
@@ -585,8 +585,8 @@ export default function Boutique() {
       </section>
 
       {/* Bande réassurance */}
-      <div style={{ background: '#1A3C2E', borderBottom: '1px solid rgba(201,151,58,0.2)', padding: '14px 24px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
+      <div style={{ background: '#1A3C2E', borderBottom: '1px solid rgba(201,151,58,0.2)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
           {[
             { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', text: t('boutique.liv2472') },
             { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: t('boutique.naturelBio') },
@@ -602,8 +602,8 @@ export default function Boutique() {
       </div>
 
       {/* Produits */}
-      <section style={{ background: 'var(--bg-card-alt)', padding: '60px 24px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{ background: 'var(--bg-card-alt)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
             <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{t('boutique.nosProds')}</span>
             <h2 style={{ fontSize: 30, fontWeight: 400, color: 'var(--text-primary)', marginTop: 8 }}>{t('boutique.cmderEnLigne')}</h2>
@@ -704,8 +704,8 @@ export default function Boutique() {
       </section>
 
       {/* Comment commander */}
-      <section style={{ background: '#1A3C2E', padding: '48px 24px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{ background: '#1A3C2E' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
             <span style={{ fontSize: 13, letterSpacing: '2.5px', color: '#C9973A', fontFamily: 'Arial, sans-serif', fontWeight: 700, textTransform: 'uppercase' }}>{lang === 'en' ? 'Simple & Fast' : 'Simple & Rapide'}</span>
             <h2 style={{ fontSize: 26, fontWeight: 400, color: '#F0EBE0', marginTop: 8 }}>{lang === 'en' ? 'How to place your order?' : 'Comment passer votre commande ?'}</h2>

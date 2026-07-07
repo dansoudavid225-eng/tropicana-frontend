@@ -79,8 +79,8 @@ export default function ReinitialiserMotDePasse() {
     <>
       <section style={{ position:'relative', height:180, overflow:'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.reinitialiser')} fill style={{ objectFit:'cover' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', alignItems:'flex-end', padding:'28px 40px' }}>
-          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%' }}>
+        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', alignItems:'flex-end' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'28px 24px' }}>
             <span style={{ fontSize:13, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.reinitialiser')}</span>
             <h1 style={{ fontSize:28, fontWeight:400, color:'#F0EBE0', marginTop:6 }}>
               {lang === 'en' ? <>Create a new <em style={{ color:'#C9973A' }}>password</em></> : <>Créez votre nouveau <em style={{ color:'#C9973A' }}>mot de passe</em></>}

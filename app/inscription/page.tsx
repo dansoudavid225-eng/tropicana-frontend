@@ -84,8 +84,8 @@ export default function Inscription() {
     <>
       <section style={{ position:'relative', height:220, overflow:'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.creerCompte')} fill style={{ objectFit:'cover' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'32px 40px' }}>
-          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%' }}>
+        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'32px 24px' }}>
             <span style={{ fontSize:13, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('auth.creerCompte')}</span>
             <h1 style={{ fontSize:30, fontWeight:400, color:'#F0EBE0', marginTop:6 }}>
               {lang === 'en' ? <>Join the <em style={{ color:'#C9973A' }}>Pio Pio family</em></> : <>Rejoignez la <em style={{ color:'#C9973A' }}>famille Pio Pio</em></>}

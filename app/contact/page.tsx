@@ -53,8 +53,8 @@ export default function Contact() {
       {/* Hero */}
       <section style={{ position:'relative', height:260, overflow:'hidden' }}>
         <Image src="/images/produit-bois.jpg" alt="Contact Tropicana Pio Pio" fill style={{ objectFit:'cover' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end', padding:'24px' }}>
-          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%' }}>
+        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
+          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'24px' }}>
             <span style={{ fontSize:14, letterSpacing:'2.5px', color:'#C9973A', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
             <h1 style={{ fontSize:34, fontWeight:400, color:'#F0EBE0', marginTop:8 }}>
               {lang === 'en' ? <>We are here to <em style={{ color:'#C9973A' }}>help you</em></> : <>Nous sommes à <em style={{ color:'#C9973A' }}>votre écoute</em></>}
@@ -64,8 +64,8 @@ export default function Contact() {
       </section>
 
       {/* Raccourcis */}
-      <div style={{ background:'#1A3C2E', padding:'16px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto', display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center' }}>
+      <div style={{ background:'#1A3C2E' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'16px 24px', display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center' }}>
           <a href="https://wa.me/2290195967762?text=Bonjour%2C%20je%20souhaite%20vous%20contacter." target="_blank" rel="noopener noreferrer"
             style={{ background:'#25D366', color:'#fff', fontFamily:'Arial, sans-serif', fontWeight:700, fontSize:14, padding:'10px 20px', borderRadius:6, textDecoration:'none' }}>
             {t('contact.whatsappDirect')}
@@ -79,8 +79,8 @@ export default function Contact() {
         </div>
       </div>
 
-      <section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
-        <div className="contact-grid" style={{ maxWidth:1200, margin:'0 auto' }}>
+      <section style={{ background:'var(--bg-section)' }}>
+        <div className="contact-grid" style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
 
           {/* Formulaire */}
           <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
@@ -194,8 +194,8 @@ export default function Contact() {
       </section>
 
       {/* Distributeurs */}
-      <section style={{ background:'#1A3C2E', padding:'48px 24px' }}>
-        <div style={{ maxWidth:1200, margin:'0 auto', display:'flex', gap:40, alignItems:'center', flexWrap:'wrap' }}>
+      <section style={{ background:'#1A3C2E' }}>
+        <div style={{ maxWidth:1200, margin:'0 auto', padding:'48px 24px', display:'flex', gap:40, alignItems:'center', flexWrap:'wrap' }}>
           <div style={{ flex:1, minWidth:260 }}>
             <h2 style={{ fontSize:24, fontWeight:400, color:'#F0EBE0', marginBottom:14 }}>{t('contact.distTitre')}</h2>
             <p style={{ color:'#95D5B2', fontSize:15, fontFamily:'Arial, sans-serif', lineHeight:1.8, marginBottom:20, fontWeight:300 }}>{t('contact.distBody')}</p>

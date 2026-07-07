@@ -267,8 +267,8 @@ export default function EspaceClient() {
         </div>
       </section>
 
-      <section style={{ background: 'var(--bg-page)', padding: '40px 24px', minHeight: '60vh' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{ background: 'var(--bg-page)', minHeight: '60vh' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 24px' }}>
 
           {/* Grille principale */}
           <div className="dashboard-grid" style={{ display: 'grid', gap: 24, alignItems: 'start' }}>

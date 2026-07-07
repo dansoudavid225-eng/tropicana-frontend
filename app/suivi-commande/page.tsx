@@ -203,5 +203,6 @@ export default function SuiviCommandePage() {
         )}
       </div>
     </div>
+    </div>
   );
 }
