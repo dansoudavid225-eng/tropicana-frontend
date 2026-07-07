@@ -60,39 +60,44 @@ function FAQAccordion() {
 
   return (
     <div style={{ marginBottom: 48 }}>
-      <h4 style={{ fontSize: 11, fontWeight: 700, color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', letterSpacing: '2.5px', textTransform: 'uppercase', marginBottom: 16 }}>
-        {lang === 'en' ? 'Frequently Asked Questions' : 'Questions fréquentes'}
+      <h4 style={{ fontSize: 11, fontWeight: 700, color: '#C9973A', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', letterSpacing: '2.5px', textTransform: 'uppercase', marginBottom: 20 }}>
+        {lang === 'en' ? 'FAQ' : 'Questions fréquentes'}
       </h4>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 720 }}>
+      <div style={{ borderBottom: '1px solid rgba(45,106,79,0.3)' }}>
         {faqs.map(faq => (
           <div key={faq.id} style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(45,106,79,0.35)',
-            borderRadius: 10,
-            overflow: 'hidden',
+            borderTop: '1px solid rgba(45,106,79,0.3)',
           }}>
             <button
               onClick={() => setOpen(open === faq.id ? null : faq.id)}
               style={{
                 width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '13px 16px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 12,
+                padding: '14px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 12,
+                transition: 'opacity .2s',
               }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '.7'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
               <span style={{ fontSize: 13.5, fontWeight: 600, color: '#F0EBE0', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.4 }}>
                 {faq.question}
               </span>
-              <span style={{
-                flexShrink: 0, fontSize: 16, color: '#C9973A', transition: 'transform 0.25s',
-                transform: open === faq.id ? 'rotate(45deg)' : 'none',
-              }}>+</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{
+                flexShrink: 0, transition: 'transform 0.3s ease',
+                transform: open === faq.id ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}>
+                <path d="M1 5 L7 11 L13 5" stroke="#C9973A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </button>
-            {open === faq.id && (
-              <div style={{ padding: '0 16px 16px 16px' }}>
-                <p style={{ fontSize: 13, color: 'rgba(168,213,184,0.85)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7 }}>
-                  {faq.reponse}
-                </p>
-              </div>
-            )}
+            <div style={{
+              overflow: 'hidden',
+              maxHeight: open === faq.id ? '300px' : '0',
+              transition: 'max-height 0.35s ease, padding 0.35s ease',
+              padding: open === faq.id ? '0 0 16px 0' : '0',
+            }}>
+              <p style={{ fontSize: 13, color: 'rgba(168,213,184,0.85)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.7, margin: 0 }}>
+                {faq.reponse}
+              </p>
+            </div>
           </div>
         ))}
       </div>
