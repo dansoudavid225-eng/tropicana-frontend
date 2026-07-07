@@ -95,7 +95,7 @@ const uid = () => Math.random().toString(36).slice(2, 8)
 const IS: React.CSSProperties = { width: '100%', border: '1.5px solid var(--admin-border)', borderRadius: 8, padding: '9px 12px', fontSize: 14, background: 'var(--admin-bg)', boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit' }
 const CS: React.CSSProperties = { background: 'var(--admin-card)', border: '1px solid var(--admin-border)', borderRadius: 12, padding: 20, boxShadow: '0 1px 3px rgba(0,0,0,0.04)', marginBottom: 16 }
 const BG: React.CSSProperties = { background: 'var(--green-mid)', color: 'var(--admin-card)', border: 'none', borderRadius: 8, padding: '9px 18px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }
-const BR: React.CSSProperties = { background: '#FEF2F2', color: 'var(--admin-danger)', border: '1px solid #FECACA', borderRadius: 8, padding: '7px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }
+const BR: React.CSSProperties = { background: 'var(--admin-danger-bg)', color: 'var(--admin-danger)', border: '1px solid var(--border-error)', borderRadius: 8, padding: '7px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }
 const BGR: React.CSSProperties = { background: 'var(--admin-bg-alt)', color: 'var(--admin-text-muted)', border: '1px solid var(--admin-border)', borderRadius: 8, padding: '7px 14px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }
 
 function Loader() {
@@ -113,7 +113,7 @@ function Empty({ msg }: { msg: string }) {
 }
 
 function Badge({ statut }: { statut: string }) {
-  const c = STATUT_COLORS[statut] || { bg: '#F3F4F6', color: '#374151' }
+  const c = STATUT_COLORS[statut] || { bg: 'var(--admin-bg-alt)', color: 'var(--admin-text)' }
   return <span style={{ background: c.bg, color: c.color, fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, whiteSpace: 'nowrap' }}>{STATUT_LABELS[statut] || statut}</span>
 }
 
@@ -144,7 +144,7 @@ function Txta({ value, onChange, placeholder, rows = 4 }: { value: string; onCha
 
 function SaveBar({ onSave, saving, label = '' }: { onSave: () => void; saving: boolean; label?: string }) {
   return (
-    <div style={{ position: 'sticky', bottom: 0, background: 'rgba(255,255,255,.95)', borderTop: '1px solid var(--admin-border)', padding: '14px 0', display: 'flex', justifyContent: 'flex-end', marginTop: 8, zIndex: 10 }}>
+    <div style={{ position: 'sticky', bottom: 0, background: 'var(--admin-card)', borderTop: '1px solid var(--admin-border)', padding: '14px 0', display: 'flex', justifyContent: 'flex-end', marginTop: 8, zIndex: 10 }}>
       <button onClick={onSave} style={{ ...BG, padding: '11px 28px', fontSize: 14 }} disabled={saving}>
         {saving ? 'Sauvegarde...' : 'Sauvegarder ' + label}
       </button>
