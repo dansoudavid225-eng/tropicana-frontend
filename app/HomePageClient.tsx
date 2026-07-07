@@ -24,6 +24,13 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
     const id = setInterval(() => setAvisIdx(p => (p + 1) % nbPages), 5000)
     return () => clearInterval(id)
   }, [rapides.length, nbPages])
+  const [temoIdx, setTemoIdx] = useState(0)
+  const nbTemoPages = Math.max(1, Math.ceil(testimonials.length / 3))
+  useEffect(() => {
+    if (testimonials.length <= 3) return
+    const id = setInterval(() => setTemoIdx(p => (p + 1) % nbTemoPages), 5000)
+    return () => clearInterval(id)
+  }, [testimonials.length, nbTemoPages])
 
   const argumentsAdmin = siteContent?.arguments?.length
     ? siteContent.arguments.map(a => ({ icone: a.icon, titre: a.title, sous: a.sub }))
@@ -264,7 +271,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         </div>
       </section>
 
-      {/* TÉMOIGNAGES */}
+      {/* TÉMOIGNAGES — 3 visibles, carousel */}
       <section className="section-mobile-pad" style={{ background:'#1A3C2E' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
           <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexWrap:'wrap', gap:12, marginBottom:8 }}>
@@ -274,9 +281,13 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
             </div>
             <Link href="/temoignages" className="btn-ghost" style={{ fontSize:14, padding:'10px 20px', marginBottom:8 }}>{t('temo.laisser')}</Link>
           </div>
-          <div className="temo-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(260px, 1fr))', gap:16, marginTop:8 }}>
-            {testimonials.map((t2:any, i:number) => (
-              <div key={t2.nom ?? t2.name ?? i} style={{ background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20 }}>
+          <div style={{ minHeight:220 }}>
+            {testimonials.slice(temoIdx * 3, temoIdx * 3 + 3).map((t2:any, i:number) => (
+              <div key={t2.nom ?? t2.name ?? i} style={{
+                background:'#0D2318', border:'1px solid #2D6A4F', borderRadius:10, padding:20, marginBottom:12,
+                animation:'temoFadeIn .5s ease forwards',
+                animationDelay:`${i * .1}s`, opacity:0,
+              }}>
                 <div style={{ color:'#C9973A', fontSize:14, letterSpacing:3, marginBottom:12 }}>{'★'.repeat(Math.min(5, t2.note ?? 5))}</div>
                 <p style={{ fontSize:14, color:'#A8D5B8', fontFamily:'Arial, sans-serif', lineHeight:1.7, fontStyle:'italic', marginBottom:16 }}>&quot;{t2.texte ?? t2.text}&quot;</p>
                 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
@@ -291,7 +302,20 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               </div>
             ))}
           </div>
-          <div style={{ textAlign:'center', marginTop:28 }}>
+          {nbTemoPages > 1 && (
+            <div style={{ display:'flex', justifyContent:'center', gap:8, marginTop:8 }}>
+              {Array.from({ length: nbTemoPages }).map((_, i) => (
+                <button key={i} onClick={() => setTemoIdx(i)}
+                  style={{
+                    width:10, height:10, borderRadius:'50%', border:'none', cursor:'pointer',
+                    background: i === temoIdx ? '#C9973A' : 'rgba(201,151,58,.25)',
+                    transition:'all .3s',
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          <div style={{ textAlign:'center', marginTop:20 }}>
             <Link href="/temoignages" className="btn-ghost" style={{ fontSize:14, padding:'12px 28px' }}>{t('temo.voirTous')}</Link>
           </div>
         </div>
@@ -349,7 +373,7 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
               </div>
             )}
           </div>
-          <style>{`@keyframes avisFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }`}</style>
+          <style>{`@keyframes avisFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } } @keyframes temoFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }`}</style>
         </section>
       )}
     </>
