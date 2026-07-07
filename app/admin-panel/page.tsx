@@ -37,7 +37,7 @@ type Produit = { id: number; nom: string; slug: string; description: string; pri
 type Temoignage = { id: number; nom: string; ville: string; note: number; texte: string; approuve: boolean; date_creation: string }
 type Message = { id: number; nom: string; email: string; telephone?: string; objet?: string; message: string; lu: boolean; date_envoi: string }
 type Utilisateur = { id: number; prenom: string; nom: string; email: string; telephone?: string; ville?: string; date_inscription: string; is_staff: boolean }
-type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'utilisateurs' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'tasse' | 'fondateur' | 'stats' | 'histoire' | 'blog' | 'partenaires' | 'annonces' | 'footer' | 'contact' | 'accueilConfig' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
+type Section = 'dashboard' | 'commandes' | 'produits' | 'temoignages' | 'messages' | 'newsletter' | 'hero' | 'arguments' | 'plante' | 'bienfaits' | 'fondateur' | 'stats' | 'histoire' | 'footer' | 'contact' | 'couleurs' | 'promo' | 'zones' | 'blacklist' | 'alertes' | 'rapport'
 
 const STATUT_LABELS: Record<string, string> = { en_attente: 'En attente', confirmee: 'Confirmee', en_livraison: 'En livraison', livree: 'Livree', annulee: 'Annulee' }
 const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
@@ -46,27 +46,21 @@ const STATUT_COLORS: Record<string, { bg: string; color: string }> = {
 }
 
 const NAV: { s: Section; label: string; group: string }[] = [
-  { s: 'dashboard', label: 'Dashboard', group: 'General' },
-  { s: 'commandes', label: 'Commandes', group: 'General' },
-  { s: 'produits', label: 'Produits', group: 'General' },
-  { s: 'temoignages', label: 'Temoignages', group: 'General' },
-  { s: 'messages', label: 'Messages', group: 'General' },
-  { s: 'utilisateurs', label: 'Utilisateurs', group: 'General' },
-  { s: 'newsletter', label: 'Newsletter', group: 'General' },
-  { s: 'hero', label: 'Hero', group: 'Site' },
+  { s: 'dashboard', label: 'Dashboard', group: 'Général' },
+  { s: 'commandes', label: 'Commandes', group: 'Général' },
+  { s: 'produits', label: 'Produits', group: 'Général' },
+  { s: 'temoignages', label: 'Avis clients', group: 'Général' },
+  { s: 'messages', label: 'Messages', group: 'Général' },
+  { s: 'newsletter', label: 'Newsletter', group: 'Général' },
+  { s: 'hero', label: 'Hero & Accueil', group: 'Site' },
   { s: 'arguments', label: '4 Arguments', group: 'Site' },
   { s: 'plante', label: 'La Plante', group: 'Site' },
   { s: 'bienfaits', label: 'Bienfaits', group: 'Site' },
-  { s: 'tasse', label: 'Section Tasse', group: 'Site' },
   { s: 'fondateur', label: 'Fondateur', group: 'Site' },
-  { s: 'stats', label: 'Chiffres', group: 'Site' },
+  { s: 'stats', label: 'Chiffres & Avis', group: 'Site' },
   { s: 'histoire', label: 'Histoire', group: 'Site' },
-  { s: 'blog', label: 'Blog', group: 'Site' },
-  { s: 'partenaires', label: 'Partenaires', group: 'Site' },
-  { s: 'annonces', label: 'Annonces', group: 'Site' },
-  { s: 'footer', label: 'Footer', group: 'Site' },
+  { s: 'footer', label: 'Pied de page', group: 'Site' },
   { s: 'contact', label: 'Contact & Prix', group: 'Site' },
-  { s: 'accueilConfig', label: 'CTA & Accueil', group: 'Site' },
   { s: 'couleurs',   label: 'Couleurs',      group: 'Site' },
   { s: 'promo',      label: 'Codes promo',  group: 'Gestion' },
   { s: 'zones',      label: 'Livraison',     group: 'Gestion' },
@@ -77,12 +71,11 @@ const NAV: { s: Section; label: string; group: string }[] = [
 
 const TITLES: Record<Section, string> = {
   dashboard: 'Dashboard', commandes: 'Commandes', produits: 'Produits',
-  temoignages: 'Temoignages', messages: 'Messages', utilisateurs: 'Utilisateurs',
-  newsletter: 'Newsletter', hero: 'Hero et Accueil', arguments: 'Les 4 Arguments',
-  plante: 'La Plante', bienfaits: 'Les Bienfaits', tasse: 'Section Tasse',
-  fondateur: 'Bloc Fondateur', stats: 'Chiffres et Avis', histoire: 'Page Histoire',
-  blog: 'Blog Articles', partenaires: 'Partenaires', annonces: 'Barre annonces',
-  footer: 'Pied de page', contact: 'Contact & Prix', accueilConfig: 'CTA & Accueil', couleurs: 'Palette couleurs',
+  temoignages: 'Avis clients', messages: 'Messages',
+  newsletter: 'Newsletter', hero: 'Hero & Accueil', arguments: 'Les 4 Arguments',
+  plante: 'La Plante', bienfaits: 'Les Bienfaits',
+  fondateur: 'Bloc Fondateur', stats: 'Chiffres & Avis', histoire: 'Page Histoire',
+  footer: 'Pied de page', contact: 'Contact & Prix', couleurs: 'Palette couleurs',
   promo: 'Codes Promo', zones: 'Zones Livraison', blacklist: 'Liste Noire',
   alertes: 'Alertes Stock', rapport: 'Rapport PDF',
 }
@@ -1929,22 +1922,16 @@ export default function AdminPanel() {
           {section === 'produits' && <Produits token={token} />}
           {section === 'temoignages' && <Temoignages token={token} />}
           {section === 'messages' && <Messages token={token} />}
-          {section === 'utilisateurs' && <Utilisateurs token={token} />}
           {section === 'newsletter' && <Newsletter token={token} />}
           {section === 'hero' && <SectionHero token={token} />}
           {section === 'arguments' && <SectionArguments token={token} />}
           {section === 'plante' && <SectionPlante token={token} />}
           {section === 'bienfaits' && <SectionBienfaits token={token} />}
-          {section === 'tasse' && <SectionTasse token={token} />}
           {section === 'fondateur' && <SectionFondateur token={token} />}
           {section === 'stats' && <SectionStats token={token} />}
           {section === 'histoire' && <SectionHistoire token={token} />}
-          {section === 'blog' && <SectionBlog token={token} />}
-          {section === 'partenaires' && <SectionPartenaires token={token} />}
-          {section === 'annonces' && <SectionAnnonces token={token} />}
           {section === 'footer' && <SectionFooter token={token} />}
           {section === 'contact' && <SectionContactConfig token={token} />}
-          {section === 'accueilConfig' && <SectionAccueilConfig token={token} />}
           {section === 'couleurs' && <SectionCouleurs token={token} />}
           {section === 'promo' && <SectionPromo token={token} />}
           {section === 'zones' && <SectionZones token={token} />}
