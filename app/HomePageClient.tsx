@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 import Partenaires from '@/components/Partenaires'
+import { useState, useEffect } from 'react'
 import { useLang } from '@/context/LanguageContext'
 
 type Bienfait  = { id?: number; icone?: string; titre?: string; title?: string; description?: string; desc?: string }
@@ -15,6 +16,14 @@ interface Props { bienfaits: Bienfait[]; testimonials: Temoignage[]; configAccue
 
 export default function HomePageClient({ bienfaits, testimonials, configAccueil, configSite, siteContent }: Props) {
   const { lang, t } = useLang()
+  const rapides = siteContent?.temoignages_rapides || []
+  const [avisIdx, setAvisIdx] = useState(0)
+  const nbPages = Math.max(1, Math.ceil(rapides.length / 3))
+  useEffect(() => {
+    if (rapides.length <= 3) return
+    const id = setInterval(() => setAvisIdx(p => (p + 1) % nbPages), 5000)
+    return () => clearInterval(id)
+  }, [rapides.length, nbPages])
 
   const argumentsAdmin = siteContent?.arguments?.length
     ? siteContent.arguments.map(a => ({ icone: a.icon, titre: a.title, sous: a.sub }))
@@ -305,13 +314,18 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
         </div>
       </section>
 
-      {/* AVIS RAPIDES */}
-      {siteContent?.temoignages_rapides && siteContent.temoignages_rapides.length > 0 && (
+      {/* AVIS RAPIDES — carousel automatique 3 visibles */}
+      {rapides.length > 0 && (
         <section className="section-mobile-pad" style={{ background:'var(--bg-page)' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', padding:'56px 24px' }}>
-            <div style={{ maxHeight:360, overflowY:'auto', display:'flex', flexDirection:'column', gap:16, paddingRight:8, scrollbarWidth:'thin', scrollbarColor:'#C9973A transparent' }}>
-              {siteContent.temoignages_rapides.map((avis, i) => (
-                <div key={i} style={{ background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12, padding:'20px 22px', flexShrink:0 }}>
+            <div style={{ position:'relative', minHeight:220 }}>
+              {rapides.slice(avisIdx * 3, avisIdx * 3 + 3).map((avis, i) => (
+                <div key={i} style={{
+                  background:'var(--bg-card)', border:'0.5px solid var(--border-color)', borderRadius:12,
+                  padding:'20px 22px', marginBottom:12,
+                  animation:'avisFadeIn .5s ease forwards',
+                  animationDelay:`${i * .12}s`, opacity:0,
+                }}>
                   <p style={{ fontSize:15, color:'var(--text-secondary)', fontFamily:'Georgia, serif', fontStyle:'italic', lineHeight:1.6, marginBottom:14 }}>
                     « {avis.texte} »
                   </p>
@@ -321,12 +335,21 @@ export default function HomePageClient({ bienfaits, testimonials, configAccueil,
                 </div>
               ))}
             </div>
-            {siteContent.temoignages_rapides.length > 3 && (
-              <p style={{ textAlign:'center', fontSize:13, color:'#C9973A', fontFamily:'Arial, sans-serif', marginTop:16, opacity:0.8 }}>
-                Faites défiler pour voir plus d'avis ↓
-              </p>
+            {nbPages > 1 && (
+              <div style={{ display:'flex', justifyContent:'center', gap:8, marginTop:16 }}>
+                {Array.from({ length: nbPages }).map((_, i) => (
+                  <button key={i} onClick={() => setAvisIdx(i)}
+                    style={{
+                      width:10, height:10, borderRadius:'50%', border:'none', cursor:'pointer',
+                      background: i === avisIdx ? '#C9973A' : 'rgba(201,151,58,.25)',
+                      transition:'all .3s',
+                    }}
+                  />
+                ))}
+              </div>
             )}
           </div>
+          <style>{`@keyframes avisFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }`}</style>
         </section>
       )}
     </>
