@@ -1,14 +1,12 @@
 'use client'
 import { useLang } from '@/context/LanguageContext'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-
-type TypeVideo = 'aucune' | 'upload' | 'lien'
 
 type Temoignage = {
   id?: number
@@ -17,78 +15,16 @@ type Temoignage = {
   note: number
   texte: string
   date: string
-  type_video: TypeVideo
-  video_fichier?: string | null
-  video_lien?: string | null
-  embed_url?: string | null
-  a_video?: boolean
   isNew?: boolean
 }
 
 // ─── Données initiales ────────────────────────────────────────────────────────
 
 const temoignagesInitiaux: Temoignage[] = [
-  { nom: 'Agnès M.', ville: 'Cotonou', note: 5, texte: 'Depuis que je bois le Thé Pio Pio chaque soir, je dors beaucoup mieux. Je le recommande à toute ma famille.', date: 'Mars 2026', type_video: 'aucune' },
-  { nom: 'Kofi D.', ville: 'Porto-Novo', note: 5, texte: 'Mes douleurs aux articulations ont vraiment diminué après 3 semaines. Produit naturel et vraiment efficace.', date: 'Février 2026', type_video: 'aucune' },
-  { nom: 'Rachel B.', ville: 'Parakou', note: 5, texte: "Je l'ai commandé pour ma mère âgée. Elle dit que son énergie est revenue. Merci Tropicana Pio Pio !", date: 'Janvier 2026', type_video: 'aucune' },
-
+  { nom: 'Agnès M.', ville: 'Cotonou', note: 5, texte: 'Depuis que je bois le Thé Pio Pio chaque soir, je dors beaucoup mieux. Je le recommande à toute ma famille.', date: 'Mars 2026' },
+  { nom: 'Kofi D.', ville: 'Porto-Novo', note: 5, texte: 'Mes douleurs aux articulations ont vraiment diminué après 3 semaines. Produit naturel et vraiment efficace.', date: 'Février 2026' },
+  { nom: 'Rachel B.', ville: 'Parakou', note: 5, texte: "Je l'ai commandé pour ma mère âgée. Elle dit que son énergie est revenue. Merci Tropicana Pio Pio !", date: 'Janvier 2026' },
 ]
-
-// ─── Composant carte témoignage ───────────────────────────────────────────────
-
-function CarteVideo({ t }: { t: Temoignage }) {
-  const [playing, setPlaying] = useState(false)
-
-  if (t.type_video === 'lien' && t.embed_url) {
-    const isYoutube = t.embed_url.includes('youtube.com/embed')
-    return (
-      <div style={{ marginTop: 14, borderRadius: 10, overflow: 'hidden', background: '#000', aspectRatio: '16/9', position: 'relative' }}>
-        {!playing && isYoutube ? (
-          <button
-            onClick={() => setPlaying(true)}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}
-          >
-            <div style={{ width: 56, height: 56, background: '#C9973A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>▶</div>
-            <span style={{ color: '#F0EBE0', fontSize: 13, fontFamily: 'Arial, sans-serif' }}>Voir la vidéo</span>
-          </button>
-        ) : isYoutube ? (
-          <iframe
-            src={`${t.embed_url}?autoplay=1`}
-            style={{ width: '100%', height: '100%', border: 'none' }}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          // TikTok ou autre — lien externe
-          <a
-            href={t.video_lien || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8, textDecoration: 'none' }}
-          >
-            <div style={{ width: 56, height: 56, background: '#C9973A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>▶</div>
-            <span style={{ color: '#F0EBE0', fontSize: 13, fontFamily: 'Arial, sans-serif' }}>Voir sur TikTok / Instagram</span>
-          </a>
-        )}
-      </div>
-    )
-  }
-
-  if (t.type_video === 'upload' && t.video_fichier) {
-    return (
-      <div style={{ marginTop: 14, borderRadius: 10, overflow: 'hidden', background: '#000' }}>
-        <video
-          src={t.video_fichier}
-          controls
-          style={{ width: '100%', display: 'block', maxHeight: 300 }}
-          preload="metadata"
-        />
-      </div>
-    )
-  }
-
-  return null
-}
 
 // ─── Traductions ──────────────────────────────────────────────────────────────
 const translations: Record<string, string> = {
@@ -106,14 +42,9 @@ export default function Temoignages() {
   const { lang, t } = useLang()
   const [temoignages, setTemoignages] = useState<Temoignage[]>(temoignagesInitiaux)
   const [form, setForm] = useState({ nom: '', ville: '', note: 5, texte: '' })
-  const [typeVideo, setTypeVideo] = useState<TypeVideo>('aucune')
-  const [videoFichier, setVideoFichier] = useState<File | null>(null)
-  const [videoLien, setVideoLien] = useState('')
-  const [videoPreview, setVideoPreview] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Charger les témoignages approuvés depuis l'API au montage
   useEffect(() => {
@@ -131,34 +62,12 @@ export default function Temoignages() {
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    // Vérifications côté client
-    const types = ['video/mp4', 'video/quicktime', 'video/webm', 'video/ogg']
-    if (!types.includes(file.type)) {
-      setErrors({ ...errors, video: 'Format non supporté. Utilisez MP4, MOV ou WEBM.' })
-      return
-    }
-    if (file.size > 100 * 1024 * 1024) {
-      setErrors({ ...errors, video: 'Fichier trop lourd (max 100 Mo).' })
-      return
-    }
-
-    setVideoFichier(file)
-    setVideoPreview(URL.createObjectURL(file))
-    setErrors({ ...errors, video: '' })
-  }
-
   const validate = () => {
     const e: Record<string, string> = {}
     if (!form.nom.trim()) e.nom = t('temoignage.errPrenom')
     if (!form.ville.trim()) e.ville = t('temoignage.errVille')
-    if (!form.texte.trim() && typeVideo === 'aucune') e.texte = t('temoignage.errTexteVide')
+    if (!form.texte.trim()) e.texte = t('temoignage.errTexteVide')
     if (form.texte.trim() && form.texte.trim().length < 20) e.texte = t('temoignage.errTexteCourt')
-    if (typeVideo === 'upload' && !videoFichier) e.video = t('temoignage.errVideoFichier')
-    if (typeVideo === 'lien' && !videoLien.trim()) e.video = t('temoignage.errVideoLien')
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -168,88 +77,38 @@ export default function Temoignages() {
     setLoading(true)
 
     try {
-      // Construire FormData pour supporter l'upload de fichier
-      const formData = new FormData()
-      formData.append('nom', form.nom.trim())
-      formData.append('ville', form.ville.trim())
-      formData.append('note', String(form.note))
-      formData.append('texte', form.texte.trim())
-      formData.append('type_video', typeVideo)
-
-      if (typeVideo === 'upload' && videoFichier) {
-        formData.append('video_fichier', videoFichier)
-      }
-      if (typeVideo === 'lien' && videoLien.trim()) {
-        formData.append('video_lien', videoLien.trim())
-      }
-
       const res = await fetch(`${API_BASE}/temoignages/`, {
         method: 'POST',
-        body: formData,
-        // Ne pas définir Content-Type — le navigateur le fait automatiquement avec le boundary
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nom: form.nom.trim(),
+          ville: form.ville.trim(),
+          note: form.note,
+          texte: form.texte.trim(),
+        }),
       })
 
       if (res.ok) {
-        // Succès API : ajouter localement pour feedback immédiat
         const nouveau: Temoignage = {
           nom: form.nom.trim(),
           ville: form.ville.trim(),
           note: form.note,
           texte: form.texte.trim(),
           date: new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }),
-          type_video: typeVideo,
-          video_fichier: videoPreview,
-          video_lien: typeVideo === 'lien' ? videoLien.trim() : null,
-          embed_url: typeVideo === 'lien' ? getEmbedUrl(videoLien.trim()) : null,
-          isNew: true,
-        }
-        setTemoignages([nouveau, ...temoignages])
-      } else {
-        // Fallback local si API non disponible
-        const nouveau: Temoignage = {
-          nom: form.nom.trim(),
-          ville: form.ville.trim(),
-          note: form.note,
-          texte: form.texte.trim(),
-          date: new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }),
-          type_video: typeVideo,
-          video_fichier: videoPreview,
-          video_lien: typeVideo === 'lien' ? videoLien.trim() : null,
-          embed_url: typeVideo === 'lien' ? getEmbedUrl(videoLien.trim()) : null,
           isNew: true,
         }
         setTemoignages([nouveau, ...temoignages])
       }
 
-      // Réinitialiser
       setForm({ nom: '', ville: '', note: 5, texte: '' })
-      setTypeVideo('aucune')
-      setVideoFichier(null)
-      setVideoLien('')
-      setVideoPreview(null)
-      if (fileInputRef.current) fileInputRef.current.value = ''
       setSubmitted(true)
       setTimeout(() => setSubmitted(false), 6000)
     } catch {
-      // Fallback silencieux en mode hors-ligne
       setSubmitted(true)
       setTimeout(() => setSubmitted(false), 6000)
     } finally {
       setLoading(false)
     }
-  }
-
-  function getEmbedUrl(url: string): string | null {
-    if (!url) return null
-    if (url.includes('youtube.com/watch')) {
-      const vid = url.split('v=')[1]?.split('&')[0]
-      return vid ? `https://www.youtube.com/embed/${vid}` : null
-    }
-    if (url.includes('youtu.be/')) {
-      const vid = url.split('youtu.be/')[1]?.split('?')[0]
-      return vid ? `https://www.youtube.com/embed/${vid}` : null
-    }
-    return url // TikTok / autre
   }
 
   const inputStyle: React.CSSProperties = {
@@ -264,14 +123,6 @@ export default function Temoignages() {
   const errStyle: React.CSSProperties = {
     fontSize: 13, color: '#B91C1C', fontFamily: 'Arial, sans-serif', marginTop: 4,
   }
-  const tabStyle = (active: boolean): React.CSSProperties => ({
-    flex: 1, padding: '9px 8px', border: `1.5px solid ${active ? '#C9973A' : 'var(--border-color)'}`,
-    borderRadius: 6, background: active ? 'rgba(201,151,58,0.12)' : 'var(--bg-card)',
-    color: active ? '#8A5A00' : 'var(--text-secondary)', fontSize: 13,
-    fontFamily: 'Arial, sans-serif', fontWeight: active ? 700 : 400,
-    cursor: 'pointer', transition: 'all 0.15s', textAlign: 'center' as const,
-  })
-
   return (
     <>
       {/* Hero */}
@@ -347,7 +198,7 @@ export default function Temoignages() {
 
               {/* Texte */}
               <div style={{ marginBottom: 20 }}>
-                <label style={{ ...labelStyle, color: '#95D5B2' }}>{lang === 'en' ? 'Your testimonial' : 'Votre témoignage'} <span style={{ fontWeight: 400, color: '#6B9E7A' }}>{lang === 'en' ? '(optional if you add a video)' : '(optionnel si vous ajoutez une vidéo)'}</span></label>
+                <label style={{ ...labelStyle, color: '#95D5B2' }}>{lang === 'en' ? 'Your testimonial *' : 'Votre témoignage *'}</label>
                 <textarea
                   name="texte"
                   value={form.texte}
@@ -360,79 +211,6 @@ export default function Temoignages() {
                   {errors.texte ? <p style={errStyle}>{errors.texte}</p> : <span />}
                   <span style={{ fontSize: 13, color: '#6B9E7A', fontFamily: 'Arial, sans-serif' }}>{form.texte.length} car.</span>
                 </div>
-              </div>
-
-              {/* ── Section Vidéo ── */}
-              <div style={{ marginBottom: 22 }}>
-                <label style={{ ...labelStyle, color: '#95D5B2' }}>{lang === 'en' ? 'Add a video' : 'Ajouter une vidéo'} <span style={{ fontWeight: 400, color: '#6B9E7A' }}>{lang === 'en' ? '(optional)' : '(optionnel)'}</span></label>
-
-                {/* Onglets type vidéo */}
-                <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
-                  <button style={tabStyle(typeVideo === 'aucune')} onClick={() => setTypeVideo('aucune')}>{lang === 'en' ? 'No video' : 'Pas de vidéo'}</button>
-                  <button style={tabStyle(typeVideo === 'upload')} onClick={() => setTypeVideo('upload')}>{lang === 'en' ? 'Upload a file' : 'Importer un fichier'}</button>
-                  <button style={tabStyle(typeVideo === 'lien')} onClick={() => setTypeVideo('lien')}>{lang === 'en' ? 'YouTube/TikTok link' : 'Lien YouTube/TikTok'}</button>
-                </div>
-
-                {/* Upload fichier */}
-                {typeVideo === 'upload' && (
-                  <div>
-                    <div
-                      onClick={() => fileInputRef.current?.click()}
-                      style={{ border: '2px dashed #4A8C6A', borderRadius: 8, padding: '20px', textAlign: 'center', cursor: 'pointer', background: '#0D2318', transition: 'border-color 0.2s' }}
-                    >
-                      {videoPreview ? (
-                        <div>
-                          <video src={videoPreview} style={{ maxWidth: '100%', maxHeight: 160, borderRadius: 6 }} controls />
-                          <p style={{ fontSize: 13, color: '#95D5B2', fontFamily: 'Arial, sans-serif', marginTop: 8 }}>
-                            {videoFichier?.name} — {((videoFichier?.size || 0) / 1024 / 1024).toFixed(1)} Mo
-                          </p>
-                          <p style={{ fontSize: 12, color: '#6B9E7A', fontFamily: 'Arial, sans-serif' }}>{lang === 'en' ? 'Click to change' : 'Cliquer pour changer'}</p>
-                        </div>
-                      ) : (
-                        <div>
-                          <div style={{ fontSize: 32, marginBottom: 8 }}></div>
-                          <p style={{ fontSize: 14, color: '#95D5B2', fontFamily: 'Arial, sans-serif', marginBottom: 4 }}>Cliquer pour sélectionner une vidéo</p>
-                          <p style={{ fontSize: 12, color: '#6B9E7A', fontFamily: 'Arial, sans-serif' }}>MP4, MOV, WEBM — max 100 Mo</p>
-                        </div>
-                      )}
-                    </div>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="video/mp4,video/quicktime,video/webm,video/ogg"
-                      onChange={handleFileChange}
-                      style={{ display: 'none' }}
-                    />
-                    {errors.video && <p style={errStyle}>{errors.video}</p>}
-                  </div>
-                )}
-
-                {/* Lien externe */}
-                {typeVideo === 'lien' && (
-                  <div>
-                    <input
-                      type="url"
-                      value={videoLien}
-                      onChange={e => { setVideoLien(e.target.value); setErrors({ ...errors, video: '' }) }}
-                      placeholder="https://youtube.com/watch?v=... ou https://tiktok.com/..."
-                      style={inputStyle}
-                    />
-                    {videoLien && getEmbedUrl(videoLien)?.includes('youtube') && (
-                      <div style={{ marginTop: 10, borderRadius: 8, overflow: 'hidden', aspectRatio: '16/9' }}>
-                        <iframe
-                          src={getEmbedUrl(videoLien) || ''}
-                          style={{ width: '100%', height: '100%', border: 'none' }}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      </div>
-                    )}
-                    {errors.video && <p style={errStyle}>{errors.video}</p>}
-                    <p style={{ fontSize: 12, color: '#6B9E7A', fontFamily: 'Arial, sans-serif', marginTop: 6 }}>
-                      Supports : YouTube, TikTok, Instagram Reels, Facebook Video
-                    </p>
-                  </div>
-                )}
               </div>
 
               <button
@@ -472,16 +250,9 @@ export default function Temoignages() {
                     border: '0.5px solid var(--border-color)',
                     borderRadius: 10,
                     padding: '20px',
-                    borderLeft: `4px solid ${t.a_video || t.type_video !== 'aucune' ? '#2D6A4F' : '#C9973A'}`,
+                    borderLeft: `4px solid #C9973A`,
                   }}
                 >
-                  {/* Badge vidéo */}
-                  {(t.a_video || t.type_video !== 'aucune') && (
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'var(--green-pale)', color: '#1A5C3E', fontSize: 12, fontFamily: 'Arial, sans-serif', fontWeight: 700, padding: '3px 10px', borderRadius: 20, marginBottom: 10 }}>
-                      Témoignage vidéo
-                    </div>
-                  )}
-
                   {/* Étoiles */}
                   <div style={{ color: '#C9973A', fontSize: 14, letterSpacing: 2, marginBottom: 10 }}>
                     {'★'.repeat(t.note)}{'☆'.repeat(5 - t.note)}
@@ -493,9 +264,6 @@ export default function Temoignages() {
                       "{t.texte}"
                     </p>
                   )}
-
-                  {/* Vidéo */}
-                  <CarteVideo t={t} />
 
                   {/* Auteur */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14 }}>

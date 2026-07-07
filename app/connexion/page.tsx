@@ -94,7 +94,7 @@ export default function Connexion() {
       </section>
 
       <section style={{ background:'var(--bg-section)', padding:'60px 24px', minHeight:'60vh' }}>
-        <div style={{ maxWidth:420, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
+        <div className="card-fade-in" style={{ maxWidth:420, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
 
           {status === 'error' && (
             <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
@@ -112,8 +112,12 @@ export default function Connexion() {
             <div style={{ position:'relative' }}>
               <input type={showMdp?'text':'password'} value={mdp} onChange={e=>setMdp(e.target.value)} placeholder="••••••••" style={{ ...inp, paddingRight:46 }} onKeyDown={e=>e.key==='Enter'&&handleSubmit()} />
               <button onClick={()=>setShowMdp(!showMdp)} aria-label={showMdp?t('auth.masquerMdp'):t('auth.afficherMdp')}
-                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', fontSize:18, color:'#6B5E4E' }}>
-                {showMdp ? '' : ''}
+                style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', padding:4, color:'#6B5E4E' }}>
+                {showMdp ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                )}
               </button>
             </div>
           </div>
@@ -147,6 +151,20 @@ export default function Connexion() {
           </p>
         </div>
       </section>
+      <style>{`
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        .card-fade-in { animation:fadeInUp .5s ease both; }
+        .card-fade-in > div { animation:fadeInUp .4s ease both; }
+        .card-fade-in > div:nth-child(2) { animation-delay:.08s; }
+        .card-fade-in > div:nth-child(3) { animation-delay:.16s; }
+        .card-fade-in > div:nth-child(4) { animation-delay:.24s; }
+        .card-fade-in > div:nth-child(5) { animation-delay:.32s; }
+        .card-fade-in > div:nth-child(6) { animation-delay:.40s; }
+        .card-fade-in > div:nth-child(7) { animation-delay:.48s; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+        .btn-gold:disabled { animation:pulse 1.5s ease infinite; }
+        input:focus { border-color:#C9973A !important; box-shadow:0 0 0 3px rgba(201,151,58,0.2) !important; transition:all .25s; }
+      `}</style>
     </>
   )
 }

@@ -515,6 +515,13 @@ export default function EspaceClient() {
             grid-template-columns: 1fr;
           }
         }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .dashboard-grid > div { animation:fadeUp .5s ease both; }
+        .dashboard-grid > div:nth-child(1) { animation-delay:.1s; }
+        .dashboard-grid > div:nth-child(2) { animation-delay:.25s; }
+        [class*="commande"] { transition:all .25s; }
+        [class*="commande"]:hover { border-color:rgba(201,151,58,0.3) !important; }
+        .dashboard-grid button:not(:disabled):hover { transform:translateY(-1px); transition:all .2s; }
       `}</style>
     </>
   )
