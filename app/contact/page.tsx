@@ -96,6 +96,10 @@ export default function Contact() {
                 <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:6 }}>{t('contact.formTitre')}</h2>
                 <p style={{ fontSize:14, color:'var(--text-muted)', fontFamily:'Arial, sans-serif', marginBottom:24 }}>{t('contact.formSub')}</p>
 
+                {/* Honeypot anti-spam */}
+                <input name="_hp" value="" readOnly tabIndex={-1} autoComplete="off"
+                  style={{ position:'absolute', left:'-9999px', opacity:0, height:0, overflow:'hidden' }} />
+
                 {status === 'error' && (
                   <div style={{ background:'#FEF2F2', border:'1px solid #FECACA', borderRadius:8, padding:'12px 16px', marginBottom:20 }}>
                     <p style={{ fontSize:14, color:'#B91C1C', fontFamily:'Arial, sans-serif' }}>{t('contact.erreur')}</p>
