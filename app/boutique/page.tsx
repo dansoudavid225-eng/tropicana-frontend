@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { useSiteConfig } from '@/lib/useSiteConfig'
 import { useLang } from '@/context/LanguageContext'
 import { fetchAvecAuth, useAuth } from '@/context/AuthContext'
@@ -369,13 +370,13 @@ function ModalCommande({ panier, onClose, onSuccess }: {
 
 // ── Page principale Boutique ────────────────────────────────────────────────
 export default function Boutique() {
+  const router = useRouter()
   const site = useSiteConfig()
   const { lang, t } = useLang()
   const { user: authUser } = useAuth()
   const [produits, setProduits] = useState<Produit[]>([])
   const [loading, setLoading]   = useState(true)
   const [estConnecte, setEstConnecte] = useState(false)
-  const [showAuthModal, setShowAuthModal] = useState(false)
   const [panier, setPanier] = useState<LignePanier[]>([])
   const [panierCharge, setPanierCharge] = useState(false)
   const [quantities, setQty] = useState<Record<number, number>>({})
@@ -476,7 +477,6 @@ export default function Boutique() {
   }, [])
 
   const ajouterAuPanier = (produit: Produit) => {
-    if (!estConnecte) { setShowAuthModal(true); return }
     const q = quantities[produit.id] || 1
     setPanier(prev => {
       const ex = prev.find(l => l.produit.id === produit.id)
@@ -508,29 +508,6 @@ export default function Boutique() {
 
   return (
     <>
-      {/* Modal connexion requise */}
-      {showAuthModal && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <div style={{ background: 'var(--bg-card)', borderRadius: 20, padding: '40px 32px', maxWidth: 420, width: '100%', textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}>
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>{t('boutique.cnxRequise')}</h2>
-            <p style={{ fontSize: 15, color: 'var(--text-secondary)', fontFamily: 'Arial, sans-serif', lineHeight: 1.7, marginBottom: 28 }}>
-              Pour passer une commande, vous devez être connecté à votre compte. C&apos;est rapide et gratuit !
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <Link href="/connexion" className="btn-gold" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15 }}>
-                Se connecter
-              </Link>
-              <Link href="/inscription" style={{ display: 'block', textAlign: 'center', padding: '14px 24px', fontSize: 15, background: 'var(--green-pale)', color: 'var(--text-primary)', borderRadius: 50, fontWeight: 700, fontFamily: 'Arial, sans-serif', textDecoration: 'none' }}>
-                Créer un compte gratuit
-              </Link>
-              <button onClick={() => setShowAuthModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: 'var(--text-muted)', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>
-                Continuer à parcourir la boutique
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Panier flottant */}
       {totalPanier > 0 && !panierOpen && (
@@ -554,7 +531,7 @@ export default function Boutique() {
           onClose={() => setPanierOpen(false)}
           onSupprimer={supprimerDuPanier}
           onCommander={() => {
-            if (!estConnecte) { setPanierOpen(false); setShowAuthModal(true); return }
+            if (!estConnecte) { setPanierOpen(false); router.push('/inscription'); return }
             setPanierOpen(false); setCommandeOpen(true)
           }}
         />
