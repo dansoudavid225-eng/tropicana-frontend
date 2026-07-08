@@ -2,7 +2,6 @@
 
 /* ══════════════════════════════════════════════════════════════
    TROPICANA PIO PIO — Design System
-   Mode JOUR (défaut) et NUIT avec contraste fort
 ══════════════════════════════════════════════════════════════ */
 
 /* ── Palette fixe ─────────────────────────────────────── */
@@ -34,11 +33,7 @@
   --shadow-gold: 0 4px 20px rgba(201,151,58,0.25);
 }
 
-/* ══════════════════════════════════════════════════════
-   MODE JOUR — fond crème, texte brun foncé
-══════════════════════════════════════════════════════ */
-:root,
-[data-theme="light"] {
+:root {
   /* Couleurs brand */
   --green-deep:   #1A3C2E;
   --green-mid:    #2D6A4F;
@@ -108,85 +103,7 @@
   --admin-success-text: #065F46;
 }
 
-/* ══════════════════════════════════════════════════════
-   MODE NUIT — fond très sombre, texte très clair
-══════════════════════════════════════════════════════ */
-[data-theme="dark"] {
-  /* Couleurs brand adaptées */
-  --green-deep:   #7ECBA0;
-  --green-mid:    #5BAE80;
-  --green-light:  #3F9063;
-  --green-pale:   #0C1F14;
-
-  /* Surfaces — contraste fort entre les niveaux */
-  --bg-page:      #0A0F0C;
-  --bg-section:   #0F1A12;
-  --bg-card:      #162218;
-  --bg-card-alt:  #1C2E20;
-  --bg-input:     #1A2A1E;
-  --bg-overlay:   rgba(0,0,0,0.35);
-
-  /* Texte — très lisible */
-  --text-primary:   #F2EEE6;
-  --text-secondary: #C8C0B0;
-  --text-muted:     #8A8070;
-  --text-inverse:   #0A0F0C;
-
-  /* Bordures — visibles sans être criardes */
-  --border-color:  #2E4232;
-  --border-light:  #233428;
-  --border-strong: #3D5844;
-
-  /* Ombres */
-  --shadow-card:   0 2px 16px rgba(0,0,0,0.55);
-
-  /* Navbar */
-  --navbar-bg:     #06100A;
-
-  /* Badges */
-  --badge-gold-bg:    rgba(232,184,75,0.16);
-  --badge-gold-color: #E8B84B;
-  --badge-green-bg:   rgba(91,174,128,0.14);
-  --badge-green-color: #7ECBA0;
-
-  /* Scrollbar */
-  --scrollbar-track: #111A14;
-  --scrollbar-thumb: #3F6E50;
-
-  /* Skeleton */
-  --skeleton-from: #1A2A1E;
-  --skeleton-to:   #223324;
-
-  /* Inputs focus */
-  --focus-ring: rgba(91,174,128,0.22);
-
-  /* Gold (légèrement plus lumineux en dark) */
-  --gold:       #E8B84B;
-  --gold-light: #F5CC6E;
-  --gold-pale:  #FFE08A;
-
-  /* États / statuts */
-  --bg-error:     #2A1416;
-  --border-error: #4A2226;
-  --text-error:   #F27C86;
-  --bg-success:   #10251A;
-  --border-success: #1E3A28;
-
-  /* Panel admin (palette slate adaptée) */
-  --admin-bg:          #0F1A17;
-  --admin-bg-alt:      #16241F;
-  --admin-card:        #162218;
-  --admin-border:      #2E4232;
-  --admin-text:        #F2EEE6;
-  --admin-text-muted:  #9FB0A5;
-  --admin-text-faint:  #6E8078;
-  --admin-danger:      #F26A6A;
-  --admin-danger-bg:   #3A1A1C;
-  --admin-success-bg:  #163B29;
-  --admin-success-text: #6FCF9A;
-}
-
-/* ── Transition fluide entre modes ─────────────────── */
+/* ── Transition fluide ─────────────────────────────── */
 *, *::before, *::after {
   transition:
     background-color 0.3s ease,
@@ -336,10 +253,6 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-color);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
-}
-[data-theme="dark"] .card-green {
-  background: #0E2018;
-  border-color: #2A3D2E;
 }
 .card-green:hover {
   transform: translateY(-3px);

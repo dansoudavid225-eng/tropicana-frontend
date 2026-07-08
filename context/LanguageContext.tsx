@@ -24,8 +24,6 @@ export const translations: Record<string, Record<Lang, string>> = {
   'nav.fermer':           { fr: 'Fermer',            en: 'Close' },
   'nav.menu':             { fr: 'Menu',              en: 'Menu' },
   'nav.commanderMobile':  { fr: 'Commander maintenant', en: 'Order from 1,000 FCFA' },
-  'nav.modeJour':         { fr: 'Passer en mode jour', en: 'Switch to light mode' },
-  'nav.modeNuit':         { fr: 'Passer en mode nuit', en: 'Switch to dark mode' },
 
   // AnnouncementBar
   'annonce.livraison':    { fr: 'Livraison gratuite à partir de 5 000 FCFA — partout au Bénin', en: 'Free delivery from 5,000 FCFA — across Benin' },

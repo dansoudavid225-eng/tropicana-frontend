@@ -115,19 +115,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <head>
-        {/* Anti-flash : applique le thème AVANT le premier rendu */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function(){
-            try {
-              var t = localStorage.getItem('pio-theme');
-              if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-              document.documentElement.setAttribute('data-theme', t);
-            } catch(e){}
-          })();
-        `}} />
         {/* Couleurs personnalisées depuis le panneau admin (n'écrit rien si tout est par défaut) */}
         {overrides && (
-          <style dangerouslySetInnerHTML={{ __html: `:root, [data-theme="light"], [data-theme="dark"] { ${overrides} }` }} />
+          <style dangerouslySetInnerHTML={{ __html: `:root { ${overrides} }` }} />
         )}
         {/* Schema.org JSON-LD — améliore le référencement Google */}
         <script
@@ -167,14 +157,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Script src="https://accounts.google.com/gsi/client" async strategy="afterInteractive" />
         <LanguageProvider>
-          <ThemeProvider>
-            <AuthProvider>
-              <Navbar />
-              <main>{children}</main>
-              <Footer />
-              <WhatsAppButton />
-            </AuthProvider>
-          </ThemeProvider>
+          <AuthProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <WhatsAppButton />
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>
