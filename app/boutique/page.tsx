@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useSiteConfig } from '@/lib/useSiteConfig'
 import { useLang } from '@/context/LanguageContext'
 import { fetchAvecAuth, useAuth } from '@/context/AuthContext'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -546,6 +547,7 @@ export default function Boutique() {
       )}
 
       {/* Hero boutique */}
+      <ScrollReveal animation="fadeIn">
       <section style={{ position: 'relative', height: 340, overflow: 'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt="Boutique Thé Pio Pio" fill style={{ objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.72)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -560,8 +562,10 @@ export default function Boutique() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* Bande réassurance */}
+      <ScrollReveal animation="fadeUp">
       <div style={{ background: 'var(--green-deep)', borderBottom: '1px solid rgba(201,151,58,0.2)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
           {[
@@ -577,8 +581,10 @@ export default function Boutique() {
           ))}
         </div>
       </div>
+      </ScrollReveal>
 
       {/* Produits */}
+      <ScrollReveal animation="fadeUp">
       <section style={{ background: 'var(--bg-card-alt)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -596,8 +602,9 @@ export default function Boutique() {
             </p>
           ) : (
             <div style={{ display: 'flex', justifyContent: 'center', gap: 28, flexWrap: 'wrap' }}>
-              {produits.map(produit => (
-                <div key={produit.id} style={{ background: 'var(--bg-card)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.09)', display: 'flex', flexDirection: 'column', border: '1px solid var(--border-light)', transition: 'transform 0.3s ease, box-shadow 0.3s ease', width: '100%', maxWidth: 360 }}
+              {produits.map((produit, i) => (
+                <ScrollReveal key={produit.id} animation="scaleUp" delay={i * 80}>
+                <div style={{ background: 'var(--bg-card)', borderRadius: 20, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.09)', display: 'flex', flexDirection: 'column', border: '1px solid var(--border-light)', transition: 'transform 0.3s ease, box-shadow 0.3s ease', width: '100%', maxWidth: 360 }}
                   onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 48px rgba(0,0,0,0.14)' }}
                   onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.09)' }}
                 >
@@ -674,13 +681,16 @@ export default function Boutique() {
                     </button>
                   </div>
                 </div>
+                </ScrollReveal>
               ))}
             </div>
           )}
         </div>
       </section>
+      </ScrollReveal>
 
       {/* Comment commander */}
+      <ScrollReveal animation="fadeUp">
       <section style={{ background: 'var(--green-deep)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -693,17 +703,20 @@ export default function Boutique() {
               { num: '2', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>', titre: t('boutique.comment2'), desc: t('boutique.comment2d') },
               { num: '3', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', titre: t('boutique.comment3'), desc: t('boutique.comment3d') },
               { num: '4', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></svg>', titre: t('boutique.comment4'), desc: t('boutique.comment4d') },
-            ].map(e => (
-              <div key={e.num} style={{ background: 'var(--green-deep)', border: '1px solid var(--green-mid)', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
+            ].map((e, i) => (
+              <ScrollReveal key={e.num} animation="slideLeft" delay={i * 100}>
+              <div style={{ background: 'var(--green-deep)', border: '1px solid var(--green-mid)', borderRadius: 12, padding: '24px 20px', position: 'relative' }}>
                 <div style={{ position: 'absolute', top: -14, left: 20, background: 'var(--gold)', color: 'var(--text-primary)', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'Arial, sans-serif' }}>{e.num}</div>
                 <div style={{ fontSize: 28, marginBottom: 12, marginTop: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }} dangerouslySetInnerHTML={{ __html: e.icon }} />
                 <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-inverse)', fontFamily: 'Arial, sans-serif', marginBottom: 8 }}>{e.titre}</h3>
                 <p style={{ fontSize: 13, color: 'var(--green-light)', fontFamily: 'Arial, sans-serif', lineHeight: 1.6 }}>{e.desc}</p>
               </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
+      </ScrollReveal>
     </>
   )
 }

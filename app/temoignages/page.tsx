@@ -1,6 +1,7 @@
 'use client'
 import { useLang } from '@/context/LanguageContext'
 import React, { useState, useEffect } from 'react'
+import ScrollReveal from '@/components/ScrollReveal'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -116,7 +117,7 @@ export default function Temoignages() {
   return (
     <>
       {/* Hero */}
-      <section style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
+      <ScrollReveal variant="fadeIn"><section style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
         <Image src="/images/produit-tasse.jpg" alt="Témoignages clients Thé Pio Pio" fill style={{ objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,30,20,0.78)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', padding: '40px 24px' }}>
@@ -126,7 +127,7 @@ export default function Temoignages() {
             </h1>
           </div>
         </div>
-      </section>
+      </section></ScrollReveal>
 
       {/* Stat rapide */}
       <div style={{ background: 'var(--gold)', padding: '14px 24px' }}>
@@ -137,7 +138,7 @@ export default function Temoignages() {
         </div>
       </div>
 
-      <section style={{ background: 'var(--bg-page)' }}>
+      <ScrollReveal variant="fadeUp"><section style={{ background: 'var(--bg-page)' }}>
         <div className="temoignages-layout" style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px', display: 'grid', gap: 48, alignItems: 'start' }}>
 
           {/* ===== FORMULAIRE ===== */}
@@ -218,12 +219,12 @@ export default function Temoignages() {
             </div>
 
             {/* CTA boutique */}
-            <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: 10, padding: '20px 22px', marginTop: 16, textAlign: 'center' }}>
+            <ScrollReveal variant="fadeUp"><div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: 10, padding: '20px 22px', marginTop: 16, textAlign: 'center' }}>
               <p style={{ fontSize: 15, color: 'var(--text-primary)', fontFamily: 'Georgia, serif', marginBottom: 12 }}>
                 {t('temo.pasClient')}
               </p>
               <Link href="/boutique" className="btn-gold" style={{ fontSize: 14 }}>{t('temo.commander')}</Link>
-            </div>
+            </div></ScrollReveal>
           </div>
 
           {/* ===== LISTE DES TÉMOIGNAGES ===== */}
@@ -233,8 +234,7 @@ export default function Temoignages() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {temoignages.map((item, i) => (
-                <div
-                  key={i}
+                <ScrollReveal key={i} variant="scaleUp" delay={i*80}><div
                   style={{
                     background: 'var(--bg-card)',
                     border: '0.5px solid var(--border-color)',
@@ -269,13 +269,12 @@ export default function Temoignages() {
                         {t('temo.nouveau')}
                       </span>
                     )}
-                  </div>
-                </div>
+                  </div></ScrollReveal>
               ))}
             </div>
           </div>
         </div>
-      </section>
+      </section></ScrollReveal>
 
       <style>{`
         .temoignages-layout { grid-template-columns: 420px 1fr; }

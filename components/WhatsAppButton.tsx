@@ -55,8 +55,9 @@ export default function WhatsAppButton() {
           textDecoration: 'none',
           opacity: visible ? 1 : 0,
           transform: visible ? 'scale(1)' : 'scale(0.7)',
-          transition: 'opacity 0.3s, transform 0.3s',
+          transition: 'opacity 0.4s ease, transform 0.4s cubic-bezier(.34,1.56,.64,1)',
           pointerEvents: visible ? 'auto' : 'none',
+          animation: visible ? 'wobble 0.6s ease 0.3s' : 'none',
         }}
       >
         {/* Icône WhatsApp SVG */}
@@ -142,6 +143,16 @@ export default function WhatsAppButton() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateX(8px); }
           to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes wobble {
+          0% { transform: scale(0); }
+          50% { transform: scale(1.15); }
+          70% { transform: scale(0.95); }
+          100% { transform: scale(1); }
+        }
+        a[aria-label="Commander par WhatsApp"]:hover {
+          transform: scale(1.08) !important;
+          box-shadow: 0 6px 28px rgba(37,211,102,0.55) !important;
         }
         @media (max-width: 768px) {
           .mobile-sticky-cta { display: flex !important; }

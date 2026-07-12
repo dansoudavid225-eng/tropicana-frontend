@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useSiteConfig } from '@/lib/useSiteConfig'
 import { useLang } from '@/context/LanguageContext'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export default function Contact() {
   const site = useSiteConfig()
@@ -50,18 +51,20 @@ export default function Contact() {
 
   return (
     <>
-      {/* Hero */}
-      <section style={{ position:'relative', height:260, overflow:'hidden' }}>
-        <Image src="/images/produit-bois.jpg" alt="Contact Tropicana Pio Pio" fill style={{ objectFit:'cover' }} />
-        <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
-          <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'24px' }}>
-            <span style={{ fontSize:14, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
-            <h1 style={{ fontSize:34, fontWeight:400, color:'var(--text-inverse)', marginTop:8 }}>
-              {lang === 'en' ? <>We are here to <em style={{ color:'var(--gold)' }}>help you</em></> : <>Nous sommes à <em style={{ color:'var(--gold)' }}>votre écoute</em></>}
-            </h1>
+      <ScrollReveal animation="fadeIn">
+        {/* Hero */}
+        <section style={{ position:'relative', height:260, overflow:'hidden' }}>
+          <Image src="/images/produit-bois.jpg" alt="Contact Tropicana Pio Pio" fill style={{ objectFit:'cover' }} />
+          <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
+            <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'24px' }}>
+              <span style={{ fontSize:14, letterSpacing:'2.5px', color:'var(--gold)', fontFamily:'Arial, sans-serif', fontWeight:700, textTransform:'uppercase' }}>{t('contact.label')}</span>
+              <h1 style={{ fontSize:34, fontWeight:400, color:'var(--text-inverse)', marginTop:8 }}>
+                {lang === 'en' ? <>We are here to <em style={{ color:'var(--gold)' }}>help you</em></> : <>Nous sommes à <em style={{ color:'var(--gold)' }}>votre écoute</em></>}
+              </h1>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
       {/* Raccourcis */}
       <div style={{ background:'var(--green-deep)' }}>
@@ -82,8 +85,9 @@ export default function Contact() {
       <section style={{ background:'var(--bg-section)' }}>
         <div className="contact-grid" style={{ maxWidth:1200, margin:'0 auto', padding:'60px 24px' }}>
 
-          {/* Formulaire */}
-          <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
+          <ScrollReveal animation="fadeUp">
+            {/* Formulaire */}
+            <div style={{ background:'var(--bg-card)', borderRadius:14, padding:'36px 32px', border:'0.5px solid var(--border-color)', boxShadow:'0 2px 16px rgba(0,0,0,0.06)' }}>
             {status === 'sent' ? (
               <div style={{ textAlign:'center', padding:'40px 0' }}>
                 <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -151,9 +155,11 @@ export default function Contact() {
               </>
             )}
           </div>
+          </ScrollReveal>
 
-          {/* Coordonnées */}
-          <div>
+          <ScrollReveal animation="slideRight" delay={150}>
+            {/* Coordonnées */}
+            <div>
             <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:24 }}>{t('contact.coordonnees')}</h2>
             {coordItems.map(c => (
               <div key={c.label} style={{ display:'flex', gap:14, marginBottom:18, alignItems:'flex-start' }}>
@@ -177,6 +183,7 @@ export default function Contact() {
                 style={{ flex:1, background:'var(--green-deep)', color:'var(--green-light)', fontSize:14, fontFamily:'Arial, sans-serif', padding:'11px 12px', borderRadius:6, textDecoration:'none', border:'1px solid var(--green-mid)', textAlign:'center' }}>Facebook</a>
             </div>
           </div>
+          </ScrollReveal>
 
         </div>
 

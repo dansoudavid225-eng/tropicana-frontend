@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useLang } from '@/context/LanguageContext';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -65,14 +66,14 @@ export default function SuiviCommandePage() {
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
 
         {/* En-tête */}
-        <div className="anim-fade-down" style={{ textAlign: 'center', marginBottom: 32 }}>
+        <ScrollReveal variant="fadeIn"><div className="anim-fade-down" style={{ textAlign: 'center', marginBottom: 32 }}>
           <div className="anim-bounce-in" style={{ fontSize: '3rem', marginBottom: 8 }}></div>
           <h1 style={{ color: 'var(--green-mid)', fontSize: '1.8rem', fontWeight: 900, margin: 0 }}>{t('suivi.titre')}</h1>
           <p style={{ color: 'var(--text-muted)', marginTop: 8 }}>{t('suivi.sousTitre')}</p>
-        </div>
+        </div></ScrollReveal>
 
         {/* Formulaire */}
-        <div className="anim-fade-up" style={{ animationDelay: '.15s', background: 'var(--bg-card)', borderRadius: 16, padding: 28, boxShadow: 'var(--shadow-card)', marginBottom: 24 }}>
+        <ScrollReveal variant="fadeUp"><div className="anim-fade-up" style={{ animationDelay: '.15s', background: 'var(--bg-card)', borderRadius: 16, padding: 28, boxShadow: 'var(--shadow-card)', marginBottom: 24 }}>
           <div className="anim-fade-up" style={{ animationDelay: '.2s', marginBottom: 16 }}>
             <label style={{ display: 'block', fontWeight: 700, color: 'var(--green-mid)', marginBottom: 6, fontSize: '.9rem' }}>
               {t('suivi.numCommande')}
@@ -113,7 +114,7 @@ export default function SuiviCommandePage() {
             {loading ? <span className="spinner" /> : null}
             {loading ? t('suivi.recherche') : t('suivi.suivreBtn')}
           </button>
-        </div>
+        </div></ScrollReveal>
 
         {/* Résultat */}
         {commande && statut && (

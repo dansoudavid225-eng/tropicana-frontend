@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLang } from '@/context/LanguageContext'
+import ScrollReveal from '@/components/ScrollReveal'
 
 type Chapitre = { id?: number; numero?: string; titre?: string; texte?: string; image?: string | null }
 type Mission   = { id?: number; icone?: string; texte?: string }
@@ -29,6 +30,7 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
 
   return (
     <>
+      <ScrollReveal animation="fadeIn">
       <section style={{ position:'relative', height:320, overflow:'hidden' }}>
         <Image src="/images/plante-verveine.jpg" alt="La verveine blanche" fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.75)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
@@ -40,10 +42,12 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       <section style={{ background:'var(--bg-page)', padding:'60px 24px' }}>
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           {displayChapitres.map((item:any, i:number) => (
+            <ScrollReveal key={item.id ?? item.numero} animation={i % 2 === 0 ? 'slideLeft' : 'slideRight'} delay={i * 80}>
             <div key={item.id ?? item.numero}>
               <div style={{ display:'flex', gap:28, marginBottom:40, alignItems:'flex-start' }}>
                 <div style={{ fontSize:40, fontWeight:400, color:'var(--border-color)', fontFamily:'Georgia, serif', lineHeight:1, flexShrink:0, marginTop:4 }}>{item.numero}</div>
@@ -68,8 +72,10 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
                 </div>
               )}
             </div>
+            </ScrollReveal>
           ))}
 
+          <ScrollReveal animation="fadeUp">
           <div style={{ background:'var(--green-deep)', borderRadius:16, overflow:'hidden', marginBottom:48, display:'flex', flexWrap:'wrap' }}>
             <div style={{ position:'relative', width:240, minHeight:300, flexShrink:0 }}>
               <Image src={fondateur.photo || '/images/fondateur-durand.jpg'} alt={fondateur.nom ?? 'Fondateur'} fill style={{ objectFit:'cover', objectPosition:'center top' }} unoptimized={!!fondateur.photo} />
@@ -83,17 +89,23 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
               </div>
             </div>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal animation="fadeUp">
           <h2 style={{ fontSize:22, fontWeight:400, color:'var(--text-primary)', marginBottom:20 }}>{t('histoire.mission')}</h2>
+          </ScrollReveal>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:14, marginBottom:40 }}>
-            {displayMissions.map((m:any) => (
-              <div key={m.id ?? m.texte} style={{ background:'var(--green-pale)', borderRadius:8, padding:'16px 14px', display:'flex', gap:12, alignItems:'flex-start' }}>
+            {displayMissions.map((m:any, i:number) => (
+              <ScrollReveal key={m.id ?? m.texte} animation="scaleUp" delay={i * 80}>
+              <div style={{ background:'var(--green-pale)', borderRadius:8, padding:'16px 14px', display:'flex', gap:12, alignItems:'flex-start' }}>
                 <span style={{ fontSize:20, flexShrink:0 }}>{m.icone}</span>
                 <p style={{ fontSize:14, color:'var(--green-deep)', fontFamily:'Arial, sans-serif', lineHeight:1.6 }}>{m.texte}</p>
               </div>
+              </ScrollReveal>
             ))}
           </div>
 
+          <ScrollReveal animation="scaleUp">
           <div style={{ position:'relative', height:260, borderRadius:14, overflow:'hidden', marginBottom:40 }}>
             <Image src="/images/produit-tasse.jpg" alt="Thé Pio Pio" fill style={{ objectFit:'cover' }} />
             <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.6)', display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', textAlign:'center', gap:14 }}>
@@ -101,6 +113,7 @@ export default function HistoireClient({ chapitres, missions, fondateur }: Props
               <Link href="/boutique" className="btn-gold">{t('histoire.ctaBtn')}</Link>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

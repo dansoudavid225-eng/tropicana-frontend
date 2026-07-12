@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { useLang } from '@/context/LanguageContext'
+import ScrollReveal from '@/components/ScrollReveal'
 
 declare global {
   interface Window {
@@ -82,7 +83,7 @@ export default function Inscription() {
 
   return (
     <>
-      <section style={{ position:'relative', height:220, overflow:'hidden' }}>
+      <ScrollReveal variant="fadeIn"><section style={{ position:'relative', height:220, overflow:'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.creerCompte')} fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'32px 24px' }}>
@@ -92,9 +93,9 @@ export default function Inscription() {
             </h1>
           </div>
         </div>
-      </section>
+      </section></ScrollReveal>
 
-      <section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
+      <ScrollReveal variant="fadeUp"><section style={{ background:'var(--bg-section)', padding:'60px 24px' }}>
         <div style={{ maxWidth:500, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
 
           {status === 'error' && (
@@ -170,7 +171,7 @@ export default function Inscription() {
             <Link href="/connexion" style={{ color:'var(--green-mid)', fontWeight:700 }}>{t('auth.seConnecter')}</Link>
           </p>
         </div>
-      </section>
+      </section></ScrollReveal>
     </>
   )
 }

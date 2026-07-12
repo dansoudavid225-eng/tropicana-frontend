@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { useLang } from '@/context/LanguageContext'
+import ScrollReveal from '@/components/ScrollReveal'
 
 declare global {
   interface Window {
@@ -81,7 +82,7 @@ export default function Connexion() {
 
   return (
     <>
-      <section style={{ position:'relative', height:220, overflow:'hidden' }}>
+      <ScrollReveal variant="fadeIn"><section style={{ position:'relative', height:220, overflow:'hidden' }}>
         <Image src="/images/tasse-dessus.jpg" alt={t('auth.seConnecter')} fill style={{ objectFit:'cover' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(10,30,20,0.82)', display:'flex', flexDirection:'column', justifyContent:'flex-end' }}>
           <div style={{ maxWidth:1200, margin:'0 auto', width:'100%', padding:'32px 24px' }}>
@@ -91,9 +92,9 @@ export default function Connexion() {
             </h1>
           </div>
         </div>
-      </section>
+      </section></ScrollReveal>
 
-      <section style={{ background:'var(--bg-section)', padding:'60px 24px', minHeight:'60vh' }}>
+      <ScrollReveal variant="fadeUp"><section style={{ background:'var(--bg-section)', padding:'60px 24px', minHeight:'60vh' }}>
         <div className="card-fade-in" style={{ maxWidth:420, margin:'0 auto', background:'var(--bg-card)', borderRadius:16, padding:'40px 36px', border:'0.5px solid var(--border-color)', boxShadow:'0 4px 24px rgba(0,0,0,0.08)' }}>
 
           {status === 'error' && (
@@ -150,7 +151,7 @@ export default function Connexion() {
             <Link href="/inscription" style={{ color:'var(--green-mid)', fontWeight:700 }}>{t('auth.sinscrire')}</Link>
           </p>
         </div>
-      </section>
+      </section></ScrollReveal>
       <style>{`
         @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
         .card-fade-in { animation:fadeInUp .5s ease both; }
