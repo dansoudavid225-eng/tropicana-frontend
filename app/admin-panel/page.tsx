@@ -313,12 +313,12 @@ function SectionFondateur({ token }: { token: string }) {
             </div>
           </div>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <FL label="Label"><Inp value={f.fondateur_label || ''} onChange={v => upd('fondateur_label', v)} placeholder="Notre fondateur" /></FL>
               <FL label="Titre"><Inp value={f.fondateur_titre || ''} onChange={v => upd('fondateur_titre', v)} /></FL>
             </div>
             <FL label="Citation"><Txta value={f.fondateur_citation || ''} onChange={v => upd('fondateur_citation', v)} rows={3} /></FL>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+            <div className="ad-frm-grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
               <FL label="Nom"><Inp value={f.fondateur_nom || ''} onChange={v => upd('fondateur_nom', v)} placeholder="Felicien Prosper DURAND" /></FL>
               <FL label="Titre fonction"><Inp value={f.fondateur_sous || ''} onChange={v => upd('fondateur_sous', v)} /></FL>
               <FL label="Bouton"><Inp value={f.fondateur_btn || ''} onChange={v => upd('fondateur_btn', v)} /></FL>
@@ -383,7 +383,7 @@ function SectionBlog({ token }: { token: string }) {
       {editing && (
         <div style={{ ...CS, border: '2px solid #2563EB', marginBottom: 20 }}>
           <h3 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px' }}>{editing.id === 0 ? 'Nouvel article' : 'Modifier l\'article'}</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+          <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
             <FL label="Titre"><Inp value={editing.titre} onChange={v => setEditing(p => p ? { ...p, titre: v } : p)} /></FL>
             <FL label="Slug URL (unique)"><Inp value={editing.slug} onChange={v => setEditing(p => p ? { ...p, slug: v } : p)} placeholder="bienfaits-verveine" /></FL>
             <FL label="Catégorie"><Inp value={editing.categorie} onChange={v => setEditing(p => p ? { ...p, categorie: v } : p)} /></FL>
@@ -585,7 +585,7 @@ function SectionAccueilConfig({ token }: { token: string }) {
   return (
     <div>
       {toast && <Toast {...toast} />}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <div style={CS}>
           <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 6px', color: 'var(--navbar-bg)' }}>Section "Un moment pour vous" (tasse)</h3>
           <FL label="Label"><Inp value={c.tasse_label} onChange={v => upd('tasse_label', v)} placeholder="Un moment rien que pour vous" /></FL>
@@ -858,7 +858,7 @@ function Produits({ token }: { token: string }) {
       {showForm && (
         <div style={{ ...CS, border: '2px solid #2D6A4F' }}>
           <h3 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px' }}>{editing ? 'Modifier' : 'Nouveau produit'}</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <FL label="Nom"><Inp value={form.nom || ''} onChange={v => setForm(p => ({ ...p, nom: v }))} /></FL>
             <FL label="Slug"><Inp value={form.slug || ''} onChange={v => setForm(p => ({ ...p, slug: v }))} placeholder="the-sachet-25g" /></FL>
             <FL label="Prix FCFA"><Inp value={String(form.prix || '')} onChange={v => setForm(p => ({ ...p, prix: Number(v) }))} type="number" /></FL>
@@ -956,7 +956,7 @@ function Messages({ token }: { token: string }) {
   }
   if (loading) return <Loader />
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: sel ? '1fr 1fr' : '1fr', gap: 16 }}>
+    <div className="ad-split" style={{ display: 'grid', gridTemplateColumns: sel ? '1fr 1fr' : '1fr', gap: 16 }}>
       <div style={CS}>
         <h2 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 16px' }}>{msgs.length} messages</h2>
         {msgs.length === 0 ? <Empty msg="Aucun message" /> : (
@@ -1205,7 +1205,7 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
         <p style={{ fontSize: 13.5, color: 'var(--admin-text-muted)', margin: 0 }}>Vue d&apos;ensemble de votre boutique</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16, marginBottom: 20 }}>
+      <div className="ad-dsh-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16, marginBottom: 20 }}>
         {cards.map(c => (
           <button key={c.label} onClick={() => setSection(c.s)} style={{ ...CS, cursor: 'pointer', textAlign: 'left' as const, marginBottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div>
@@ -1219,7 +1219,7 @@ function Dashboard({ token, setSection }: { token: string; setSection: (s: Secti
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(220px,1fr) minmax(280px,1.6fr)', gap: 16, marginBottom: 16 }}>
+      <div className="ad-chart-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px,1fr) minmax(280px,1.6fr)', gap: 16, marginBottom: 16 }}>
         <div style={CS}>
           <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px', color: 'var(--admin-text)' }}>Statut des commandes</h3>
           <StatutDonut counts={statutCounts} />
@@ -1276,7 +1276,7 @@ function SectionPromo({ token }: { token: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px' }}>Créer un code promo</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
           <div><label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Code</label><input style={IS} placeholder="BIENVENUE10" value={form.code} onChange={e => setForm(f => ({ ...f, code: e.target.value.toUpperCase() }))} /></div>
           <div><label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Type</label>
             <select style={IS} value={form.type_reduction} onChange={e => setForm(f => ({ ...f, type_reduction: e.target.value }))}>
@@ -1339,7 +1339,7 @@ function SectionZones({ token }: { token: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px' }}>Ajouter une ville</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <div className="ad-frm-grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 12 }}>
           <div><label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Ville</label><input style={IS} placeholder="Cotonou" value={form.ville} onChange={e => setForm(f => ({ ...f, ville: e.target.value }))} /></div>
           <div><label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Prix (FCFA)</label><input style={IS} type="number" value={form.prix} onChange={e => setForm(f => ({ ...f, prix: +e.target.value }))} /></div>
           <div><label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Délai</label><input style={IS} placeholder="24-48h" value={form.delai} onChange={e => setForm(f => ({ ...f, delai: e.target.value }))} /></div>
@@ -1391,7 +1391,7 @@ function SectionBlacklist({ token }: { token: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px' }}>Bloquer un email ou une IP</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
           <div>
             <label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Type</label>
             <select style={IS} value={form.type_blacklist} onChange={e => setForm(f => ({ ...f, type_blacklist: e.target.value }))}>
@@ -1447,7 +1447,7 @@ function SectionAlertes({ token }: { token: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={CS}>
         <h3 style={{ fontSize: 14, fontWeight: 700, margin: '0 0 16px' }}>Configurer une alerte stock</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+        <div className="ad-frm-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
           <div>
             <label style={{ fontSize: 12, fontWeight: 600, display: 'block', marginBottom: 4 }}>Produit</label>
             <select style={IS} value={form.produit_id} onChange={e => setForm(f => ({ ...f, produit_id: e.target.value }))}>
@@ -1533,54 +1533,86 @@ export default function AdminPanel() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [section, setSection] = useState<Section>('dashboard')
   const [open, setOpen] = useState(true)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const t = localStorage.getItem('pio_access')
     if (t) { setToken(t); setLoggedIn(true) }
+    const mq = window.matchMedia('(max-width: 768px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => { setIsMobile(e.matches); if (e.matches) setMobileOpen(false) }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
   }, [])
 
   const logout = () => { localStorage.removeItem('pio_access'); setToken(''); setLoggedIn(false) }
 
   if (!loggedIn) return <LoginScreen onLogin={t => { setToken(t); setLoggedIn(true); localStorage.setItem('pio_access', t) }} />
 
+  const sbWidth = isMobile ? 260 : (open ? 220 : 60)
+  const sbVisible = !isMobile || mobileOpen
+
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--admin-bg-alt)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
-      <aside style={{ width: open ? 220 : 60, flexShrink: 0, background: 'var(--navbar-bg)', display: 'flex', flexDirection: 'column', transition: 'width .22s ease', overflow: 'hidden', position: 'sticky', top: 0, height: '100vh' }}>
+      {isMobile && mobileOpen && (
+        <div onClick={() => setMobileOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 49 }} />
+      )}
+      <aside className="ad-sid" style={{
+        width: sbVisible ? sbWidth : 0, minWidth: sbVisible ? sbWidth : 0, flexShrink: 0, background: 'var(--navbar-bg)',
+        display: 'flex', flexDirection: 'column', transition: 'width .25s ease, minWidth .25s ease', overflow: 'hidden',
+        position: isMobile ? 'fixed' : 'sticky', top: 0, left: 0, height: '100vh', zIndex: 50,
+      }}>
         <div style={{ padding: '16px 12px 12px', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 32, height: 32, background: 'var(--gold)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--admin-card)', fontWeight: 900, fontSize: 13, flexShrink: 0 }}>PP</div>
-            {open && <div><div style={{ fontSize: 13, fontWeight: 700, color: 'var(--bg-section)' }}>Pio Pio</div><div style={{ fontSize: 10, color: '#6B9E7A' }}>Administration</div></div>}
+            {(!isMobile && open) && <div><div style={{ fontSize: 13, fontWeight: 700, color: 'var(--bg-section)' }}>Pio Pio</div><div style={{ fontSize: 10, color: '#6B9E7A' }}>Administration</div></div>}
+            {isMobile && <div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700, color: 'var(--bg-section)' }}>Pio Pio</div><div style={{ fontSize: 10, color: '#6B9E7A' }}>Administration</div></div>}
+            {isMobile && <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--green-light)', fontSize: 18, cursor: 'pointer' }}>&times;</button>}
           </div>
         </div>
         <nav style={{ flex: 1, padding: '6px 0', overflowY: 'auto' }}>
           {['Général', 'Site', 'Gestion'].map(g => (
             <div key={g}>
-              {open && <div style={{ fontSize: 9, fontWeight: 700, color: '#4D7A5E', letterSpacing: '1.5px', textTransform: 'uppercase' as const, padding: '10px 14px 3px' }}>{g === 'Site' ? 'MODIFIER LE SITE' : g === 'Gestion' ? 'OUTILS' : g.toUpperCase()}</div>}
+              {(!isMobile && open) && <div style={{ fontSize: 9, fontWeight: 700, color: '#4D7A5E', letterSpacing: '1.5px', textTransform: 'uppercase' as const, padding: '10px 14px 3px' }}>{g === 'Site' ? 'MODIFIER LE SITE' : g === 'Gestion' ? 'OUTILS' : g.toUpperCase()}</div>}
+              {isMobile && <div style={{ fontSize: 9, fontWeight: 700, color: '#4D7A5E', letterSpacing: '1.5px', textTransform: 'uppercase' as const, padding: '10px 14px 3px' }}>{g === 'Site' ? 'MODIFIER LE SITE' : g === 'Gestion' ? 'OUTILS' : g.toUpperCase()}</div>}
               {NAV.filter(n => n.group === g).map(({ s, label }) => (
-                <button key={s} onClick={() => setSection(s)} title={!open ? label : undefined} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '9px 14px', background: section === s ? 'rgba(201,151,58,.15)' : 'transparent', borderLeft: `3px solid ${section === s ? 'var(--gold)' : 'transparent'}`, border: 'none', borderTop: 'none', borderRight: 'none', borderBottom: 'none', cursor: 'pointer', color: section === s ? 'var(--bg-section)' : 'var(--green-light)', fontSize: 12, fontWeight: section === s ? 700 : 400, whiteSpace: 'nowrap' as const, overflow: 'hidden' }}
+                <button key={s} onClick={() => { setSection(s); if (isMobile) setMobileOpen(false) }} title={(!isMobile && !open) ? label : undefined}
+                  style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '9px 14px',
+                    background: section === s ? 'rgba(201,151,58,.15)' : 'transparent',
+                    borderLeft: `3px solid ${section === s ? 'var(--gold)' : 'transparent'}`,
+                    border: 'none', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
+                    cursor: 'pointer', color: section === s ? 'var(--bg-section)' : 'var(--green-light)',
+                    fontSize: 12, fontWeight: section === s ? 700 : 400, whiteSpace: 'nowrap' as const, overflow: 'hidden' }}
                   onMouseEnter={e => { if (section !== s) e.currentTarget.style.background = 'rgba(255,255,255,.06)' }}
                   onMouseLeave={e => { if (section !== s) e.currentTarget.style.background = 'transparent' }}>
                   <span style={{ width: 8, height: 8, borderRadius: '50%', background: section === s ? 'var(--gold)' : 'rgba(255,255,255,.2)', flexShrink: 0 }} />
-                  {open && <span>{label}</span>}
+                  <span>{label}</span>
                 </button>
               ))}
             </div>
           ))}
         </nav>
-        <div style={{ borderTop: '1px solid rgba(255,255,255,.08)', padding: '10px 10px', display: 'flex', gap: 6, flexDirection: open ? 'row' : 'column' as const, alignItems: 'center' }}>
-          <a href="/" target="_blank" style={{ flex: open ? 1 : undefined, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 6, padding: '7px 10px', fontSize: 12, color: 'var(--green-light)', textDecoration: 'none', fontWeight: 600 }}>{open ? 'Voir le site' : 'V'}</a>
-          <button onClick={logout} style={{ flex: open ? 1 : undefined, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(239,68,68,.08)', border: '1px solid rgba(239,68,68,.2)', borderRadius: 6, padding: '7px 10px', fontSize: 12, color: '#FCA5A5', cursor: 'pointer', fontWeight: 600 }}>{open ? 'Deconnexion' : 'X'}</button>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,.08)', padding: '10px 10px', display: 'flex', gap: 6, flexDirection: isMobile ? 'row' : (open ? 'row' : 'column' as const), alignItems: 'center' }}>
+          <a href="/" target="_blank" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 6, padding: '7px 10px', fontSize: 12, color: 'var(--green-light)', textDecoration: 'none', fontWeight: 600 }}>Voir le site</a>
+          <button onClick={logout} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(239,68,68,.08)', border: '1px solid rgba(239,68,68,.2)', borderRadius: 6, padding: '7px 10px', fontSize: 12, color: '#FCA5A5', cursor: 'pointer', fontWeight: 600 }}>Deconnexion</button>
         </div>
       </aside>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-        <header style={{ background: 'var(--admin-card)', borderBottom: '1px solid var(--admin-border)', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40, flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <button onClick={() => setOpen(!open)} style={{ background: 'var(--admin-bg-alt)', border: '1px solid var(--admin-border)', borderRadius: 8, width: 32, height: 32, cursor: 'pointer', fontSize: 13, color: 'var(--admin-text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{open ? '<' : '>'}</button>
+        <header style={{ background: 'var(--admin-card)', borderBottom: '1px solid var(--admin-border)', padding: '0 12px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {isMobile ? (
+              <button onClick={() => setMobileOpen(true)} style={{ background: 'var(--admin-bg-alt)', border: '1px solid var(--admin-border)', borderRadius: 8, width: 36, height: 36, cursor: 'pointer', fontSize: 16, color: 'var(--admin-text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              </button>
+            ) : (
+              <button onClick={() => setOpen(!open)} style={{ background: 'var(--admin-bg-alt)', border: '1px solid var(--admin-border)', borderRadius: 8, width: 32, height: 32, cursor: 'pointer', fontSize: 13, color: 'var(--admin-text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{open ? '\u2039' : '\u203A'}</button>
+            )}
             <h1 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: 'var(--admin-text)' }}>{TITLES[section]}</h1>
           </div>
-          <div style={{ fontSize: 12, color: 'var(--admin-text-faint)' }}>{new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div>
+          <div className="ad-hdr-date" style={{ fontSize: 12, color: 'var(--admin-text-faint)' }}>{new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div>
         </header>
-        <main style={{ flex: 1, padding: 24, overflowY: 'auto' }}>
+        <main style={{ flex: 1, padding: 'clamp(12px, 3vw, 24px)', overflowY: 'auto' }}>
           {section === 'dashboard' && <Dashboard token={token} setSection={setSection} />}
           {section === 'commandes' && <Commandes token={token} />}
           {section === 'produits' && <Produits token={token} />}
@@ -1597,6 +1629,20 @@ export default function AdminPanel() {
           {section === 'rapport' && <SectionRapport token={token} />}
         </main>
       </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .ad-hdr-date { display: none !important; }
+          .ad-dsh-grid { grid-template-columns: 1fr !important; }
+          .ad-frm-grid { grid-template-columns: 1fr !important; }
+          .ad-frm-grid-3 { grid-template-columns: 1fr !important; }
+          .ad-split { grid-template-columns: 1fr !important; }
+          .ad-chart-grid { grid-template-columns: 1fr !important; }
+          .ad-tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .ad-tbl-wrap table { min-width: 600px; }
+          .ad-nav-lbl { display: block !important; }
+          .ad-sid { box-shadow: 4px 0 24px rgba(0,0,0,0.3) !important; }
+        }
+      `}</style>
     </div>
   )
 }
