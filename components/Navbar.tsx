@@ -99,7 +99,7 @@ export default function Navbar() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 66, height: 66,
             }}>
-              <Image src="/images/logo-pio-pio.png" alt="Tropicana Pio Pio" width={62} height={62} style={{ objectFit: 'contain', display: 'block' }} priority />
+              <Image src="/images/logo-pio-pio.png" alt="Tropicana Pio Pio" width={80} height={80} style={{ objectFit: 'contain', display: 'block' }} priority />
             </div>
           </Link>
 
@@ -329,8 +329,8 @@ export default function Navbar() {
 
           /* Header plus compact sur mobile pour liberer de l'espace ecran */
           .navbar-inner { height: 58px !important; padding: 0 14px !important; }
-          .navbar-logo { width: 46px !important; height: 46px !important; }
-          .navbar-logo img { width: 42px !important; height: 42px !important; }
+          .navbar-logo { width: 58px !important; height: 58px !important; }
+          .navbar-logo img { width: 54px !important; height: 54px !important; }
 
           /* Auto-hide : on cache le header en scrollant vers le bas,
              il revient instantanement en scrollant vers le haut. */
