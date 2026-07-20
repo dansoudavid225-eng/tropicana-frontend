@@ -155,6 +155,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-LPB8X51CCE" strategy="afterInteractive" />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-LPB8X51CCE');`}
+        </Script>
         <Script src="https://accounts.google.com/gsi/client" async strategy="afterInteractive" />
         <LanguageProvider>
           <AuthProvider>
