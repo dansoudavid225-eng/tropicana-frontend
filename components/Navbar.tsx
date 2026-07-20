@@ -99,7 +99,7 @@ export default function Navbar() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 66, height: 66,
             }}>
-              <Image src="/images/logo-pio-pio.jpg" alt="Tropicana Pio Pio" width={62} height={62} style={{ objectFit: 'contain', display: 'block' }} priority />
+              <Image src="/images/logo-pio-pio.png" alt="Tropicana Pio Pio" width={62} height={62} style={{ objectFit: 'contain', display: 'block' }} priority />
             </div>
           </Link>
 

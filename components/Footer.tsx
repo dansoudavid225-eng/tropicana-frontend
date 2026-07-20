@@ -280,7 +280,7 @@ export default function Footer() {
             {/* Brand column */}
             <div style={{ gridColumn: 'span 1' }}>
               <div style={{ background: '#0D2318', borderRadius: 10, padding: '8px 14px', display: 'inline-flex', marginBottom: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
-                <Image src="/images/logo-pio-pio.jpg" alt="Tropicana Pio Pio" width={130} height={52} style={{ objectFit: 'contain' }} />
+                <Image src="/images/logo-pio-pio.png" alt="Tropicana Pio Pio" width={130} height={52} style={{ objectFit: 'contain' }} />
               </div>
               <p style={{ fontSize: 13.5, color: 'rgba(107,158,122,0.85)', fontFamily: 'var(--font-dm-sans), Arial, sans-serif', lineHeight: 1.8, maxWidth: 230, marginBottom: 14 }}>
                 {site.description_footer}
