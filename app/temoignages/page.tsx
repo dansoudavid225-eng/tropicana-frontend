@@ -269,7 +269,7 @@ export default function Temoignages() {
                         {t('temo.nouveau')}
                       </span>
                     )}
-                  </div></ScrollReveal>
+                  </div></div></ScrollReveal>
               ))}
             </div>
           </div>
